@@ -1,4 +1,8 @@
-on: [ push, pull_request ]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -51,6 +55,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: docs
+          path: docs/
       - run: zip -r docs.zip docs/
       - name: Set $VERSION
         run: echo "VERSION=$(npm run env | grep npm_package_version | cut -d '=' -f 2)" >> $GITHUB_ENV
