@@ -9,7 +9,7 @@ jobs:
           node-version: 14
       - run: npm cit
   pages:
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +25,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish:
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -38,7 +38,7 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
   release:
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     # needs: test
     runs-on: ubuntu-latest
     steps:
@@ -48,6 +48,7 @@ jobs:
           node-version: 14
       - name: Install GitHub CLI
         run: sudo snap install --edge gh && sudo snap connect gh:ssh-keys
+      - run: gh auth login
       - run: npm i
       - run: npm run doc
       - run: zip -r docs.zip docs/
