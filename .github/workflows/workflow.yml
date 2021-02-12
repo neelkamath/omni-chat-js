@@ -43,17 +43,17 @@ jobs:
           access: public
   release:
     # if: github.ref == 'refs/heads/main'
-    # needs: test
+    needs: [ test, docs ]
     runs-on: ubuntu-latest
     steps:
+      - name: Install GitHub CLI
+        run: sudo snap install --edge gh && sudo snap connect gh:ssh-keys
       - uses: actions/download-artifact@v2
         with:
           name: docs
       - run: zip -r docs.zip docs/
       - name: Set $VERSION
         run: echo "VERSION=$(npm run env | grep npm_package_version | cut -d '=' -f 2)" >> $GITHUB_ENV
-      - name: Install GitHub CLI
-        run: sudo snap install --edge gh && sudo snap connect gh:ssh-keys
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
