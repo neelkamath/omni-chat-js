@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: 14
       - run: npm cit
-  docs:
+  pages:
     # if: github.ref == 'refs/heads/main'
     # needs: test
     runs-on: ubuntu-latest
@@ -64,6 +64,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create v$VERSION docs.zip \
+          sudo gh release create v$VERSION docs.zip \
               -n "[Changelog](https://github.com/neelkamath/omni-chat-js/blob/v$VERSION/CHANGELOG.md)" \
               $([[ $VERSION = 0* ]] && echo '-p')
