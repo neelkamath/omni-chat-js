@@ -68,7 +68,7 @@ Documentation will be generated to `docs/`.
 
 If you're forking the repo to develop the project as your own instead of just to send back a PR, create
 a [GitHub secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
-. Set the **Name** to `NPM_ACCESS_TOKEN`. Set the **Value** to an [NPM _
+. Set the **Name** to `NPM_TOKEN`. Set the **Value** to an [NPM _
 Automation_ token](https://docs.npmjs.com/creating-and-viewing-access-tokens).
 
 ### Releasing a New Version
