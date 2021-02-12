@@ -47,7 +47,7 @@ jobs:
         with:
           node-version: 14
       - name: Install GitHub CLI
-        run: sudo snap install --edge gh && snap connect gh:ssh-keys
+        run: sudo snap install --edge gh && sudo snap connect gh:ssh-keys
       - run: gh auth login --with-token < $GITHUB_TOKEN
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

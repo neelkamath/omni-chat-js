@@ -1,6 +1,6 @@
 # Omni Chat JS
 
-![npm (scoped)](https://img.shields.io/npm/v/@neelkamath/omni-chat)
+[![npm (scoped)](https://img.shields.io/npm/v/@neelkamath/omni-chat)](https://www.npmjs.com/package/@neelkamath/omni-chat)
 
 This is an ES6 (e.g., JavaScript, TypeScript) library for browsers which wraps
 the [Omni Chat API](https://github.com/neelkamath/omni-chat-backend). It comes bundled with TypeScript definitions.
