@@ -27,7 +27,7 @@ import {ContextMessageId} from '../rest-api/models';
 import {ApiUrl, HttpProtocol} from "../config";
 
 /** GraphQL mutations. */
-export default class MutationsApi {
+export class MutationsApi {
     constructor(private readonly protocol: HttpProtocol, private readonly apiUrl: ApiUrl) {
     }
 

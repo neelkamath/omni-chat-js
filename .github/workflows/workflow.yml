@@ -12,8 +12,8 @@ jobs:
           node-version: 14
       - run: npm cit
   docs:
-    # if: github.ref == 'refs/heads/main'
-    # needs: test
+    if: github.ref == 'refs/heads/main'
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -32,8 +32,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish:
-    if: github.ref == 'refs/heads/main'
-    needs: test
+    # if: github.ref == 'refs/heads/main'
+    # needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -45,8 +45,8 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
   release:
-    # if: github.ref == 'refs/heads/main'
-    needs: [ test, docs ]
+    if: github.ref == 'refs/heads/main'
+    needs: docs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -54,8 +54,8 @@ jobs:
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
           sudo apt-add-repository https://cli.github.com/packages
-          sudo apt update
-          sudo apt install gh
+          sudo apt-get update
+          sudo apt-get install gh
       - uses: actions/download-artifact@v2
         with:
           name: docs

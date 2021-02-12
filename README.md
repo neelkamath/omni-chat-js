@@ -13,7 +13,7 @@ npm i @neelkamath/omni-chat
 
 ## Usage
 
-- [Documentation](https://neelkamath.github.io/omni-chat-js/)
+- Here's the latest version's [documentation](https://neelkamath.github.io/omni-chat-js/). To view a previous version's documentation, go to the [project's GitHub releases](https://github.com/neelkamath/omni-chat-js/releases), download **docs.zip** from **Assets**, unzip it, and open `docs/index.html` in your browser.
 - [Changelog](CHANGELOG.md)
 - Never import APIs from nested files.
 

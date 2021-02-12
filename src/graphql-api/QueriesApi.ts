@@ -29,7 +29,7 @@ import {BackwardPagination, ForwardPagination} from './pagination';
 import {ApiUrl, HttpProtocol} from "../config";
 
 /** GraphQL queries. */
-export default class QueriesApi {
+export class QueriesApi {
     constructor(private readonly protocol: HttpProtocol, private readonly apiUrl: ApiUrl) {
     }
 

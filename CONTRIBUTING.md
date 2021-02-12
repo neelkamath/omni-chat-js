@@ -75,5 +75,4 @@ If you're forking the repo to develop the project as your own instead of just to
 
 1. Bump the version in [`package.json`](package.json).
 1. Add a [Changelog](CHANGELOG.md) entry.
-1. Commit to the `main` branch to releasing a new version. The CI/CD pipeline will publish relevant artifacts.
-1. Create a [GitHub release](https://docs.github.com/en/github/administering-a-repository/managing-releases-in-a-repository#creating-a-release).
+1. Commit to the `main` branch. The CI/CD pipeline will take care of the rest.
