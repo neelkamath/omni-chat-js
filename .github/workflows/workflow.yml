@@ -54,6 +54,8 @@ jobs:
       - name: Set $VERSION
         run: echo "VERSION=$(npm run env | grep npm_package_version | cut -d '=' -f 2)" >> $GITHUB_ENV
       - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create v$VERSION docs.zip \
               -n "[Changelog](https://github.com/neelkamath/omni-chat-js/blob/v$VERSION/CHANGELOG.md)" \
