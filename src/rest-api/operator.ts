@@ -91,9 +91,6 @@ interface InvalidMessage {
     readonly reason: 'USER_NOT_IN_CHAT' | 'INVALID_FILE' | 'INVALID_CONTEXT_MESSAGE';
 }
 
-/**
- * @returns {(UserNotInChatError|InvalidContextMessageError|InvalidAudioError|InvalidVideoError|InvalidDocError)}
- */
 function readInvalidMessageError(message: InvalidMessage, type: MediaType): Error {
     switch (message.reason) {
         case 'USER_NOT_IN_CHAT':

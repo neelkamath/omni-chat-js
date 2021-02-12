@@ -8,3 +8,4 @@ export * from './rest-api/errors';
 export * from './rest-api/models';
 export * as RestApi from './rest-api/RestApi';
 export * from './errors';
+export * from './config';

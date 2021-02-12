@@ -5,11 +5,15 @@ the [Omni Chat API](https://github.com/neelkamath/omni-chat-backend). It comes b
 
 ## Installation
 
-NPM stuff...
+`npm i @neelkamath/omni-chat`
 
 ## Usage
 
-Documentation URL...
+### [Documentation]()
+
+### [Changelog](CHANGELOG.md)
+
+### Importing APIs
 
 Never import APIs from nested files.
 
@@ -24,8 +28,6 @@ For example, this is incorrect:
 ```typescript
 import {getMediaMessage} from '@neelkamath/omni-chat/dist/restApi/operator';
 ```
-
-- [Changelog](CHANGELOG.md)
 
 ## [Contributing](CONTRIBUTING.md)
 
