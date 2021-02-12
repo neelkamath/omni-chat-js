@@ -66,10 +66,10 @@ Documentation will be generated to `docs/`.
 
 ### Forking
 
-If you're forking the repo to develop the project as your own instead of just to send back a PR, create
-a [GitHub secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
-. Set the **Name** to `NPM_TOKEN`. Set the **Value** to an [NPM _
-Automation_ token](https://docs.npmjs.com/creating-and-viewing-access-tokens).
+If you're forking the repo to develop the project as your own instead of just to send back a PR, follow these instructions.
+
+1. Create a [GitHub secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Set the **Name** to `NPM_TOKEN`. Set the **Value** to an [NPM *Automation* token](https://docs.npmjs.com/creating-and-viewing-access-tokens).
+1. Configure the [publishing source](https://docs.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) for the documentation's site to use the `gh-pages` branch.
 
 ### Releasing a New Version
 
