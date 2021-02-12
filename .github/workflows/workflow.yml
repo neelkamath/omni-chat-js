@@ -63,6 +63,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          sudo gh release create v$VERSION docs.zip \
+          gh release create v$VERSION docs.zip \
               -n "[Changelog](https://github.com/neelkamath/omni-chat-js/blob/v$VERSION/CHANGELOG.md)" \
               $([[ $VERSION = 0* ]] && echo '-p')
