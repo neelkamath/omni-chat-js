@@ -7,7 +7,9 @@ the [Omni Chat API](https://github.com/neelkamath/omni-chat-backend). It comes b
 
 ## Installation
 
-`npm i @neelkamath/omni-chat`
+```
+npm i @neelkamath/omni-chat
+```
 
 ## Usage
 
