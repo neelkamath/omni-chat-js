@@ -2,7 +2,6 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -47,7 +46,7 @@ jobs:
           access: public
   release:
     # if: github.ref == 'refs/heads/main'
-    needs: [ test, docs ]
+    needs: [ test, pages ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
