@@ -16,7 +16,7 @@ import {
 import {ApiUrl, WebSocketProtocol} from "../config";
 
 /** GraphQL subscriptions. */
-export default class SubscriptionsApi {
+export class SubscriptionsApi {
     constructor(private readonly protocol: WebSocketProtocol, private readonly apiUrl: ApiUrl) {
     }
 

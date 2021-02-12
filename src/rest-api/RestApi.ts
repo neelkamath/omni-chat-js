@@ -13,7 +13,7 @@ import {getMediaMessage, postMediaMessage} from './operator';
 import {ApiUrl, HttpProtocol} from "../config";
 
 /** REST API. */
-export default class RestApi {
+export class RestApi {
     constructor(private readonly protocol: HttpProtocol, private readonly apiUrl: ApiUrl) {
     }
 

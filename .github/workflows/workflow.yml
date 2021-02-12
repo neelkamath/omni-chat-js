@@ -1,4 +1,7 @@
-on: [ push, pull_request ]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -8,7 +11,7 @@ jobs:
         with:
           node-version: 14
       - run: npm cit
-  pages:
+  docs:
     if: github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
@@ -19,6 +22,10 @@ jobs:
           node-version: 14
       - run: npm i
       - run: npm run doc
+      - uses: actions/upload-artifact@v2
+        with:
+          name: docs
+          path: docs/
       - uses: crazy-max/ghaction-github-pages@v2
         with:
           build_dir: docs
@@ -39,22 +46,27 @@ jobs:
           access: public
   release:
     if: github.ref == 'refs/heads/main'
-    # needs: test
+    needs: docs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14
       - name: Install GitHub CLI
-        run: sudo snap install --edge gh && sudo snap connect gh:ssh-keys
-      - run: npm i
-      - run: npm run doc
+        run: |
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+          sudo apt-add-repository https://cli.github.com/packages
+          sudo apt-get update
+          sudo apt-get install gh
+      - uses: actions/download-artifact@v2
+        with:
+          name: docs
+          path: docs/
       - run: zip -r docs.zip docs/
       - name: Set $VERSION
         run: echo "VERSION=$(npm run env | grep npm_package_version | cut -d '=' -f 2)" >> $GITHUB_ENV
       - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create v$VERSION docs.zip \
               -n "[Changelog](https://github.com/neelkamath/omni-chat-js/blob/v$VERSION/CHANGELOG.md)" \
-              [[ $VERSION = 0* ]] && echo '-p'
+              $([[ $VERSION = 0* ]] && echo '-p')
