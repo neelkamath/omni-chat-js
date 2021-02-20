@@ -1,5 +1,12 @@
 # Contributing
 
+## Forking
+
+If you're forking the repo to develop the project as your own instead of just to send back a PR, follow these instructions.
+
+1. Create a [GitHub secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Set the **Name** to `NPM_TOKEN`. Set the **Value** to an [NPM *Automation* token](https://docs.npmjs.com/creating-and-viewing-access-tokens).
+1. Configure the [publishing source](https://docs.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) for the documentation's site to use the `gh-pages` branch.
+
 ## Installation
 
 1. Install [node.js 14](https://nodejs.org/en/download/).
@@ -27,7 +34,8 @@ Documentation will be generated to `docs/`.
 
 ### Conventions
 
-- Name TypeScript files having an `export default` using _PascalCase_. Name other TypeScript files using _camelCase_.
+- Group each function's test cases in a `describe()` block. See [`MutationsApi.test.ts`](src/graphql-api/__tests__/MutationsApi.test.ts) for an example.
+- Name TypeScript files having a main `export` the same as the `export` (e.g., [`src/graphql-api/MutationsApi.ts`](MutationsApi.ts)). Name other TypeScript files using _camelCase_.
 - Name directories and non-TypeScript files using _kebab-case_.
 - Don't document [GraphQL fragments](src/graphql-api/fragments.ts); only [GraphQL models](src/graphql-api/models.ts).
 - Since the GraphQL [inline fragments](src/graphql-api/fragments.ts) can be nested within each other, arguments to fields may clash. To avoid this, use the format `<FRAGMENT>_<FIELD>_<ARGUMENT>` when naming variables. For example, an argument `last` to a field `messages` in a fragment `ChatMessages` would be named `chatMessages_messages_last`.
@@ -63,13 +71,6 @@ Documentation will be generated to `docs/`.
         readonly bio: Bio;
     }
     ```
-
-### Forking
-
-If you're forking the repo to develop the project as your own instead of just to send back a PR, follow these instructions.
-
-1. Create a [GitHub secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Set the **Name** to `NPM_TOKEN`. Set the **Value** to an [NPM *Automation* token](https://docs.npmjs.com/creating-and-viewing-access-tokens).
-1. Configure the [publishing source](https://docs.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) for the documentation's site to use the `gh-pages` branch.
 
 ### Releasing a New Version
 

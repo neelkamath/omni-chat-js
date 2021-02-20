@@ -488,7 +488,7 @@ export class QueriesApi {
     async readContacts(accessToken: string, pagination?: ForwardPagination): Promise<AccountsConnection> {
         const response = await queryOrMutate(this.protocol, this.apiUrl, {
             query: `
-                query ReadContacts($first: Int, $after, Cursor) {
+                query ReadContacts($first: Int, $after: Cursor) {
                     readContacts(first: $first, after: $after) {
                         ${ACCOUNTS_CONNECTION_FRAGMENT}
                     }
