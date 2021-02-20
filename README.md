@@ -7,6 +7,12 @@ the [Omni Chat API](https://github.com/neelkamath/omni-chat-backend). It comes b
 
 ## Installation
 
+This table shows which version of this library supports which version of the API:
+
+|Omni Chat JS|Omni Chat Backend|
+|:---:|:---:|
+|0.1.0 onwards|0.15.0|
+
 ```
 npm i @neelkamath/omni-chat
 ```
