@@ -148,8 +148,8 @@ export function subscribe<T>(
         socket.send(accessToken);
         socket.send(JSON.stringify({query}));
     });
-    socket.addEventListener('message', (message) => {
-        const response = JSON.parse(message.data) as GraphQlResponse;
+    socket.addEventListener('message', ({data}) => {
+        const response = JSON.parse(data) as GraphQlResponse;
         if (response.errors !== undefined) {
             onError();
             socket.close();

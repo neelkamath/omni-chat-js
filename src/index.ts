@@ -1,3 +1,9 @@
+/**
+ * The main `export`s are {@link QueriesApi}, {@link MutationsApi}, {@link SubscriptionsApi}, and {@link RestApi}. The
+ * rest are custom data types such as errors, `type`s, and `interface`s.
+ * @packageDocumentation
+ */
+
 export * from './graphql-api/errors';
 export * from './graphql-api/models';
 export {MutationsApi} from './graphql-api/MutationsApi';

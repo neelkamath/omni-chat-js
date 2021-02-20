@@ -19,7 +19,7 @@ import {
     validateUuidScalar
 } from '../validators';
 
-describe('validateUsernameScalar', () => {
+describe('validateUsernameScalar()', () => {
     test('username must be valid', () => expect(() => validateUsernameScalar('username')).not.toThrowError());
 
     test(
