@@ -496,6 +496,6 @@ export class QueriesApi {
             `,
             variables: {first: pagination?.first, after: pagination?.after},
         }, accessToken);
-        return response.data!.searchPublicChats;
+        return response.data!.readContacts;
     }
 }

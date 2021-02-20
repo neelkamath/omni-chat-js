@@ -741,7 +741,7 @@ export class MutationsApi {
     ): Promise<Placeholder> {
         const response = await queryOrMutate(this.protocol, this.apiUrl, {
             query: `
-                mutation createGroupChatInviteMessage($chatId: Int!, $invitedChatId: Int!, $contextMessageId: Int) {
+                mutation CreateGroupChatInviteMessage($chatId: Int!, $invitedChatId: Int!, $contextMessageId: Int) {
                     createGroupChatInviteMessage(
                         chatId: $chatId
                         invitedChatId: $invitedChatId
@@ -800,7 +800,7 @@ export class MutationsApi {
         const response = await queryOrMutate(this.protocol, this.apiUrl, {
             query: `
                 mutation ForwardMessage($chatId: Int!, $messageId: Int!, $contextMessageId: Int) {
-                    forwardMessage(chatId: $chat, messageId: $messageId, contextMessageId: $contextMessageId)
+                    forwardMessage(chatId: $chatId, messageId: $messageId, contextMessageId: $contextMessageId)
                 }
             `,
             variables: {chatId, messageId, contextMessageId},
