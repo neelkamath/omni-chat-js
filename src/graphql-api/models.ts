@@ -636,6 +636,7 @@ export interface BareChatMessage extends BareMessage {
     readonly isForwarded: boolean;
 }
 
+/** The message which the user starred. */
 export interface StarredMessage extends BareChatMessage, BareMessage {
     readonly __typename:
         | 'StarredTextMessage'
@@ -842,7 +843,9 @@ export interface NewVideoMessage extends NewMessage, BareChatMessage, BareMessag
     readonly isForwarded: boolean;
 }
 
-/** An existing {@link }messageId} in the {@link chatId} which was updated. */
+/**
+ * An existing {@link }messageId} in the {@link chatId} which was updated. Only the {@link dateTimes} would be updated.
+ */
 export interface UpdatedMessage extends BareChatMessage, BareMessage {
     readonly __typename:
         | 'UpdatedTextMessage'
