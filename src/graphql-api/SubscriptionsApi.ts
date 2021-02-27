@@ -17,142 +17,144 @@ import {ApiUrl, WebSocketProtocol} from "../config";
 
 /** GraphQL subscriptions. */
 export class SubscriptionsApi {
-    constructor(private readonly protocol: WebSocketProtocol, private readonly apiUrl: ApiUrl) {
-    }
+  constructor(
+    private readonly protocol: WebSocketProtocol,
+    private readonly apiUrl: ApiUrl
+  ) {}
 
-    /**
-     * Yields updates on the user's contacts, the subscriber's account, and accounts of users the subscriber has a chat
-     * with. The subscription will be stopped if the user deletes their account.
-     */
-    subscribeToAccounts(
-        accessToken: string,
-        onMessage: OnSocketMessage<AccountsSubscription>,
-        onError: OnSocketError,
-    ): OnSocketClose {
-        return subscribe(
-            this.protocol,
-            this.apiUrl,
-            accessToken,
-            'subscribeToAccounts',
-            '/accounts-subscription',
-            `
+  /**
+   * Yields updates on the user's contacts, the subscriber's account, and accounts of users the subscriber has a chat
+   * with. The subscription will be stopped if the user deletes their account.
+   */
+  subscribeToAccounts(
+    accessToken: string,
+    onMessage: OnSocketMessage<AccountsSubscription>,
+    onError: OnSocketError
+  ): OnSocketClose {
+    return subscribe(
+      this.protocol,
+      this.apiUrl,
+      accessToken,
+      "subscribeToAccounts",
+      "/accounts-subscription",
+      `
                 subscription SubscribeToAccounts {
                     subscribeToAccounts {
                         ${ACCOUNTS_SUBSCRIPTION_FRAGMENT}
                     }
                 }
             `,
-            onMessage,
-            onError,
-        );
-    }
+      onMessage,
+      onError
+    );
+  }
 
-    /**
-     * Yields the online statuses of users the user has in their contacts, or has a chat with. The subscription will be
-     * stopped if the user deletes their account.
-     */
-    subscribeToOnlineStatuses(
-        accessToken: string,
-        onMessage: OnSocketMessage<OnlineStatusesSubscription>,
-        onError: OnSocketError,
-    ): OnSocketClose {
-        return subscribe(
-            this.protocol,
-            this.apiUrl,
-            accessToken,
-            'subscribeToOnlineStatuses',
-            '/online-statuses-subscription',
-            `
+  /**
+   * Yields the online statuses of users the user has in their contacts, or has a chat with. The subscription will be
+   * stopped if the user deletes their account.
+   */
+  subscribeToOnlineStatuses(
+    accessToken: string,
+    onMessage: OnSocketMessage<OnlineStatusesSubscription>,
+    onError: OnSocketError
+  ): OnSocketClose {
+    return subscribe(
+      this.protocol,
+      this.apiUrl,
+      accessToken,
+      "subscribeToOnlineStatuses",
+      "/online-statuses-subscription",
+      `
                 subscription SubscribeToOnlineStatuses {
                     subscribeToOnlineStatuses {
                         ${ONLINE_STATUSES_SUBSCRIPTION_FRAGMENT}
                     }
                 }
             `,
-            onMessage,
-            onError,
-        );
-    }
+      onMessage,
+      onError
+    );
+  }
 
-    /**
-     * Yields typing statuses for chats the user has. The user's own typing statuses won't be yielded. The subscription
-     * will be stopped if the user deletes their account.
-     */
-    subscribeToTypingStatuses(
-        accessToken: string,
-        onMessage: OnSocketMessage<TypingStatusesSubscription>,
-        onError: OnSocketError,
-    ): OnSocketClose {
-        return subscribe(
-            this.protocol,
-            this.apiUrl,
-            accessToken,
-            'subscribeToTypingStatuses',
-            '/typing-statuses-subscription',
-            `
+  /**
+   * Yields typing statuses for chats the user has. The user's own typing statuses won't be yielded. The subscription
+   * will be stopped if the user deletes their account.
+   */
+  subscribeToTypingStatuses(
+    accessToken: string,
+    onMessage: OnSocketMessage<TypingStatusesSubscription>,
+    onError: OnSocketError
+  ): OnSocketClose {
+    return subscribe(
+      this.protocol,
+      this.apiUrl,
+      accessToken,
+      "subscribeToTypingStatuses",
+      "/typing-statuses-subscription",
+      `
                 subscription SubscribeToTypingStatuses {
                     subscribeToTypingStatuses {
                         ${TYPING_STATUSES_SUBSCRIPTION_FRAGMENT}
                     }
                 }
             `,
-            onMessage,
-            onError,
-        );
-    }
+      onMessage,
+      onError
+    );
+  }
 
-    /**
-     * Yields created, updated, and deleted messages (including your own) in every chat the user is in. A message from a
-     * chat the user wasn't previously in can be sent as well (e.g., when the other user in a private chat the user
-     * deleted sends a message in it). The subscription will be stopped if the user deletes their account.
-     */
-    subscribeToMessages(
-        accessToken: string,
-        onMessage: OnSocketMessage<MessagesSubscription>,
-        onError: OnSocketError,
-    ): OnSocketClose {
-        return subscribe(
-            this.protocol,
-            this.apiUrl,
-            accessToken,
-            'subscribeToMessages',
-            '/subscribe-to-messages',
-            `
+  /**
+   * Yields created, updated, and deleted messages (including your own) in every chat the user is in. A message from a
+   * chat the user wasn't previously in can be sent as well (e.g., when the other user in a private chat the user
+   * deleted sends a message in it). The subscription will be stopped if the user deletes their account.
+   */
+  subscribeToMessages(
+    accessToken: string,
+    onMessage: OnSocketMessage<MessagesSubscription>,
+    onError: OnSocketError
+  ): OnSocketClose {
+    return subscribe(
+      this.protocol,
+      this.apiUrl,
+      accessToken,
+      "subscribeToMessages",
+      "/messages-subscription",
+      `
                 subscription SubscribeToMessages {
                     subscribeToMessages {
                         ${MESSAGES_SUBSCRIPTION_FRAGMENT}
                     }
                 }
             `,
-            onMessage,
-            onError,
-        );
-    }
+      onMessage,
+      onError
+    );
+  }
 
-    /**
-     * Yields group chats the user was added to (including chats they created), and group chat metadata updates. The
-     * subscription will be stopped if the user deletes their account.
-     */
-    subscribeToGroupChats(
-        accessToken: string,
-        onMessage: OnSocketMessage<GroupChatsSubscription>,
-        onError: OnSocketError,
-    ): OnSocketClose {
-        return subscribe(
-            this.protocol,
-            this.apiUrl,
-            accessToken,
-            'subscribeToGroupChats',
-            '/subscribe-to-group-chats',
-            `
+  /**
+   * Yields group chats the user was added to (including chats they created), and group chat metadata updates. The
+   * subscription will be stopped if the user deletes their account.
+   */
+  subscribeToGroupChats(
+    accessToken: string,
+    onMessage: OnSocketMessage<GroupChatsSubscription>,
+    onError: OnSocketError
+  ): OnSocketClose {
+    return subscribe(
+      this.protocol,
+      this.apiUrl,
+      accessToken,
+      "subscribeToGroupChats",
+      "/group-chats-subscription",
+      `
                 subscription SubscribeToGroupChats {
                     subscribeToGroupChats {
                         ${GROUP_CHATS_SUBSCRIPTION_FRAGMENT}
                     }
                 }
             `,
-            onMessage,
-            onError,
-        );
-    }
+      onMessage,
+      onError
+    );
+  }
 }
