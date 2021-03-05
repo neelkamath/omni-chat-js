@@ -1,19 +1,24 @@
 import {
-    ACCOUNTS_SUBSCRIPTION_FRAGMENT,
-    GROUP_CHATS_SUBSCRIPTION_FRAGMENT,
-    MESSAGES_SUBSCRIPTION_FRAGMENT,
-    ONLINE_STATUSES_SUBSCRIPTION_FRAGMENT,
-    TYPING_STATUSES_SUBSCRIPTION_FRAGMENT
+  ACCOUNTS_SUBSCRIPTION_FRAGMENT,
+  GROUP_CHATS_SUBSCRIPTION_FRAGMENT,
+  MESSAGES_SUBSCRIPTION_FRAGMENT,
+  ONLINE_STATUSES_SUBSCRIPTION_FRAGMENT,
+  TYPING_STATUSES_SUBSCRIPTION_FRAGMENT,
 } from './fragments';
-import {OnSocketClose, OnSocketError, OnSocketMessage, subscribe} from './operator';
 import {
-    AccountsSubscription,
-    GroupChatsSubscription,
-    MessagesSubscription,
-    OnlineStatusesSubscription,
-    TypingStatusesSubscription
+  OnSocketClose,
+  OnSocketError,
+  OnSocketMessage,
+  subscribe,
+} from './operator';
+import {
+  AccountsSubscription,
+  GroupChatsSubscription,
+  MessagesSubscription,
+  OnlineStatusesSubscription,
+  TypingStatusesSubscription,
 } from './models';
-import {ApiUrl, WebSocketProtocol} from "../config";
+import {ApiUrl, WebSocketProtocol} from '../config';
 
 /** GraphQL subscriptions. */
 export class SubscriptionsApi {
@@ -23,8 +28,9 @@ export class SubscriptionsApi {
   ) {}
 
   /**
-   * Yields updates on the user's contacts, the subscriber's account, and accounts of users the subscriber has a chat
-   * with. The subscription will be stopped if the user deletes their account.
+   * Yields updates on the user's contacts, the subscriber's account, and
+   * accounts of users the subscriber has a chat with. The subscription will be
+   * stopped if the user deletes their account.
    */
   subscribeToAccounts(
     accessToken: string,
@@ -35,23 +41,24 @@ export class SubscriptionsApi {
       this.protocol,
       this.apiUrl,
       accessToken,
-      "subscribeToAccounts",
-      "/accounts-subscription",
+      'subscribeToAccounts',
+      '/accounts-subscription',
       `
-                subscription SubscribeToAccounts {
-                    subscribeToAccounts {
-                        ${ACCOUNTS_SUBSCRIPTION_FRAGMENT}
-                    }
-                }
-            `,
+        subscription SubscribeToAccounts {
+          subscribeToAccounts {
+            ${ACCOUNTS_SUBSCRIPTION_FRAGMENT}
+          }
+        }
+      `,
       onMessage,
       onError
     );
   }
 
   /**
-   * Yields the online statuses of users the user has in their contacts, or has a chat with. The subscription will be
-   * stopped if the user deletes their account.
+   * Yields the online statuses of users the user has in their contacts, or has
+   * a chat with. The subscription will be stopped if the user deletes their
+   * account.
    */
   subscribeToOnlineStatuses(
     accessToken: string,
@@ -62,23 +69,24 @@ export class SubscriptionsApi {
       this.protocol,
       this.apiUrl,
       accessToken,
-      "subscribeToOnlineStatuses",
-      "/online-statuses-subscription",
+      'subscribeToOnlineStatuses',
+      '/online-statuses-subscription',
       `
-                subscription SubscribeToOnlineStatuses {
-                    subscribeToOnlineStatuses {
-                        ${ONLINE_STATUSES_SUBSCRIPTION_FRAGMENT}
-                    }
-                }
-            `,
+        subscription SubscribeToOnlineStatuses {
+          subscribeToOnlineStatuses {
+            ${ONLINE_STATUSES_SUBSCRIPTION_FRAGMENT}
+          }
+        }
+      `,
       onMessage,
       onError
     );
   }
 
   /**
-   * Yields typing statuses for chats the user has. The user's own typing statuses won't be yielded. The subscription
-   * will be stopped if the user deletes their account.
+   * Yields typing statuses for chats the user has. The user's own typing
+   * statuses won't be yielded. The subscription will be stopped if the user
+   * deletes their account.
    */
   subscribeToTypingStatuses(
     accessToken: string,
@@ -89,24 +97,26 @@ export class SubscriptionsApi {
       this.protocol,
       this.apiUrl,
       accessToken,
-      "subscribeToTypingStatuses",
-      "/typing-statuses-subscription",
+      'subscribeToTypingStatuses',
+      '/typing-statuses-subscription',
       `
-                subscription SubscribeToTypingStatuses {
-                    subscribeToTypingStatuses {
-                        ${TYPING_STATUSES_SUBSCRIPTION_FRAGMENT}
-                    }
-                }
-            `,
+        subscription SubscribeToTypingStatuses {
+          subscribeToTypingStatuses {
+            ${TYPING_STATUSES_SUBSCRIPTION_FRAGMENT}
+          }
+        }
+      `,
       onMessage,
       onError
     );
   }
 
   /**
-   * Yields created, updated, and deleted messages (including your own) in every chat the user is in. A message from a
-   * chat the user wasn't previously in can be sent as well (e.g., when the other user in a private chat the user
-   * deleted sends a message in it). The subscription will be stopped if the user deletes their account.
+   * Yields created, updated, and deleted messages (including the user's own) in
+   * every chat the user is in. A message from a chat the user wasn't previously
+   * in can be sent as well (e.g., when the other user in a private chat the
+   * user deleted sends a message in it). The subscription will be stopped if
+   * the user deletes their account.
    */
   subscribeToMessages(
     accessToken: string,
@@ -117,23 +127,24 @@ export class SubscriptionsApi {
       this.protocol,
       this.apiUrl,
       accessToken,
-      "subscribeToMessages",
-      "/messages-subscription",
+      'subscribeToMessages',
+      '/messages-subscription',
       `
-                subscription SubscribeToMessages {
-                    subscribeToMessages {
-                        ${MESSAGES_SUBSCRIPTION_FRAGMENT}
-                    }
-                }
-            `,
+        subscription SubscribeToMessages {
+          subscribeToMessages {
+            ${MESSAGES_SUBSCRIPTION_FRAGMENT}
+          }
+        }
+      `,
       onMessage,
       onError
     );
   }
 
   /**
-   * Yields group chats the user was added to (including chats they created), and group chat metadata updates. The
-   * subscription will be stopped if the user deletes their account.
+   * Yields group chats the user was added to (including chats they created),
+   * and group chat metadata updates. The subscription will be stopped if the
+   * user deletes their account.
    */
   subscribeToGroupChats(
     accessToken: string,
@@ -144,15 +155,15 @@ export class SubscriptionsApi {
       this.protocol,
       this.apiUrl,
       accessToken,
-      "subscribeToGroupChats",
-      "/group-chats-subscription",
+      'subscribeToGroupChats',
+      '/group-chats-subscription',
       `
-                subscription SubscribeToGroupChats {
-                    subscribeToGroupChats {
-                        ${GROUP_CHATS_SUBSCRIPTION_FRAGMENT}
-                    }
-                }
-            `,
+        subscription SubscribeToGroupChats {
+          subscribeToGroupChats {
+            ${GROUP_CHATS_SUBSCRIPTION_FRAGMENT}
+          }
+        }
+      `,
       onMessage,
       onError
     );

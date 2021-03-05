@@ -24,6 +24,12 @@ If you're forking the repo to develop the project as your own instead of just to
 npm t
 ```
 
+### Linting
+
+```
+npm run fix
+```
+
 ### Documentation
 
 ```

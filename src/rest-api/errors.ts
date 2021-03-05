@@ -14,14 +14,10 @@ export class InvalidVideoError extends Error {
 export class InvalidDocError extends Error {
 }
 
-export class NonexistentUserIdError extends Error {
-}
+export class NonexistentUserIdError extends Error {}
 
-export class NonexistentChatError extends Error {
-}
+export class NonexistentChatError extends Error {}
 
-export class UserNotInChatError extends Error {
-}
+export class UserNotInChatError extends Error {}
 
-export class InvalidContextMessageError extends Error {
-}
+export class InvalidContextMessageError extends Error {}
