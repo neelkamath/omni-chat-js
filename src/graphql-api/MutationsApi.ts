@@ -31,8 +31,7 @@ export class MutationsApi {
   constructor(
     private readonly protocol: HttpProtocol,
     private readonly apiUrl: ApiUrl
-  ) {
-  }
+  ) {}
 
   /**
    * Creates an account, and sends the user a verification email. The user will

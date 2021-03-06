@@ -21,8 +21,7 @@ export class RestApi {
   constructor(
     private readonly protocol: HttpProtocol,
     private readonly apiUrl: ApiUrl
-  ) {
-  }
+  ) {}
 
   /**
    * @return `Blob` if the user has a profile pic, and `null` if they don't.

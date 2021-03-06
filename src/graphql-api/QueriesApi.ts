@@ -33,8 +33,7 @@ export class QueriesApi {
   constructor(
     private readonly protocol: HttpProtocol,
     private readonly apiUrl: ApiUrl
-  ) {
-  }
+  ) {}
 
   /**
    * Certain operations require authentication via an access token. You can
