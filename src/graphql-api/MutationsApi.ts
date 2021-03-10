@@ -9,9 +9,9 @@ import {
   MessageText,
   Placeholder,
   PollInput,
-  Uuid,
-} from './models';
-import {queryOrMutate} from './operator';
+  Uuid
+} from "./models";
+import { queryOrMutate } from "./operator";
 import {
   validateAccountInput,
   validateAccountUpdate,
@@ -21,10 +21,10 @@ import {
   validateGroupChatTitleScalar,
   validateMessageTextScalar,
   validatePollInput,
-  validateUuidScalar,
-} from '../validation';
-import {ContextMessageId} from '../rest-api/models';
-import {ApiUrl, HttpProtocol} from '../config';
+  validateUuidScalar
+} from "../validation";
+import { ContextMessageId } from "../rest-api/models";
+import { ApiUrl, HttpProtocol } from "../config";
 
 /** GraphQL mutations. */
 export class MutationsApi {
@@ -273,18 +273,18 @@ export class MutationsApi {
    */
   async createContacts(
     accessToken: string,
-    userIdList: number[]
+    idList: number[]
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation CreateContacts($userIdList: [Int!]!) {
-            createContacts(userIdList: $userIdList)
+          mutation CreateContacts($idList: [Int!]!) {
+            createContacts(idList: $idList)
           }
         `,
-        variables: {userIdList},
+        variables: {idList},
       },
       accessToken
     );
@@ -300,18 +300,18 @@ export class MutationsApi {
    */
   async deleteContacts(
     accessToken: string,
-    userIdList: number[]
+    idList: number[]
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation DeleteContacts($userIdList: [Int!]!) {
-            deleteContacts(userIdList: $userIdList)
+          mutation DeleteContacts($idList: [Int!]!) {
+            deleteContacts(idList: $idList)
           }
         `,
-        variables: {userIdList},
+        variables: {idList},
       },
       accessToken
     );
@@ -326,17 +326,17 @@ export class MutationsApi {
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async blockUser(accessToken: string, userId: number): Promise<Placeholder> {
+  async blockUser(accessToken: string, id: number): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation BlockUser($userId: Int!) {
-            blockUser(userId: $userId)
+          mutation BlockUser($id: Int!) {
+            blockUser(id: $id)
           }
         `,
-        variables: {userId},
+        variables: {id},
       },
       accessToken
     );
@@ -349,17 +349,17 @@ export class MutationsApi {
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async unblockUser(accessToken: string, userId: number): Promise<Placeholder> {
+  async unblockUser(accessToken: string, id: number): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation UnblockUser($userId: Int!) {
-            unblockUser(userId: $userId)
+          mutation UnblockUser($id: Int!) {
+            unblockUser(id: $id)
           }
         `,
-        variables: {userId},
+        variables: {id},
       },
       accessToken
     );
@@ -609,18 +609,18 @@ export class MutationsApi {
   async addGroupChatUsers(
     accessToken: string,
     chatId: number,
-    userIdList: number[]
+    idList: number[]
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation AddGroupChatUsers($chatId: Int!, $userIdList: [Int!]!) {
-            addGroupChatUsers(chatId: $chatId, userIdList: $userIdList)
+          mutation AddGroupChatUsers($chatId: Int!, $idList: [Int!]!) {
+            addGroupChatUsers(chatId: $chatId, idList: $idList)
           }
         `,
-        variables: {chatId, userIdList},
+        variables: {chatId, idList},
       },
       accessToken
     );
@@ -641,18 +641,18 @@ export class MutationsApi {
   async removeGroupChatUsers(
     accessToken: string,
     chatId: number,
-    userIdList: number[]
+    idList: number[]
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation RemoveGroupChatUsers($chatId: Int!, $userIdList: [Int!]!) {
-            removeGroupChatUsers(chatId: $chatId, userIdList: $userIdList)
+          mutation RemoveGroupChatUsers($chatId: Int!, $idList: [Int!]!) {
+            removeGroupChatUsers(chatId: $chatId, idList: $idList)
           }
         `,
-        variables: {chatId, userIdList},
+        variables: {chatId, idList},
       },
       accessToken
     );
@@ -670,18 +670,18 @@ export class MutationsApi {
   async makeGroupChatAdmins(
     accessToken: string,
     chatId: number,
-    userIdList: number[]
+    idList: number[]
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation MakeGroupChatAdmins($chatId: Int!, $userIdList: [Int!]!) {
-            makeGroupChatAdmins(chatId: $chatId, userIdList: $userIdList)
+          mutation MakeGroupChatAdmins($chatId: Int!, $idList: [Int!]!) {
+            makeGroupChatAdmins(chatId: $chatId, idList: $idList)
           }
         `,
-        variables: {chatId, userIdList},
+        variables: {chatId, idList},
       },
       accessToken
     );

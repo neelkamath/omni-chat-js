@@ -10,9 +10,10 @@ import {
   OnlineStatus,
   StarredMessage,
   TokenSet,
-  Uuid,
-} from './models';
-import {queryOrMutate} from './operator';
+  TypingStatus,
+  Uuid
+} from "./models";
+import { queryOrMutate } from "./operator";
 import {
   ACCOUNT_FRAGMENT,
   ACCOUNTS_CONNECTION_FRAGMENT,
@@ -22,11 +23,13 @@ import {
   GROUP_CHAT_INFO_FRAGMENT,
   MESSAGE_EDGE_FRAGMENT,
   ONLINE_STATUS_FRAGMENT,
+  STARRED_MESSAGE_FRAGMENT,
   TOKEN_SET_FRAGMENT,
-} from './fragments';
-import {validateLogin, validateUuidScalar} from '../validation';
-import {BackwardPagination, ForwardPagination} from './pagination';
-import {ApiUrl, HttpProtocol} from '../config';
+  TYPING_STATUS_FRAGMENT
+} from "./fragments";
+import { validateLogin, validateUuidScalar } from "../validation";
+import { BackwardPagination, ForwardPagination } from "./pagination";
+import { ApiUrl, HttpProtocol } from "../config";
 
 /** GraphQL queries. */
 export class QueriesApi {
@@ -173,52 +176,6 @@ export class QueriesApi {
   }
 
   /**
-   * Whether the user has blocked the specified user.
-   * @throws {@link UnauthorizedError}
-   * @throws {@link ConnectionError}
-   * @throws {@link InternalServerError}
-   */
-  async isBlocked(accessToken: string, userId: number): Promise<boolean> {
-    const response = await queryOrMutate(
-      this.protocol,
-      this.apiUrl,
-      {
-        query: `
-          query IsBlocked($userId: Int!) {
-            isBlocked(userId: $userId)
-          }
-        `,
-        variables: {userId},
-      },
-      accessToken
-    );
-    return response.data!.isBlocked;
-  }
-
-  /**
-   * Whether the specified user is in the user's contacts.
-   * @throws {@link UnauthorizedError}
-   * @throws {@link ConnectionError}
-   * @throws {@link InternalServerError}
-   */
-  async isContact(accessToken: string, userId: number): Promise<boolean> {
-    const response = await queryOrMutate(
-      this.protocol,
-      this.apiUrl,
-      {
-        query: `
-          query IsContact($userId: Int!) {
-            isContact(userId: $userId)
-          }
-        `,
-        variables: {userId},
-      },
-      accessToken
-    );
-    return response.data!.isContact;
-  }
-
-  /**
    * @param accessToken Must be passed if the chat isn't a public chat.
    * @throws {@link InvalidChatIdError}
    * @throws {@link UnauthorizedError}
@@ -348,7 +305,9 @@ export class QueriesApi {
       {
         query: `
           query ReadStars {
-            readStars
+            readStars {
+              ${STARRED_MESSAGE_FRAGMENT}
+            }
           }
         `,
       },
@@ -606,5 +565,27 @@ export class QueriesApi {
       accessToken
     );
     return response.data!.readContacts;
+  }
+
+  /**
+   * @returns The statuses of users who are typing in a chat the user is in. The
+   * user's own status won't be returned.
+   */
+  async readTypingStatuses(accessToken: string): Promise<TypingStatus[]> {
+    const response = await queryOrMutate(
+      this.protocol,
+      this.apiUrl,
+      {
+        query: `
+          query ReadTypingStatuses {
+            readTypingStatuses {
+              ${TYPING_STATUS_FRAGMENT}
+            }
+          }
+        `,
+      },
+      accessToken
+    );
+    return response.data!.readTypingStatuses;
   }
 }

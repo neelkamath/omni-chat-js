@@ -7,10 +7,12 @@
  * rare event, and the client would've had to deal with the user viewing a user
  * who's account was just deleted.
  */
+
 export type AccountsSubscription =
   | CreatedSubscription
   | NewContact
   | UpdatedAccount
+  | UpdatedProfilePic
   | DeletedContact
   | BlockedAccount
   | UnblockedAccount;
@@ -58,6 +60,7 @@ export type GroupChatsSubscription =
   | CreatedSubscription
   | GroupChatId
   | UpdatedGroupChat
+  | UpdatedGroupChatPic
   | ExitedUser;
 
 export type Uuid = string;
@@ -179,6 +182,11 @@ export interface PageInfo {
   readonly endCursor: Cursor | null;
 }
 
+export interface UpdatedProfilePic {
+  readonly __typename: 'UpdatedProfilePic';
+  readonly id: number;
+}
+
 export interface AccountData {
   readonly __typename: 'Account' | 'BlockedAccount' | 'NewContact';
   readonly id: number;
@@ -202,7 +210,7 @@ export interface NewContact extends AccountData {
 /** `undefined` fields correspond to the field not existing. */
 export interface UpdatedAccount {
   readonly __typename: 'UpdatedAccount';
-  readonly userId: number;
+  readonly id: number;
   readonly username: Username;
   readonly emailAddress: string;
   readonly firstName: Name;
@@ -294,6 +302,11 @@ export interface BareMessage {
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
+}
+
+export interface UpdatedGroupChatPic {
+  readonly __typename: 'UpdatedGroupChatPic';
+  readonly id: number;
 }
 
 export interface Message extends BareMessage {
@@ -412,6 +425,7 @@ export interface UpdatedOnlineStatus {
   readonly __typename: 'UpdatedOnlineStatus';
   readonly userId: number;
   readonly isOnline: boolean;
+  readonly lastOnline: DateTime | null;
 }
 
 export interface OnlineStatus {
@@ -568,7 +582,7 @@ export interface TextMessage extends BareMessage, Message {
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
-  readonly message: MessageText;
+  readonly textMessage: MessageText;
 }
 
 export interface ActionMessage extends BareMessage, Message {
@@ -579,7 +593,7 @@ export interface ActionMessage extends BareMessage, Message {
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
-  readonly message: ActionableMessage;
+  readonly actionableMessage: ActionableMessage;
 }
 
 export interface PicMessage extends BareMessage, Message {
@@ -709,7 +723,7 @@ export interface StarredTextMessage
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
-  readonly message: MessageText;
+  readonly textMessage: MessageText;
 }
 
 export interface StarredActionMessage
@@ -723,7 +737,7 @@ export interface StarredActionMessage
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
-  readonly message: ActionableMessage;
+  readonly actionableMessage: ActionableMessage;
 }
 
 export interface StarredPicMessage
@@ -836,7 +850,7 @@ export interface NewTextMessage
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
-  readonly message: MessageText;
+  readonly textMessage: MessageText;
 }
 
 export interface NewActionMessage
@@ -850,7 +864,7 @@ export interface NewActionMessage
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
-  readonly message: ActionableMessage;
+  readonly actionableMessage: ActionableMessage;
 }
 
 export interface NewPicMessage
@@ -935,8 +949,8 @@ export interface NewVideoMessage
 }
 
 /**
- * An existing {@link }messageId} in the {@link chatId} which was updated. Only
- * the {@link dateTimes} would be updated.
+ * An existing {@link messageId} in the {@link chatId} which had its
+ * {@link statuses} updated.
  */
 export interface UpdatedMessage extends BareChatMessage, BareMessage {
   readonly __typename:
@@ -950,11 +964,7 @@ export interface UpdatedMessage extends BareChatMessage, BareMessage {
     | 'UpdatedVideoMessage';
   readonly chatId: number;
   readonly messageId: number;
-  readonly sender: Account;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-  readonly hasStar: boolean;
+  readonly statuses: MessageDateTimeStatus[];
 }
 
 export interface UpdatedTextMessage
@@ -964,12 +974,7 @@ export interface UpdatedTextMessage
   readonly __typename: 'UpdatedTextMessage';
   readonly chatId: number;
   readonly messageId: number;
-  readonly sender: Account;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-  readonly hasStar: boolean;
-  readonly message: MessageText;
+  readonly statuses: MessageDateTimeStatus[];
 }
 
 export interface UpdatedActionMessage
@@ -979,12 +984,7 @@ export interface UpdatedActionMessage
   readonly __typename: 'UpdatedActionMessage';
   readonly chatId: number;
   readonly messageId: number;
-  readonly sender: Account;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-  readonly hasStar: boolean;
-  readonly message: ActionableMessage;
+  readonly statuses: MessageDateTimeStatus[];
 }
 
 export interface UpdatedPicMessage
@@ -994,12 +994,7 @@ export interface UpdatedPicMessage
   readonly __typename: 'UpdatedPicMessage';
   readonly chatId: number;
   readonly messageId: number;
-  readonly sender: Account;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-  readonly hasStar: boolean;
-  readonly caption: MessageText | null;
+  readonly statuses: MessageDateTimeStatus[];
 }
 
 export interface UpdatedPollMessage
@@ -1009,12 +1004,7 @@ export interface UpdatedPollMessage
   readonly __typename: 'UpdatedPollMessage';
   readonly chatId: number;
   readonly messageId: number;
-  readonly sender: Account;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-  readonly hasStar: boolean;
-  readonly poll: Poll;
+  readonly statuses: MessageDateTimeStatus[];
 }
 
 export interface UpdatedAudioMessage
@@ -1024,11 +1014,7 @@ export interface UpdatedAudioMessage
   readonly __typename: 'UpdatedAudioMessage';
   readonly chatId: number;
   readonly messageId: number;
-  readonly sender: Account;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-  readonly hasStar: boolean;
+  readonly statuses: MessageDateTimeStatus[];
 }
 
 export interface UpdatedGroupChatInviteMessage
@@ -1038,12 +1024,7 @@ export interface UpdatedGroupChatInviteMessage
   readonly __typename: 'UpdatedGroupChatInviteMessage';
   readonly chatId: number;
   readonly messageId: number;
-  readonly sender: Account;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-  readonly hasStar: boolean;
-  readonly inviteCode: Uuid;
+  readonly statuses: MessageDateTimeStatus[];
 }
 
 export interface UpdatedDocMessage
@@ -1053,11 +1034,7 @@ export interface UpdatedDocMessage
   readonly __typename: 'UpdatedDocMessage';
   readonly chatId: number;
   readonly messageId: number;
-  readonly sender: Account;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-  readonly hasStar: boolean;
+  readonly statuses: MessageDateTimeStatus[];
 }
 
 export interface UpdatedVideoMessage
@@ -1067,11 +1044,7 @@ export interface UpdatedVideoMessage
   readonly __typename: 'UpdatedVideoMessage';
   readonly chatId: number;
   readonly messageId: number;
-  readonly sender: Account;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-  readonly hasStar: boolean;
+  readonly statuses: MessageDateTimeStatus[];
 }
 
 export interface GroupChatInput {

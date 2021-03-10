@@ -82,4 +82,5 @@ Documentation will be generated to `docs/`.
 
 1. Bump the version in [`package.json`](package.json).
 1. Add a [Changelog](CHANGELOG.md) entry.
+1. Update the [README's version matrix](README.md#installation) if required.
 1. Commit to the `main` branch. The CI/CD pipeline will take care of the rest.

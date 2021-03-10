@@ -20,7 +20,7 @@ export const NEW_CONTACT_FRAGMENT = `
 export const UPDATED_ACCOUNT_FRAGMENT = `
   ... on UpdatedAccount {
     __typename
-    userId
+    id
     username
     emailAddress
     firstName
@@ -151,7 +151,26 @@ export const TEXT_MESSAGE_FRAGMENT = `
     }
     isForwarded
     hasStar
-    message
+    textMessage
+  }
+`;
+
+export const ACTION_MESSAGE_FRAGMENT = `
+  ... on ActionMessage {
+    __typename
+    messageId
+    sender {
+      ${ACCOUNT_FRAGMENT}
+    }
+    dateTimes {
+      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    }
+    context {
+      ${MESSAGE_CONTEXT_FRAGMENT}
+    }
+    isForwarded
+    hasStar
+    actionableMessage
   }
 `;
 
@@ -302,6 +321,7 @@ export const POLL_MESSAGE_FRAGMENT = `
 
 export const MESSAGE_FRAGMENT = `
   ${TEXT_MESSAGE_FRAGMENT}
+  ${ACTION_MESSAGE_FRAGMENT}
   ${AUDIO_MESSAGE_FRAGMENT}
   ${GROUP_CHAT_INVITE_MESSAGE_FRAGMENT}
   ${DOC_MESSAGE_FRAGMENT}
@@ -348,20 +368,12 @@ export const PRIVATE_CHAT_FRAGMENT = `
   }
 `;
 
-export const ACCOUNTS_SUBSCRIPTION_FRAGMENT = `
-  ${CREATED_SUBSCRIPTION_FRAGMENT}
-  ${NEW_CONTACT_FRAGMENT}
-  ${UPDATED_ACCOUNT_FRAGMENT}
-  ${DELETED_CONTACT_FRAGMENT}
-  ${BLOCKED_ACCOUNT_FRAGMENT}
-  ${UNBLOCKED_ACCOUNT_FRAGMENT}
-`;
-
 export const UPDATED_ONLINE_STATUS_FRAGMENT = `
   ... on UpdatedOnlineStatus {
     __typename
     userId
     isOnline
+    lastOnline
   }
 `;
 
@@ -376,6 +388,20 @@ export const TYPING_STATUS_FRAGMENT = `
     chatId
     userId
     isTyping
+  }
+`;
+
+export const UPDATED_PROFILE_PIC_FRAGMENT = `
+  ... on UpdatedProfilePic {
+    __typename
+    id
+  }
+`;
+
+export const UPDATED_GROUP_CHAT_PIC_FRAGMENT = `
+  ... on UpdatedGroupChatPic {
+    __typename
+    id
   }
 `;
 
@@ -399,7 +425,7 @@ export const NEW_TEXT_MESSAGE_FRAGMENT = `
       ${MESSAGE_CONTEXT_FRAGMENT}
     }
     isForwarded
-    message
+    textMessage
   }
 `;
 
@@ -426,7 +452,7 @@ export const NEW_ACTION_MESSAGE_FRAGMENT = `
       ${MESSAGE_CONTEXT_FRAGMENT}
     }
     isForwarded
-    message {
+    actionableMessage {
       ${ACTIONABLE_MESSAGE_FRAGMENT}
     }
   }
@@ -550,18 +576,9 @@ export const UPDATED_TEXT_MESSAGE_FRAGMENT = `
     __typename
     chatId
     messageId
-    sender {
-      ${ACCOUNT_FRAGMENT}
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
-    context {
-      ${MESSAGE_CONTEXT_FRAGMENT}
-    }
-    isForwarded
-    hasStar
-    message
   }
 `;
 
@@ -570,19 +587,8 @@ export const UPDATED_ACTION_MESSAGE_FRAGMENT = `
     __typename
     chatId
     messageId
-    sender {
-      ${ACCOUNT_FRAGMENT}
-    }
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
-    context {
-      ${MESSAGE_CONTEXT_FRAGMENT}
-    }
-    isForwarded
-    hasStar
-    message {
-      ${ACTIONABLE_MESSAGE_FRAGMENT}
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
   }
 `;
@@ -592,18 +598,9 @@ export const UPDATED_PIC_MESSAGE_FRAGMENT = `
     __typename
     chatId
     messageId
-    sender {
-      ${ACCOUNT_FRAGMENT}
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
-    context {
-      ${MESSAGE_CONTEXT_FRAGMENT}
-    }
-    isForwarded
-    hasStar
-    caption
   }
 `;
 
@@ -612,17 +609,9 @@ export const UPDATED_AUDIO_MESSAGE_FRAGMENT = `
     __typename
     chatId
     messageId
-    sender {
-      ${ACCOUNT_FRAGMENT}
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
-    context {
-      ${MESSAGE_CONTEXT_FRAGMENT}
-    }
-    isForwarded
-    hasStar
   }
 `;
 
@@ -631,18 +620,9 @@ export const UPDATED_GROUP_CHAT_INVITE_MESSAGE_FRAGMENT = `
     __typename
     chatId
     messageId
-    sender {
-      ${ACCOUNT_FRAGMENT}
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
-    context {
-      ${MESSAGE_CONTEXT_FRAGMENT}
-    }
-    isForwarded
-    hasStar
-    inviteCode
   }
 `;
 
@@ -651,17 +631,9 @@ export const UPDATED_DOC_MESSAGE_FRAGMENT = `
     __typename
     chatId
     messageId
-    sender {
-      ${ACCOUNT_FRAGMENT}
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
-    context {
-      ${MESSAGE_CONTEXT_FRAGMENT}
-    }
-    isForwarded
-    hasStar
   }
 `;
 
@@ -670,17 +642,9 @@ export const UPDATED_VIDEO_MESSAGE_FRAGMENT = `
     __typename
     chatId
     messageId
-    sender {
-      ${ACCOUNT_FRAGMENT}
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
-    context {
-      ${MESSAGE_CONTEXT_FRAGMENT}
-    }
-    isForwarded
-    hasStar
   }
 `;
 
@@ -689,19 +653,8 @@ export const UPDATED_POLL_MESSAGE_FRAGMENT = `
     __typename
     chatId
     messageId
-    sender {
-      ${ACCOUNT_FRAGMENT}
-    }
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
-    context {
-      ${MESSAGE_CONTEXT_FRAGMENT}
-    }
-    isForwarded
-    hasStar
-    poll {
-      ${POLL_FRAGMENT}
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
   }
 `;
@@ -809,6 +762,7 @@ export const EXITED_USER_FRAGMENT = `
 export const GROUP_CHATS_SUBSCRIPTION_FRAGMENT = `
   ${CREATED_SUBSCRIPTION_FRAGMENT}
   ${GROUP_CHAT_ID_FRAGMENT}
+  ${UPDATED_GROUP_CHAT_PIC_FRAGMENT}
   ${UPDATED_GROUP_CHAT_FRAGMENT}
   ${EXITED_USER_FRAGMENT}
 `;
@@ -859,4 +813,178 @@ export const CHAT_MESSAGES_FRAGMENT = `
       ${MESSAGE_EDGE_FRAGMENT}
     }
   }
+`;
+
+export const STARRED_TEXT_MESSAGE_FRAGMENT = `
+  ... on StarredTextMessage {
+    __typename
+    chatId
+    messageId
+    sender {
+      ${ACCOUNT_FRAGMENT}
+    }
+    dateTimes {
+      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    }
+    context {
+      ${MESSAGE_CONTEXT_FRAGMENT}
+    }
+    isForwarded
+    textMessage
+  }
+`;
+
+export const STARRED_ACTION_MESSAGE_FRAGMENT = `
+  ... on StarredActionMessage {
+    __typename
+    chatId
+    messageId
+    sender {
+      ${ACCOUNT_FRAGMENT}
+    }
+    dateTimes {
+      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    }
+    context {
+      ${MESSAGE_CONTEXT_FRAGMENT}
+    }
+    isForwarded
+    actionableMessage {
+      ${ACTIONABLE_MESSAGE_FRAGMENT}
+    }
+  }
+`;
+
+export const STARRED_PIC_MESSAGE_FRAGMENT = `
+  ... on StarredPicMessage {
+    __typename
+    chatId
+    messageId
+    sender {
+      ${ACCOUNT_FRAGMENT}
+    }
+    dateTimes {
+      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    }
+    context {
+      ${MESSAGE_CONTEXT_FRAGMENT}
+    }
+    isForwarded
+    caption
+  }
+`;
+
+export const STARRED_POLL_MESSAGE_FRAGMENT = `
+  ... on StarredPollMessage {
+    __typename
+    chatId
+    messageId
+    sender {
+      ${ACCOUNT_FRAGMENT}
+    }
+    dateTimes {
+      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    }
+    context {
+      ${MESSAGE_CONTEXT_FRAGMENT}
+    }
+    isForwarded
+    poll {
+      ${POLL_FRAGMENT}
+    }
+  }
+`;
+
+export const STARRED_AUDIO_MESSAGE_FRAGMENT = `
+  ... on StarredAudioMessage {
+    __typename
+    chatId
+    messageId
+    sender {
+      ${ACCOUNT_FRAGMENT}
+    }
+    dateTimes {
+      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    }
+    context {
+      ${MESSAGE_CONTEXT_FRAGMENT}
+    }
+    isForwarded
+  }
+`;
+
+export const STARRED_GROUP_CHAT_INVITE_MESSAGE_FRAGMENT = `
+  ... on StarredGroupChatInviteMessage {
+    __typename
+    chatId
+    messageId
+    sender {
+      ${ACCOUNT_FRAGMENT}
+    }
+    dateTimes {
+      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    }
+    context {
+      ${MESSAGE_CONTEXT_FRAGMENT}
+    }
+    isForwarded
+    inviteCode
+  }
+`;
+
+export const STARRED_DOC_MESSAGE_FRAGMENT = `
+  ... on StarredDocMessage {
+    __typename
+    chatId
+    messageId
+    sender {
+      ${ACCOUNT_FRAGMENT}
+    }
+    dateTimes {
+      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    }
+    context {
+      ${MESSAGE_CONTEXT_FRAGMENT}
+    }
+    isForwarded
+  }
+`;
+
+export const STARRED_VIDEO_MESSAGE_FRAGMENT = `
+  ... on StarredVideoMessage {
+    __typename
+    chatId
+    messageId
+    sender {
+      ${ACCOUNT_FRAGMENT}
+    }
+    dateTimes {
+      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    }
+    context {
+      ${MESSAGE_CONTEXT_FRAGMENT}
+    }
+    isForwarded
+  }
+`;
+
+export const STARRED_MESSAGE_FRAGMENT = `
+  ${STARRED_TEXT_MESSAGE_FRAGMENT}
+  ${STARRED_ACTION_MESSAGE_FRAGMENT}
+  ${STARRED_PIC_MESSAGE_FRAGMENT}
+  ${STARRED_POLL_MESSAGE_FRAGMENT}
+  ${STARRED_AUDIO_MESSAGE_FRAGMENT}
+  ${STARRED_GROUP_CHAT_INVITE_MESSAGE_FRAGMENT}
+  ${STARRED_DOC_MESSAGE_FRAGMENT}
+  ${STARRED_VIDEO_MESSAGE_FRAGMENT}
+`;
+
+export const ACCOUNTS_SUBSCRIPTION_FRAGMENT = `
+  ${CREATED_SUBSCRIPTION_FRAGMENT}
+  ${NEW_CONTACT_FRAGMENT}
+  ${UPDATED_ACCOUNT_FRAGMENT}
+  ${UPDATED_PROFILE_PIC_FRAGMENT}
+  ${DELETED_CONTACT_FRAGMENT}
+  ${BLOCKED_ACCOUNT_FRAGMENT}
+  ${UNBLOCKED_ACCOUNT_FRAGMENT}
 `;
