@@ -182,6 +182,7 @@ export interface PageInfo {
   readonly endCursor: Cursor | null;
 }
 
+/** The {@link id} of the user who updated their profile pic. */
 export interface UpdatedProfilePic {
   readonly __typename: 'UpdatedProfilePic';
   readonly id: number;
@@ -207,7 +208,10 @@ export interface NewContact extends AccountData {
   readonly bio: Bio;
 }
 
-/** `undefined` fields correspond to the field not existing. */
+/**
+ * `undefined` fields correspond to the field not existing. This will not be
+ * sent if the pic has been updated.
+ */
 export interface UpdatedAccount {
   readonly __typename: 'UpdatedAccount';
   readonly id: number;
@@ -304,6 +308,7 @@ export interface BareMessage {
   readonly isForwarded: boolean;
 }
 
+/** The {@link id} of the group chat whose pic was updated. */
 export interface UpdatedGroupChatPic {
   readonly __typename: 'UpdatedGroupChatPic';
   readonly id: number;
@@ -458,7 +463,8 @@ export interface ExitedUser {
 
 /**
  * `null` fields haven't been updated. If a non-`null` field hasn't been
- * updated, its value will be the same as before.
+ * updated, its value will be the same as before. This will not be sent if the
+ * pic has been updated.
  */
 export interface UpdatedGroupChat {
   readonly __typename: 'UpdatedGroupChat';

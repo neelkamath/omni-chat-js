@@ -9,9 +9,9 @@ import {
   MessageText,
   Placeholder,
   PollInput,
-  Uuid
-} from "./models";
-import { queryOrMutate } from "./operator";
+  Uuid,
+} from './models';
+import {queryOrMutate} from './operator';
 import {
   validateAccountInput,
   validateAccountUpdate,
@@ -21,16 +21,16 @@ import {
   validateGroupChatTitleScalar,
   validateMessageTextScalar,
   validatePollInput,
-  validateUuidScalar
-} from "../validation";
-import { ContextMessageId } from "../rest-api/models";
-import { ApiUrl, HttpProtocol } from "../config";
+  validateUuidScalar,
+} from '../validation';
+import {ContextMessageId} from '../rest-api/models';
+import {ApiUrl, HttpProtocol} from '../config';
 
 /** GraphQL mutations. */
 export class MutationsApi {
   constructor(
     private readonly protocol: HttpProtocol,
-    private readonly apiUrl: ApiUrl
+    private readonly apiUrl: ApiUrl,
   ) {}
 
   /**
@@ -74,7 +74,7 @@ export class MutationsApi {
    */
   async verifyEmailAddress(
     emailAddress: string,
-    verificationCode: number
+    verificationCode: number,
   ): Promise<boolean> {
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
@@ -104,7 +104,7 @@ export class MutationsApi {
    * @throws {@link InternalServerError}
    */
   async emailEmailAddressVerification(
-    emailAddress: string
+    emailAddress: string,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
@@ -166,7 +166,7 @@ export class MutationsApi {
    */
   async updateAccount(
     accessToken: string,
-    update: AccountUpdate
+    update: AccountUpdate,
   ): Promise<Placeholder> {
     validateAccountUpdate(update);
     const {__typename, ...updateData} = update;
@@ -181,7 +181,7 @@ export class MutationsApi {
         `,
         variables: {update: updateData},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.updateAccount;
   }
@@ -196,7 +196,7 @@ export class MutationsApi {
   async resetPassword(
     emailAddress: string,
     passwordResetCode: number,
-    newPassword: string
+    newPassword: string,
   ): Promise<boolean> {
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
@@ -234,7 +234,7 @@ export class MutationsApi {
           }
         `,
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteProfilePic;
   }
@@ -259,7 +259,7 @@ export class MutationsApi {
           }
         `,
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteAccount;
   }
@@ -273,7 +273,7 @@ export class MutationsApi {
    */
   async createContacts(
     accessToken: string,
-    idList: number[]
+    idList: number[],
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -286,7 +286,7 @@ export class MutationsApi {
         `,
         variables: {idList},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createContacts;
   }
@@ -300,7 +300,7 @@ export class MutationsApi {
    */
   async deleteContacts(
     accessToken: string,
-    idList: number[]
+    idList: number[],
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -313,7 +313,7 @@ export class MutationsApi {
         `,
         variables: {idList},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteContacts;
   }
@@ -338,7 +338,7 @@ export class MutationsApi {
         `,
         variables: {id},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.blockUser;
   }
@@ -361,7 +361,7 @@ export class MutationsApi {
         `,
         variables: {id},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.unblockUser;
   }
@@ -374,7 +374,7 @@ export class MutationsApi {
    */
   async setOnline(
     accessToken: string,
-    isOnline: boolean
+    isOnline: boolean,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -387,7 +387,7 @@ export class MutationsApi {
         `,
         variables: {isOnline},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.setOnline;
   }
@@ -412,7 +412,7 @@ export class MutationsApi {
         `,
         variables: {messageId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.star;
   }
@@ -425,7 +425,7 @@ export class MutationsApi {
    */
   async deleteStar(
     accessToken: string,
-    messageId: number
+    messageId: number,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -438,7 +438,7 @@ export class MutationsApi {
         `,
         variables: {messageId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteStar;
   }
@@ -456,7 +456,7 @@ export class MutationsApi {
    */
   async setTyping(
     accessToken: string,
-    isTyping: boolean
+    isTyping: boolean,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -469,7 +469,7 @@ export class MutationsApi {
         `,
         variables: {isTyping},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.setTyping;
   }
@@ -483,7 +483,7 @@ export class MutationsApi {
    */
   async deleteGroupChatPic(
     accessToken: string,
-    chatId: number
+    chatId: number,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -496,7 +496,7 @@ export class MutationsApi {
         `,
         variables: {chatId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteGroupChatPic;
   }
@@ -514,7 +514,7 @@ export class MutationsApi {
   async createStatus(
     accessToken: string,
     messageId: number,
-    status: MessageStatus
+    status: MessageStatus,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -527,7 +527,7 @@ export class MutationsApi {
         `,
         variables: {messageId, status},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createStatus;
   }
@@ -542,7 +542,7 @@ export class MutationsApi {
   async updateGroupChatTitle(
     accessToken: string,
     chatId: number,
-    title: GroupChatTitle
+    title: GroupChatTitle,
   ): Promise<Placeholder> {
     validateGroupChatTitleScalar(title);
     const response = await queryOrMutate(
@@ -559,7 +559,7 @@ export class MutationsApi {
         `,
         variables: {chatId, title},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.updateGroupChatTitle;
   }
@@ -574,7 +574,7 @@ export class MutationsApi {
   async updateGroupChatDescription(
     accessToken: string,
     chatId: number,
-    description: GroupChatDescription
+    description: GroupChatDescription,
   ): Promise<Placeholder> {
     validateGroupChatDescriptionScalar(description);
     const response = await queryOrMutate(
@@ -594,7 +594,7 @@ export class MutationsApi {
         `,
         variables: {chatId, description},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.updateGroupChatDescription;
   }
@@ -609,7 +609,7 @@ export class MutationsApi {
   async addGroupChatUsers(
     accessToken: string,
     chatId: number,
-    idList: number[]
+    idList: number[],
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -622,7 +622,7 @@ export class MutationsApi {
         `,
         variables: {chatId, idList},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.addGroupChatUsers;
   }
@@ -641,7 +641,7 @@ export class MutationsApi {
   async removeGroupChatUsers(
     accessToken: string,
     chatId: number,
-    idList: number[]
+    idList: number[],
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -654,7 +654,7 @@ export class MutationsApi {
         `,
         variables: {chatId, idList},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.removeGroupChatUsers;
   }
@@ -670,7 +670,7 @@ export class MutationsApi {
   async makeGroupChatAdmins(
     accessToken: string,
     chatId: number,
-    idList: number[]
+    idList: number[],
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -683,7 +683,7 @@ export class MutationsApi {
         `,
         variables: {chatId, idList},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.makeGroupChatAdmins;
   }
@@ -703,7 +703,7 @@ export class MutationsApi {
    */
   async createGroupChat(
     accessToken: string,
-    chat: GroupChatInput
+    chat: GroupChatInput,
   ): Promise<number> {
     validateGroupChatInput(chat);
     const {__typename, ...input} = chat;
@@ -718,7 +718,7 @@ export class MutationsApi {
         `,
         variables: {chat: input},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createGroupChat;
   }
@@ -733,7 +733,7 @@ export class MutationsApi {
   async setBroadcast(
     accessToken: string,
     chatId: number,
-    isBroadcast: boolean
+    isBroadcast: boolean,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -746,7 +746,7 @@ export class MutationsApi {
         `,
         variables: {chatId, isBroadcast},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.setBroadcast;
   }
@@ -762,7 +762,7 @@ export class MutationsApi {
   async setInvitability(
     accessToken: string,
     chatId: number,
-    isInvitable: boolean
+    isInvitable: boolean,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -775,7 +775,7 @@ export class MutationsApi {
         `,
         variables: {chatId, isInvitable},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.setInvitability;
   }
@@ -791,7 +791,7 @@ export class MutationsApi {
    */
   async joinGroupChat(
     accessToken: string,
-    inviteCode: Uuid
+    inviteCode: Uuid,
   ): Promise<Placeholder> {
     validateUuidScalar(inviteCode);
     const response = await queryOrMutate(
@@ -805,7 +805,7 @@ export class MutationsApi {
         `,
         variables: {inviteCode},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.joinGroupChat;
   }
@@ -819,7 +819,7 @@ export class MutationsApi {
    */
   async deletePrivateChat(
     accessToken: string,
-    chatId: number
+    chatId: number,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -832,7 +832,7 @@ export class MutationsApi {
         `,
         variables: {chatId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deletePrivateChat;
   }
@@ -847,7 +847,7 @@ export class MutationsApi {
    */
   async createPrivateChat(
     accessToken: string,
-    userId: number
+    userId: number,
   ): Promise<number> {
     const response = await queryOrMutate(
       this.protocol,
@@ -860,7 +860,7 @@ export class MutationsApi {
         `,
         variables: {userId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createPrivateChat;
   }
@@ -879,7 +879,7 @@ export class MutationsApi {
     accessToken: string,
     chatId: number,
     text: MessageText,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<Placeholder> {
     validateMessageTextScalar(text);
     const response = await queryOrMutate(
@@ -901,7 +901,7 @@ export class MutationsApi {
         `,
         variables: {chatId, text, contextMessageId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createTextMessage;
   }
@@ -929,7 +929,7 @@ export class MutationsApi {
     accessToken: string,
     chatId: number,
     message: ActionMessageInput,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<Placeholder> {
     validateActionMessageInput(message);
     const {__typename, ...input} = message;
@@ -952,7 +952,7 @@ export class MutationsApi {
         `,
         variables: {chatId, message: input, contextMessageId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createActionMessage;
   }
@@ -975,7 +975,7 @@ export class MutationsApi {
     accessToken: string,
     chatId: number,
     invitedChatId: number,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -996,7 +996,7 @@ export class MutationsApi {
         `,
         variables: {chatId, invitedChatId, contextMessageId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createGroupChatInviteMessage;
   }
@@ -1017,7 +1017,7 @@ export class MutationsApi {
     accessToken: string,
     chatId: number,
     poll: PollInput,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<Placeholder> {
     validatePollInput(poll);
     const {__typename, ...input} = poll;
@@ -1040,7 +1040,7 @@ export class MutationsApi {
         `,
         variables: {chatId, poll: input, contextMessageId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createPollMessage;
   }
@@ -1059,7 +1059,7 @@ export class MutationsApi {
     accessToken: string,
     chatId: number,
     messageId: number,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -1080,7 +1080,7 @@ export class MutationsApi {
         `,
         variables: {chatId, messageId, contextMessageId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.forwardMessage;
   }
@@ -1097,7 +1097,7 @@ export class MutationsApi {
   async triggerAction(
     accessToken: string,
     messageId: number,
-    action: MessageText
+    action: MessageText,
   ): Promise<Placeholder> {
     validateMessageTextScalar(action);
     const response = await queryOrMutate(
@@ -1111,7 +1111,7 @@ export class MutationsApi {
         `,
         variables: {messageId, action},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.triggerAction;
   }
@@ -1131,7 +1131,7 @@ export class MutationsApi {
     accessToken: string,
     messageId: number,
     option: MessageText,
-    vote: boolean
+    vote: boolean,
   ): Promise<Placeholder> {
     validateMessageTextScalar(option);
     const response = await queryOrMutate(
@@ -1149,7 +1149,7 @@ export class MutationsApi {
         `,
         variables: {messageId, option, vote},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.setPollVote;
   }
@@ -1166,7 +1166,7 @@ export class MutationsApi {
    */
   async deleteMessage(
     accessToken: string,
-    messageId: number
+    messageId: number,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
@@ -1179,7 +1179,7 @@ export class MutationsApi {
         `,
         variables: {id: messageId},
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteMessage;
   }

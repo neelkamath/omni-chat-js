@@ -20,7 +20,7 @@ import {ApiUrl, HttpProtocol} from '../config';
 export class RestApi {
   constructor(
     private readonly protocol: HttpProtocol,
-    private readonly apiUrl: ApiUrl
+    private readonly apiUrl: ApiUrl,
   ) {}
 
   /**
@@ -35,7 +35,7 @@ export class RestApi {
       'pic-type': picType,
     }).toString();
     const response = await fetch(
-      `${this.protocol}://${this.apiUrl}/profile-pic?${params}`
+      `${this.protocol}://${this.apiUrl}/profile-pic?${params}`,
     );
     if (response.status >= 500 && response.status <= 599)
       throw new InternalServerError();
@@ -67,7 +67,7 @@ export class RestApi {
         method: 'PATCH',
         headers: {Authorization: `Bearer ${accessToken}`},
         body: formData,
-      }
+      },
     );
     if (response.status >= 500 && response.status <= 599)
       throw new InternalServerError();
@@ -94,7 +94,7 @@ export class RestApi {
   async getGroupChatPic(
     accessToken: string | undefined,
     chatId: number,
-    picType: PicType
+    picType: PicType,
   ): Promise<Pic | null> {
     const params = new URLSearchParams({
       'chat-id': chatId.toString(),
@@ -104,7 +104,7 @@ export class RestApi {
     if (accessToken !== null) headers.Authorization = `Bearer ${accessToken}`;
     const response = await fetch(
       `${this.protocol}://${this.apiUrl}/group-chat-pic?${params}`,
-      {headers}
+      {headers},
     );
     if (response.status >= 500 && response.status <= 599)
       throw new InternalServerError();
@@ -130,7 +130,7 @@ export class RestApi {
   async patchGroupChatPic(
     accessToken: string,
     chatId: number,
-    pic: File
+    pic: File,
   ): Promise<void> {
     const params = new URLSearchParams({
       'chat-id': chatId.toString(),
@@ -143,7 +143,7 @@ export class RestApi {
         method: 'PATCH',
         headers: {Authorization: `Bearer ${accessToken}`},
         body: formData,
-      }
+      },
     );
     if (response.status >= 500 && response.status <= 599)
       throw new InternalServerError();
@@ -169,7 +169,7 @@ export class RestApi {
   async getPicMessage(
     accessToken: string | undefined,
     messageId: number,
-    picType: PicType
+    picType: PicType,
   ): Promise<Pic> {
     return await getMediaMessage(
       this.protocol,
@@ -177,7 +177,7 @@ export class RestApi {
       accessToken,
       'pic',
       messageId,
-      picType
+      picType,
     );
   }
 
@@ -198,7 +198,7 @@ export class RestApi {
     pic: File,
     chatId: number,
     contextMessageId?: ContextMessageId,
-    caption?: MessageText
+    caption?: MessageText,
   ): Promise<void> {
     const formData = new FormData();
     formData.append('pic', pic);
@@ -212,7 +212,7 @@ export class RestApi {
         method: 'POST',
         headers: {Authorization: `Bearer ${accessToken}`},
         body: formData,
-      }
+      },
     );
     if (response.status >= 500 && response.status <= 599)
       throw new InternalServerError();
@@ -249,14 +249,14 @@ export class RestApi {
    */
   async getAudioMessage(
     accessToken: string | undefined,
-    messageId: number
+    messageId: number,
   ): Promise<Audio> {
     return await getMediaMessage(
       this.protocol,
       this.apiUrl,
       accessToken,
       'audio',
-      messageId
+      messageId,
     );
   }
 
@@ -274,7 +274,7 @@ export class RestApi {
     accessToken: string,
     audio: File,
     chatId: number,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<void> {
     await postMediaMessage(
       this.protocol,
@@ -283,7 +283,7 @@ export class RestApi {
       'audio',
       audio,
       chatId,
-      contextMessageId
+      contextMessageId,
     );
   }
 
@@ -296,14 +296,14 @@ export class RestApi {
    */
   async getVideoMessage(
     accessToken: string | undefined,
-    messageId: number
+    messageId: number,
   ): Promise<Video> {
     return await getMediaMessage(
       this.protocol,
       this.apiUrl,
       accessToken,
       'video',
-      messageId
+      messageId,
     );
   }
 
@@ -321,7 +321,7 @@ export class RestApi {
     accessToken: string,
     video: File,
     chatId: number,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<void> {
     await postMediaMessage(
       this.protocol,
@@ -330,7 +330,7 @@ export class RestApi {
       'video',
       video,
       chatId,
-      contextMessageId
+      contextMessageId,
     );
   }
 
@@ -343,14 +343,14 @@ export class RestApi {
    */
   async getDocMessage(
     accessToken: string | undefined,
-    messageId: number
+    messageId: number,
   ): Promise<Doc> {
     return await getMediaMessage(
       this.protocol,
       this.apiUrl,
       accessToken,
       'doc',
-      messageId
+      messageId,
     );
   }
 
@@ -368,7 +368,7 @@ export class RestApi {
     accessToken: string,
     doc: File,
     chatId: number,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<void> {
     await postMediaMessage(
       this.protocol,
@@ -377,7 +377,7 @@ export class RestApi {
       'doc',
       doc,
       chatId,
-      contextMessageId
+      contextMessageId,
     );
   }
 
@@ -389,7 +389,7 @@ export class RestApi {
    */
   async getHealthCheck(): Promise<boolean> {
     const response = await fetch(
-      `${this.protocol}://${this.apiUrl}/health-check`
+      `${this.protocol}://${this.apiUrl}/health-check`,
     );
     return response.status === 204;
   }

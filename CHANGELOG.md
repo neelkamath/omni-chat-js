@@ -9,13 +9,48 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Wrap Omni Chat API 0.16.0.
+- `QueriesApi.readTypingStatuses()`
+- `UpdatedProfilePic`
+- `UpdatedGroupChatPic`
+
+### Changed
+
+- Send back an `ExitedUser` over `SubscriptionsApi.subscribeToGroupChats()` if the user themselves left the chat.
+- `UpdatedAccount`
+- `UpdatedGroupChat`
+- `UpdatedOnlineStatus`
+- `UpdatedMessage`
+- `UpdatedTextMessage`
+- `UpdatedActionMessage`
+- `UpdatedPicMessage`
+- `UpdatedPollMessage`
+- `UpdatedAudioMessage`
+- `UpdatedGroupChatInviteMessage`
+- `UpdatedDocMessage`
+- `UpdatedVideoMessage`
+- `TextMessage`
+- `ActionMessage`
+- `NewTextMessage`
+- `NewActionMessage`
+- `StarredTextMessage`
+- `StarredActionMessage`
+- Return messages from `QueriesApi.searchChatMessages()` in chronological order.
+- Return messages from `QueriesApi.searchMessages()` in chronological order.
+
+### Removed
+
+- `QueriesApi.isBlocked()`
+- `QueriesApi.isContact()`
 
 ### Fixed
 
 - Fix `SubscriptionsApi.subscribeToGroupChats()`.
 - Fix `QueriesApi.readStars`.
 - Re-export `OnSocketClose`, `OnSocketMessage`, `OnSocketError`, `UuidScalarError`, `PasswordScalarError`, `BioScalarError`, `MessageTextScalarError`, `GroupChatDescriptionScalarError`, `GroupChatTitleScalarError`, `UsernameScalarError`, `NameScalarError`, and `DateTimeScalarError` correctly.
+- Fix an issue where some notifications weren't sent back to clients over WebSockets.
+- Fix `NewActionMessage`, etc. not being supported in `SubscriptionsApi`.
+- Fix `QueriesApi.searchChatMessages()`.
+- Fix `QueriesApi.searchMessages()`.
 
 ## [0.4.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.4.0) - 2020-02-27
 
@@ -40,4 +75,4 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Wrap Omni Chat API 0.15.0.
+- First version.

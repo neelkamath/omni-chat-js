@@ -73,7 +73,7 @@ export async function queryOrMutate(
   protocol: HttpProtocol,
   apiUrl: ApiUrl,
   request: GraphQlRequest,
-  accessToken?: string
+  accessToken?: string,
 ): Promise<GraphQlResponse> {
   const headers: Record<string, string> = {'Content-Type': 'application/json'};
   if (accessToken !== undefined)
@@ -151,7 +151,7 @@ export function subscribe<T>(
   path: string,
   query: string,
   onMessage: OnSocketMessage<T>,
-  onError: OnSocketError
+  onError: OnSocketError,
 ): OnSocketClose {
   const socket = new WebSocket(`${protocol}://${apiUrl}${path}`);
   socket.addEventListener('open', () => {
