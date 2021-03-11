@@ -9,9 +9,9 @@ import {
   MessageText,
   Placeholder,
   PollInput,
-  Uuid
-} from "./models";
-import { queryOrMutate } from "./operator";
+  Uuid,
+} from './models';
+import {queryOrMutate} from './operator';
 import {
   validateAccountInput,
   validateAccountUpdate,
@@ -21,10 +21,10 @@ import {
   validateGroupChatTitleScalar,
   validateMessageTextScalar,
   validatePollInput,
-  validateUuidScalar
-} from "../validation";
-import { ContextMessageId } from "../rest-api/models";
-import { ApiUrl, HttpProtocol } from "../config";
+  validateUuidScalar,
+} from '../validation';
+import {ContextMessageId} from '../rest-api/models';
+import {ApiUrl, HttpProtocol} from '../config';
 
 /** GraphQL mutations. */
 export class MutationsApi {
