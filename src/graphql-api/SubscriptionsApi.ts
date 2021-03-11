@@ -24,7 +24,7 @@ import {ApiUrl, WebSocketProtocol} from '../config';
 export class SubscriptionsApi {
   constructor(
     private readonly protocol: WebSocketProtocol,
-    private readonly apiUrl: ApiUrl,
+    private readonly apiUrl: ApiUrl
   ) {}
 
   /**
@@ -35,7 +35,7 @@ export class SubscriptionsApi {
   subscribeToAccounts(
     accessToken: string,
     onMessage: OnSocketMessage<AccountsSubscription>,
-    onError: OnSocketError,
+    onError: OnSocketError
   ): OnSocketClose {
     return subscribe(
       this.protocol,
@@ -51,7 +51,7 @@ export class SubscriptionsApi {
         }
       `,
       onMessage,
-      onError,
+      onError
     );
   }
 
@@ -63,7 +63,7 @@ export class SubscriptionsApi {
   subscribeToOnlineStatuses(
     accessToken: string,
     onMessage: OnSocketMessage<OnlineStatusesSubscription>,
-    onError: OnSocketError,
+    onError: OnSocketError
   ): OnSocketClose {
     return subscribe(
       this.protocol,
@@ -79,7 +79,7 @@ export class SubscriptionsApi {
         }
       `,
       onMessage,
-      onError,
+      onError
     );
   }
 
@@ -91,7 +91,7 @@ export class SubscriptionsApi {
   subscribeToTypingStatuses(
     accessToken: string,
     onMessage: OnSocketMessage<TypingStatusesSubscription>,
-    onError: OnSocketError,
+    onError: OnSocketError
   ): OnSocketClose {
     return subscribe(
       this.protocol,
@@ -107,7 +107,7 @@ export class SubscriptionsApi {
         }
       `,
       onMessage,
-      onError,
+      onError
     );
   }
 
@@ -121,7 +121,7 @@ export class SubscriptionsApi {
   subscribeToMessages(
     accessToken: string,
     onMessage: OnSocketMessage<MessagesSubscription>,
-    onError: OnSocketError,
+    onError: OnSocketError
   ): OnSocketClose {
     return subscribe(
       this.protocol,
@@ -137,7 +137,7 @@ export class SubscriptionsApi {
         }
       `,
       onMessage,
-      onError,
+      onError
     );
   }
 
@@ -149,7 +149,7 @@ export class SubscriptionsApi {
   subscribeToGroupChats(
     accessToken: string,
     onMessage: OnSocketMessage<GroupChatsSubscription>,
-    onError: OnSocketError,
+    onError: OnSocketError
   ): OnSocketClose {
     return subscribe(
       this.protocol,
@@ -165,7 +165,7 @@ export class SubscriptionsApi {
         }
       `,
       onMessage,
-      onError,
+      onError
     );
   }
 }

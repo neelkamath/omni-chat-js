@@ -114,7 +114,7 @@ export function validatePasswordScalar(value: string | null): void {
 export function validateUuidScalar(value: string): void {
   if (
     !value.match(
-      /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/, // eslint-disable-line max-len
+      /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/ // eslint-disable-line max-len
     )
   )
     throw new UuidScalarError();

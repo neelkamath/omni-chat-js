@@ -28,7 +28,7 @@ export async function getMediaMessage(
   accessToken: string | undefined,
   type: 'pic' | 'audio' | 'video' | 'doc',
   messageId: number,
-  picType?: PicType,
+  picType?: PicType
 ): Promise<Blob> {
   const paramsInit: Record<string, string> = {
     'message-id': messageId.toString(),
@@ -40,7 +40,7 @@ export async function getMediaMessage(
     headers.Authorization = `Bearer ${accessToken}`;
   const response = await fetch(
     `${protocol}://${apiUrl}/${type}-message?${params}`,
-    {headers},
+    {headers}
   );
   if (response.status >= 500 && response.status <= 599)
     throw new InternalServerError();
@@ -75,7 +75,7 @@ export async function postMediaMessage(
   type: MediaType,
   file: File,
   chatId: number,
-  contextMessageId?: ContextMessageId,
+  contextMessageId?: ContextMessageId
 ): Promise<void> {
   const params: Record<string, string> = {'chat-id': chatId.toString()};
   if (contextMessageId !== undefined)
@@ -88,7 +88,7 @@ export async function postMediaMessage(
       method: 'POST',
       headers: {Authorization: `Bearer ${accessToken}`},
       body: formData,
-    },
+    }
   );
   if (response.status >= 500 && response.status <= 599)
     throw new InternalServerError();
@@ -113,7 +113,7 @@ interface InvalidMessage {
 
 function readInvalidMessageError(
   message: InvalidMessage,
-  type: MediaType,
+  type: MediaType
 ): Error {
   switch (message.reason) {
     case 'USER_NOT_IN_CHAT':

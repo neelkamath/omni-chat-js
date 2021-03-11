@@ -35,7 +35,7 @@ import {ApiUrl, HttpProtocol} from '../config';
 export class QueriesApi {
   constructor(
     private readonly protocol: HttpProtocol,
-    private readonly apiUrl: ApiUrl,
+    private readonly apiUrl: ApiUrl
   ) {}
 
   /**
@@ -109,7 +109,7 @@ export class QueriesApi {
           }
         `,
       },
-      accessToken,
+      accessToken
     );
     return response.data!.readAccount;
   }
@@ -122,7 +122,7 @@ export class QueriesApi {
    */
   async searchUsers(
     query: string,
-    pagination?: ForwardPagination,
+    pagination?: ForwardPagination
   ): Promise<AccountsConnection> {
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
@@ -151,7 +151,7 @@ export class QueriesApi {
   async searchContacts(
     accessToken: string,
     query: string,
-    pagination?: ForwardPagination,
+    pagination?: ForwardPagination
   ): Promise<AccountsConnection> {
     const response = await queryOrMutate(
       this.protocol,
@@ -170,7 +170,7 @@ export class QueriesApi {
           after: pagination?.after,
         },
       },
-      accessToken,
+      accessToken
     );
     return response.data!.searchContacts;
   }
@@ -187,7 +187,7 @@ export class QueriesApi {
     id: number,
     privateChatMessagesPagination?: BackwardPagination,
     groupChatUsersPagination?: ForwardPagination,
-    groupChatMessagesPagination?: BackwardPagination,
+    groupChatMessagesPagination?: BackwardPagination
   ): Promise<Chat> {
     const response = await queryOrMutate(
       this.protocol,
@@ -218,7 +218,7 @@ export class QueriesApi {
           groupChat_messages_before: groupChatMessagesPagination?.before,
         },
       },
-      accessToken,
+      accessToken
     );
     return response.data!.readChat;
   }
@@ -243,7 +243,7 @@ export class QueriesApi {
           }
         `,
       },
-      accessToken,
+      accessToken
     );
     return response.data!.readOnlineStatuses;
   }
@@ -258,7 +258,7 @@ export class QueriesApi {
     accessToken: string,
     privateChatMessagesPagination?: BackwardPagination,
     groupChatUsersPagination?: ForwardPagination,
-    groupChatMessagesPagination?: BackwardPagination,
+    groupChatMessagesPagination?: BackwardPagination
   ): Promise<Chat[]> {
     const response = await queryOrMutate(
       this.protocol,
@@ -287,7 +287,7 @@ export class QueriesApi {
           groupChat_messages_before: groupChatMessagesPagination?.before,
         },
       },
-      accessToken,
+      accessToken
     );
     return response.data!.readChats;
   }
@@ -311,7 +311,7 @@ export class QueriesApi {
           }
         `,
       },
-      accessToken,
+      accessToken
     );
     return response.data!.readStars;
   }
@@ -324,7 +324,7 @@ export class QueriesApi {
    */
   async readBlockedUsers(
     accessToken: string,
-    pagination?: ForwardPagination,
+    pagination?: ForwardPagination
   ): Promise<AccountsConnection> {
     const response = await queryOrMutate(
       this.protocol,
@@ -339,7 +339,7 @@ export class QueriesApi {
         `,
         variables: {first: pagination?.first, after: pagination?.after},
       },
-      accessToken,
+      accessToken
     );
     return response.data!.readBlockedUsers;
   }
@@ -359,7 +359,7 @@ export class QueriesApi {
     accessToken: string | undefined,
     chatId: number,
     query: string,
-    pagination?: BackwardPagination,
+    pagination?: BackwardPagination
   ): Promise<MessageEdge[]> {
     const response = await queryOrMutate(
       this.protocol,
@@ -389,7 +389,7 @@ export class QueriesApi {
           before: pagination?.before,
         },
       },
-      accessToken,
+      accessToken
     );
     return response.data!.searchChatMessages;
   }
@@ -410,7 +410,7 @@ export class QueriesApi {
     query: string,
     privateChatMessagesPagination?: BackwardPagination,
     groupChatUsersPagination?: ForwardPagination,
-    groupChatMessagesPagination?: BackwardPagination,
+    groupChatMessagesPagination?: BackwardPagination
   ): Promise<ChatMessages[]> {
     const response = await queryOrMutate(
       this.protocol,
@@ -441,7 +441,7 @@ export class QueriesApi {
           groupChat_messages_before: groupChatMessagesPagination?.before,
         },
       },
-      accessToken,
+      accessToken
     );
     return response.data!.searchMessages;
   }
@@ -483,7 +483,7 @@ export class QueriesApi {
     query: string,
     privateChatMessagesPagination?: BackwardPagination,
     groupChatUsersPagination?: ForwardPagination,
-    groupChatMessagesPagination?: BackwardPagination,
+    groupChatMessagesPagination?: BackwardPagination
   ): Promise<Chat[]> {
     const response = await queryOrMutate(
       this.protocol,
@@ -514,7 +514,7 @@ export class QueriesApi {
           groupChat_messages_before: groupChatMessagesPagination?.before,
         },
       },
-      accessToken,
+      accessToken
     );
     return response.data!.searchChats;
   }
@@ -547,7 +547,7 @@ export class QueriesApi {
    */
   async readContacts(
     accessToken: string,
-    pagination?: ForwardPagination,
+    pagination?: ForwardPagination
   ): Promise<AccountsConnection> {
     const response = await queryOrMutate(
       this.protocol,
@@ -562,7 +562,7 @@ export class QueriesApi {
         `,
         variables: {first: pagination?.first, after: pagination?.after},
       },
-      accessToken,
+      accessToken
     );
     return response.data!.readContacts;
   }
@@ -584,7 +584,7 @@ export class QueriesApi {
           }
         `,
       },
-      accessToken,
+      accessToken
     );
     return response.data!.readTypingStatuses;
   }
