@@ -6,8 +6,8 @@
     "test": "jest",
     "doc": "typedoc src/index.ts --includeVersion --readme none",
     "prepare": "tsc",
-    "lint": "eslint .",
-    "fix": "eslint --fix ."
+    "lint": "eslint . && prettier -c .",
+    "fix": "eslint --fix . && prettier -w ."
   },
   "types": "dist/index.d.ts",
   "repository": "neelkamath/omni-chat-js",
@@ -31,8 +31,6 @@
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "eslint": "^7.21.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
     "jest": "^26.0.20",
     "prettier": "2.2.1",
     "ts-jest": "^26.0.20",
