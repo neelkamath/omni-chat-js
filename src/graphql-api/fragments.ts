@@ -5,6 +5,14 @@ export const CREATED_SUBSCRIPTION_FRAGMENT = `
   }
 `;
 
+export const ACTIONABLE_MESSAGE_FRAGMENT = `
+  ... on ActionableMessage {
+    __typename
+    text
+    actions
+  }
+`;
+
 export const NEW_CONTACT_FRAGMENT = `
   ... on NewContact {
     __typename
@@ -170,7 +178,9 @@ export const ACTION_MESSAGE_FRAGMENT = `
     }
     isForwarded
     hasStar
-    actionableMessage
+    actionableMessage {
+      ${ACTIONABLE_MESSAGE_FRAGMENT}
+    }
   }
 `;
 
@@ -426,14 +436,6 @@ export const NEW_TEXT_MESSAGE_FRAGMENT = `
     }
     isForwarded
     textMessage
-  }
-`;
-
-export const ACTIONABLE_MESSAGE_FRAGMENT = `
-  ... on ActionableMessage {
-    __typename
-    text
-    actions
   }
 `;
 

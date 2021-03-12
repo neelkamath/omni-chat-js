@@ -12,7 +12,7 @@ This table shows which version of this library supports which version of the API
 |Omni Chat JS|Omni Chat Backend|
 |:---:|:---:|
 |0.5.0 onwards|0.16.0|
-|0.1.0-0.4.0|0.15.0|
+|0.1.0 - 0.4.0|0.15.0|
 
 ```
 npm i @neelkamath/omni-chat

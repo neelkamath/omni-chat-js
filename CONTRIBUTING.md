@@ -26,9 +26,8 @@ npm t
 
 ### Linting
 
-```
-npm run fix
-```
+- Check: `npm run lint`
+- Fix: `npm run fix`
 
 ### Documentation
 
