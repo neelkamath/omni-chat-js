@@ -13,7 +13,7 @@ import {
   TypingStatus,
   Uuid,
 } from './models';
-import {queryOrMutate} from './operator';
+import { queryOrMutate } from './operator';
 import {
   ACCOUNT_FRAGMENT,
   ACCOUNTS_CONNECTION_FRAGMENT,
@@ -27,21 +27,17 @@ import {
   TOKEN_SET_FRAGMENT,
   TYPING_STATUS_FRAGMENT,
 } from './fragments';
-import {validateLogin, validateUuidScalar} from '../validation';
-import {BackwardPagination, ForwardPagination} from './pagination';
-import {ApiUrl, HttpProtocol} from '../config';
+import { validateLogin, validateUuidScalar } from '../validation';
+import { BackwardPagination, ForwardPagination } from './pagination';
+import { ApiUrl, HttpProtocol } from '../config';
 
 /** GraphQL queries. */
 export class QueriesApi {
-  constructor(
-    private readonly protocol: HttpProtocol,
-    private readonly apiUrl: ApiUrl
-  ) {}
+  constructor(private readonly protocol: HttpProtocol, private readonly apiUrl: ApiUrl) {}
 
   /**
-   * Certain operations require authentication via an access token. You can
-   * acquire one to authenticate the user by passing their {@link Login} to this
-   * operation.
+   * Certain operations require authentication via an access token. You can acquire one to authenticate the user by
+   * passing their {@link Login} to this operation.
    * @throws {@link ConnectionError}
    * @throws {@link NonexistentUserError}
    * @throws {@link UnverifiedEmailAddressError}
@@ -53,7 +49,7 @@ export class QueriesApi {
    */
   async requestTokenSet(login: Login): Promise<TokenSet> {
     validateLogin(login);
-    const {__typename, ...loginData} = login;
+    const { __typename, ...loginData } = login;
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
         query RequestTokenSet($login: Login!) {
@@ -62,16 +58,14 @@ export class QueriesApi {
           }
         }
       `,
-      variables: {login: loginData},
+      variables: { login: loginData },
     });
     return response.data!.requestTokenSet;
   }
 
   /**
-   * The access token is short-lived. Once it expires, the user would have to
-   * log in again. This can be avoided by passing the
-   * {@link TokenSet.refreshToken} from {@link requestTokenSet} here to request
-   * a new {@link TokenSet}.
+   * The access token is short-lived. Once it expires, the user would have to log in again. This can be avoided by
+   * passing the {@link TokenSet.refreshToken} from {@link requestTokenSet} here to request a new {@link TokenSet}.
    * @throws {@link UnauthorizedError}
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
@@ -85,7 +79,7 @@ export class QueriesApi {
           }
         }
       `,
-      variables: {refreshToken},
+      variables: { refreshToken },
     });
     return response.data!.refreshTokenSet;
   }
@@ -109,21 +103,17 @@ export class QueriesApi {
           }
         `,
       },
-      accessToken
+      accessToken,
     );
     return response.data!.readAccount;
   }
 
   /**
-   * @param query Case-insensitively matched against users' usernames, email
-   * addresses, first names, and last names.
+   * @param query Case-insensitively matched against users' usernames, email addresses, first names, and last names.
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
    */
-  async searchUsers(
-    query: string,
-    pagination?: ForwardPagination
-  ): Promise<AccountsConnection> {
+  async searchUsers(query: string, pagination?: ForwardPagination): Promise<AccountsConnection> {
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
         query SearchUsers($query: String!, $first: Int, $after: Cursor) {
@@ -142,8 +132,7 @@ export class QueriesApi {
   }
 
   /**
-   * Case-insensitively searches contacts using their usernames, first names,
-   * last names, and email addresses.
+   * Case-insensitively searches contacts using their usernames, first names, last names, and email addresses.
    * @throws {@link UnauthorizedError}
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
@@ -151,7 +140,7 @@ export class QueriesApi {
   async searchContacts(
     accessToken: string,
     query: string,
-    pagination?: ForwardPagination
+    pagination?: ForwardPagination,
   ): Promise<AccountsConnection> {
     const response = await queryOrMutate(
       this.protocol,
@@ -170,7 +159,7 @@ export class QueriesApi {
           after: pagination?.after,
         },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.searchContacts;
   }
@@ -187,7 +176,7 @@ export class QueriesApi {
     id: number,
     privateChatMessagesPagination?: BackwardPagination,
     groupChatUsersPagination?: ForwardPagination,
-    groupChatMessagesPagination?: BackwardPagination
+    groupChatMessagesPagination?: BackwardPagination,
   ): Promise<Chat> {
     const response = await queryOrMutate(
       this.protocol,
@@ -218,14 +207,13 @@ export class QueriesApi {
           groupChat_messages_before: groupChatMessagesPagination?.before,
         },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.readChat;
   }
 
   /**
-   * @return The online statuses of users the user has in their contacts, or has
-   * a chat with.
+   * @return The online statuses of users the user has in their contacts, or has a chat with.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
@@ -243,7 +231,7 @@ export class QueriesApi {
           }
         `,
       },
-      accessToken
+      accessToken,
     );
     return response.data!.readOnlineStatuses;
   }
@@ -258,7 +246,7 @@ export class QueriesApi {
     accessToken: string,
     privateChatMessagesPagination?: BackwardPagination,
     groupChatUsersPagination?: ForwardPagination,
-    groupChatMessagesPagination?: BackwardPagination
+    groupChatMessagesPagination?: BackwardPagination,
   ): Promise<Chat[]> {
     const response = await queryOrMutate(
       this.protocol,
@@ -287,7 +275,7 @@ export class QueriesApi {
           groupChat_messages_before: groupChatMessagesPagination?.before,
         },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.readChats;
   }
@@ -311,7 +299,7 @@ export class QueriesApi {
           }
         `,
       },
-      accessToken
+      accessToken,
     );
     return response.data!.readStars;
   }
@@ -322,10 +310,7 @@ export class QueriesApi {
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async readBlockedUsers(
-    accessToken: string,
-    pagination?: ForwardPagination
-  ): Promise<AccountsConnection> {
+  async readBlockedUsers(accessToken: string, pagination?: ForwardPagination): Promise<AccountsConnection> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -337,20 +322,18 @@ export class QueriesApi {
             }
           }
         `,
-        variables: {first: pagination?.first, after: pagination?.after},
+        variables: { first: pagination?.first, after: pagination?.after },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.readBlockedUsers;
   }
 
   /**
    * @param accessToken Required if the chat isn't public.
-   * @param query Used to case-insensitively queries text messages, poll message
-   * title and options, action message text and actions, and pic message
-   * captions.
-   * @throws {@link InvalidChatIdError} The chat isn't public, and the user
-   * isn't in the chat.
+   * @param query Used to case-insensitively queries text messages, poll message title and options, action message text
+   * and actions, and pic message captions.
+   * @throws {@link InvalidChatIdError} The chat isn't public, and the user isn't in the chat.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
@@ -359,25 +342,15 @@ export class QueriesApi {
     accessToken: string | undefined,
     chatId: number,
     query: string,
-    pagination?: BackwardPagination
+    pagination?: BackwardPagination,
   ): Promise<MessageEdge[]> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          query SearchChatMessages(
-            $chatId: Int!
-            $query: String!
-            $last: Int
-            $before: Cursor
-          ) {
-            searchChatMessages(
-              chatId: $chatId
-              query: $query
-              last: $last
-              before: $before
-            ) {
+          query SearchChatMessages($chatId: Int!, $query: String!, $last: Int, $before: Cursor) {
+            searchChatMessages(chatId: $chatId, query: $query, last: $last, before: $before) {
               ${MESSAGE_EDGE_FRAGMENT}
             }
           }
@@ -389,17 +362,15 @@ export class QueriesApi {
           before: pagination?.before,
         },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.searchChatMessages;
   }
 
   /**
-   * Case-insensitively queries every text messages, poll message title and
-   * options, action message text and actions, and pic message captions in every
-   * chat the user is in.
-   * @returns Each {@link ChatMessages} will be for a particular
-   * {@link ChatMessages.chat}, and have the
+   * Case-insensitively queries every text messages, poll message title and options, action message text and actions,
+   * and pic message captions in every chat the user is in.
+   * @returns Each {@link ChatMessages} will be for a particular {@link ChatMessages.chat}, and have the
    * {@link ChatMessages.messages} from the search results.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
@@ -410,7 +381,7 @@ export class QueriesApi {
     query: string,
     privateChatMessagesPagination?: BackwardPagination,
     groupChatUsersPagination?: ForwardPagination,
-    groupChatMessagesPagination?: BackwardPagination
+    groupChatMessagesPagination?: BackwardPagination,
   ): Promise<ChatMessages[]> {
     const response = await queryOrMutate(
       this.protocol,
@@ -441,7 +412,7 @@ export class QueriesApi {
           groupChat_messages_before: groupChatMessagesPagination?.before,
         },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.searchMessages;
   }
@@ -463,17 +434,15 @@ export class QueriesApi {
           }
         }
       `,
-      variables: {inviteCode},
+      variables: { inviteCode },
     });
     return response.data!.readGroupChat;
   }
 
   /**
-   * Case-insensitively searches group chats and private chats the user is in.
-   * Private chats are searched by matching the query with the username, first
-   * name, and last name of users the user has chats with. Group chats are
-   * searched by matching the query with the title of group chats the user is
-   * in.
+   * Case-insensitively searches group chats and private chats the user is in. Private chats are searched by matching
+   * the query with the username, first name, and last name of users the user has chats with. Group chats are searched
+   * by matching the query with the title of group chats the user is in.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
@@ -483,7 +452,7 @@ export class QueriesApi {
     query: string,
     privateChatMessagesPagination?: BackwardPagination,
     groupChatUsersPagination?: ForwardPagination,
-    groupChatMessagesPagination?: BackwardPagination
+    groupChatMessagesPagination?: BackwardPagination,
   ): Promise<Chat[]> {
     const response = await queryOrMutate(
       this.protocol,
@@ -514,14 +483,13 @@ export class QueriesApi {
           groupChat_messages_before: groupChatMessagesPagination?.before,
         },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.searchChats;
   }
 
   /**
-   * Case-insensitively searches chats by case-insensitively querying their
-   * titles.
+   * Case-insensitively searches chats by case-insensitively querying their titles.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    */
@@ -534,7 +502,7 @@ export class QueriesApi {
           }
         }
       `,
-      variables: {query},
+      variables: { query },
     });
     return response.data!.searchPublicChats;
   }
@@ -545,10 +513,7 @@ export class QueriesApi {
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async readContacts(
-    accessToken: string,
-    pagination?: ForwardPagination
-  ): Promise<AccountsConnection> {
+  async readContacts(accessToken: string, pagination?: ForwardPagination): Promise<AccountsConnection> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -560,16 +525,15 @@ export class QueriesApi {
             }
           }
         `,
-        variables: {first: pagination?.first, after: pagination?.after},
+        variables: { first: pagination?.first, after: pagination?.after },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.readContacts;
   }
 
   /**
-   * @returns The statuses of users who are typing in a chat the user is in. The
-   * user's own status won't be returned.
+   * @returns The statuses of users who are typing in a chat the user is in. The user's own status won't be returned.
    */
   async readTypingStatuses(accessToken: string): Promise<TypingStatus[]> {
     const response = await queryOrMutate(
@@ -584,7 +548,7 @@ export class QueriesApi {
           }
         `,
       },
-      accessToken
+      accessToken,
     );
     return response.data!.readTypingStatuses;
   }

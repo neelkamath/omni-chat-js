@@ -1,4 +1,4 @@
-import {Cursor} from './models';
+import { Cursor } from './models';
 
 export interface ForwardPagination {
   readonly first?: number;

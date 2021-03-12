@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - Fix GraphQL queries which contain `ActionMessage`.
+- Fix `MutationsApi.setPollVote()`.
 
 ## [0.5.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.5.0) - 2020-03-11
 

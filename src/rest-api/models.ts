@@ -4,9 +4,8 @@ export type PicType = 'ORIGINAL' | 'THUMBNAIL';
 export type Pic = Blob;
 
 /**
- * The user might want to give their message a context, such as when replying to
- * a message sent several messages ago. In this case, this is the ID of the
- * message being replied to.
+ * The user might want to give their message a context, such as when replying to a message sent several messages ago. In
+ * this case, this is the ID of the message being replied to.
  */
 export type ContextMessageId = number;
 
