@@ -1,9 +1,5 @@
-import {ContextMessageId, PicType} from './models';
-import {
-  ConnectionError,
-  InternalServerError,
-  UnauthorizedError,
-} from '../errors';
+import { ContextMessageId, PicType } from './models';
+import { ConnectionError, InternalServerError, UnauthorizedError } from '../errors';
 import {
   InvalidAudioError,
   InvalidContextMessageError,
@@ -11,7 +7,7 @@ import {
   InvalidVideoError,
   UserNotInChatError,
 } from './errors';
-import {ApiUrl, HttpProtocol} from '../config';
+import { ApiUrl, HttpProtocol } from '../config';
 
 /**
  * @param accessToken You needn't pass an access token if the chat is public.
@@ -28,7 +24,7 @@ export async function getMediaMessage(
   accessToken: string | undefined,
   type: 'pic' | 'audio' | 'video' | 'doc',
   messageId: number,
-  picType?: PicType
+  picType?: PicType,
 ): Promise<Blob> {
   const paramsInit: Record<string, string> = {
     'message-id': messageId.toString(),
@@ -36,14 +32,9 @@ export async function getMediaMessage(
   if (picType !== undefined) paramsInit['pic-type'] = picType;
   const params = new URLSearchParams(paramsInit).toString();
   const headers: Record<string, string> = {};
-  if (accessToken !== undefined)
-    headers.Authorization = `Bearer ${accessToken}`;
-  const response = await fetch(
-    `${protocol}://${apiUrl}/${type}-message?${params}`,
-    {headers}
-  );
-  if (response.status >= 500 && response.status <= 599)
-    throw new InternalServerError();
+  if (accessToken !== undefined) headers.Authorization = `Bearer ${accessToken}`;
+  const response = await fetch(`${protocol}://${apiUrl}/${type}-message?${params}`, { headers });
+  if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
   switch (response.status) {
     case 200:
       return await response.blob();
@@ -57,8 +48,7 @@ export async function getMediaMessage(
 export type MediaType = 'audio' | 'video' | 'doc';
 
 /**
- * Creates a media message. If the chat is a broadcast group, the user must be
- * an admin.
+ * Creates a media message. If the chat is a broadcast group, the user must be an admin.
  * @throws {@link InternalServerError}
  * @throws {@link UserNotInChatError}
  * @throws {@link InvalidAudioError}
@@ -75,23 +65,18 @@ export async function postMediaMessage(
   type: MediaType,
   file: File,
   chatId: number,
-  contextMessageId?: ContextMessageId
+  contextMessageId?: ContextMessageId,
 ): Promise<void> {
-  const params: Record<string, string> = {'chat-id': chatId.toString()};
-  if (contextMessageId !== undefined)
-    params['context-message-id'] = contextMessageId.toString();
+  const params: Record<string, string> = { 'chat-id': chatId.toString() };
+  if (contextMessageId !== undefined) params['context-message-id'] = contextMessageId.toString();
   const formData = new FormData();
   formData.append(type, file);
-  const response = await fetch(
-    `${protocol}://${apiUrl}/${type}-message?${params.toString()}`,
-    {
-      method: 'POST',
-      headers: {Authorization: `Bearer ${accessToken}`},
-      body: formData,
-    }
-  );
-  if (response.status >= 500 && response.status <= 599)
-    throw new InternalServerError();
+  const response = await fetch(`${protocol}://${apiUrl}/${type}-message?${params.toString()}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${accessToken}` },
+    body: formData,
+  });
+  if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
   switch (response.status) {
     case 204:
       return;
@@ -105,16 +90,10 @@ export async function postMediaMessage(
 }
 
 interface InvalidMessage {
-  readonly reason:
-    | 'USER_NOT_IN_CHAT'
-    | 'INVALID_FILE'
-    | 'INVALID_CONTEXT_MESSAGE';
+  readonly reason: 'USER_NOT_IN_CHAT' | 'INVALID_FILE' | 'INVALID_CONTEXT_MESSAGE';
 }
 
-function readInvalidMessageError(
-  message: InvalidMessage,
-  type: MediaType
-): Error {
+function readInvalidMessageError(message: InvalidMessage, type: MediaType): Error {
   switch (message.reason) {
     case 'USER_NOT_IN_CHAT':
       return new UserNotInChatError();

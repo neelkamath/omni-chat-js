@@ -9,10 +9,10 @@ the [Omni Chat API](https://github.com/neelkamath/omni-chat-backend). It comes b
 
 This table shows which version of this library supports which version of the API:
 
-|Omni Chat JS|Omni Chat Backend|
-|:---:|:---:|
-|0.5.0 onwards|0.16.0|
-|0.1.0-0.4.0|0.15.0|
+| Omni Chat JS  | Omni Chat Backend |
+| :-----------: | :---------------: |
+| 0.5.0 onwards |      0.16.0       |
+| 0.1.0 - 0.4.0 |      0.15.0       |
 
 ```
 npm i @neelkamath/omni-chat
@@ -24,17 +24,17 @@ npm i @neelkamath/omni-chat
 - [Changelog](CHANGELOG.md)
 - Never import APIs from nested files.
 
-    For example, this is correct:
+  For example, this is correct:
 
-    ```typescript
-    import {restApi} from '@neelkamath/omni-chat';
-    ```
+  ```typescript
+  import { restApi } from '@neelkamath/omni-chat';
+  ```
 
-    For example, this is incorrect:
+  For example, this is incorrect:
 
-    ```typescript
-    import {getMediaMessage} from '@neelkamath/omni-chat/dist/restApi/operator';
-    ```
+  ```typescript
+  import { getMediaMessage } from '@neelkamath/omni-chat/dist/restApi/operator';
+  ```
 
 ## [Contributing](CONTRIBUTING.md)
 

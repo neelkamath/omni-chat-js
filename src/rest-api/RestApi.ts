@@ -1,8 +1,4 @@
-import {
-  ConnectionError,
-  InternalServerError,
-  UnauthorizedError,
-} from '../errors';
+import { ConnectionError, InternalServerError, UnauthorizedError } from '../errors';
 import {
   InvalidContextMessageError,
   InvalidPicError,
@@ -10,18 +6,15 @@ import {
   NonexistentUserIdError,
   UserNotInChatError,
 } from './errors';
-import {Audio, ContextMessageId, Doc, Pic, PicType, Video} from './models';
-import {MessageText} from '../graphql-api/models';
-import {MessageTextScalarError} from '../validation';
-import {getMediaMessage, postMediaMessage} from './operator';
-import {ApiUrl, HttpProtocol} from '../config';
+import { Audio, ContextMessageId, Doc, Pic, PicType, Video } from './models';
+import { MessageText } from '../graphql-api/models';
+import { MessageTextScalarError } from '../validation';
+import { getMediaMessage, postMediaMessage } from './operator';
+import { ApiUrl, HttpProtocol } from '../config';
 
 /** REST API. */
 export class RestApi {
-  constructor(
-    private readonly protocol: HttpProtocol,
-    private readonly apiUrl: ApiUrl
-  ) {}
+  constructor(private readonly protocol: HttpProtocol, private readonly apiUrl: ApiUrl) {}
 
   /**
    * @return `Blob` if the user has a profile pic, and `null` if they don't.
@@ -34,11 +27,8 @@ export class RestApi {
       'user-id': userId.toString(),
       'pic-type': picType,
     }).toString();
-    const response = await fetch(
-      `${this.protocol}://${this.apiUrl}/profile-pic?${params}`
-    );
-    if (response.status >= 500 && response.status <= 599)
-      throw new InternalServerError();
+    const response = await fetch(`${this.protocol}://${this.apiUrl}/profile-pic?${params}`);
+    if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
     switch (response.status) {
       case 200:
         return await response.blob();
@@ -61,16 +51,12 @@ export class RestApi {
   async patchProfilePic(accessToken: string, pic: File): Promise<void> {
     const formData = new FormData();
     formData.append('pic', pic);
-    const response = await fetch(
-      `${this.protocol}://${this.apiUrl}/profile-pic`,
-      {
-        method: 'PATCH',
-        headers: {Authorization: `Bearer ${accessToken}`},
-        body: formData,
-      }
-    );
-    if (response.status >= 500 && response.status <= 599)
-      throw new InternalServerError();
+    const response = await fetch(`${this.protocol}://${this.apiUrl}/profile-pic`, {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${accessToken}` },
+      body: formData,
+    });
+    if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
     switch (response.status) {
       case 204:
         return;
@@ -84,30 +70,22 @@ export class RestApi {
   }
 
   /**
-   * Retrieves the group chat's pic. An access token needn't be sent if the chat
-   * is public. Otherwise, the user must be a participant to view the pic.
+   * Retrieves the group chat's pic. An access token needn't be sent if the chat is public. Otherwise, the user must be
+   * a participant to view the pic.
    * @return `Pic` if the chat has a pic, and `null` otherwise.
    * @throws {@link NonexistentChatError}
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
    */
-  async getGroupChatPic(
-    accessToken: string | undefined,
-    chatId: number,
-    picType: PicType
-  ): Promise<Pic | null> {
+  async getGroupChatPic(accessToken: string | undefined, chatId: number, picType: PicType): Promise<Pic | null> {
     const params = new URLSearchParams({
       'chat-id': chatId.toString(),
       'pic-type': picType,
     }).toString();
     const headers: Record<string, string> = {};
     if (accessToken !== null) headers.Authorization = `Bearer ${accessToken}`;
-    const response = await fetch(
-      `${this.protocol}://${this.apiUrl}/group-chat-pic?${params}`,
-      {headers}
-    );
-    if (response.status >= 500 && response.status <= 599)
-      throw new InternalServerError();
+    const response = await fetch(`${this.protocol}://${this.apiUrl}/group-chat-pic?${params}`, { headers });
+    if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
     switch (response.status) {
       case 200:
         return await response.blob();
@@ -127,26 +105,18 @@ export class RestApi {
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
    */
-  async patchGroupChatPic(
-    accessToken: string,
-    chatId: number,
-    pic: File
-  ): Promise<void> {
+  async patchGroupChatPic(accessToken: string, chatId: number, pic: File): Promise<void> {
     const params = new URLSearchParams({
       'chat-id': chatId.toString(),
     }).toString();
     const formData = new FormData();
     formData.append('pic', pic);
-    const response = await fetch(
-      `${this.protocol}://${this.apiUrl}/group-chat-pic?${params}`,
-      {
-        method: 'PATCH',
-        headers: {Authorization: `Bearer ${accessToken}`},
-        body: formData,
-      }
-    );
-    if (response.status >= 500 && response.status <= 599)
-      throw new InternalServerError();
+    const response = await fetch(`${this.protocol}://${this.apiUrl}/group-chat-pic?${params}`, {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${accessToken}` },
+      body: formData,
+    });
+    if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
     switch (response.status) {
       case 204:
         return;
@@ -160,31 +130,19 @@ export class RestApi {
   }
 
   /**
-   * Reads the pic from a message. To get the caption, use the GraphQL API. You
-   * needn't pass an access token if the chat is public.
+   * Reads the pic from a message. To get the caption, use the GraphQL API. You needn't pass an access token if the chat
+   * is public.
    * @throws {@link UnauthorizedError}
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
    */
-  async getPicMessage(
-    accessToken: string | undefined,
-    messageId: number,
-    picType: PicType
-  ): Promise<Pic> {
-    return await getMediaMessage(
-      this.protocol,
-      this.apiUrl,
-      accessToken,
-      'pic',
-      messageId,
-      picType
-    );
+  async getPicMessage(accessToken: string | undefined, messageId: number, picType: PicType): Promise<Pic> {
+    return await getMediaMessage(this.protocol, this.apiUrl, accessToken, 'pic', messageId, picType);
   }
 
   /**
    *
-   * Creates a pic message. If the chat is a broadcast group, the user must be
-   * an admin.
+   * Creates a pic message. If the chat is a broadcast group, the user must be an admin.
    * @throws {@link UserNotInChatError}
    * @throws {@link InvalidPicError}
    * @throws {@link InvalidContextMessageError}
@@ -198,24 +156,19 @@ export class RestApi {
     pic: File,
     chatId: number,
     contextMessageId?: ContextMessageId,
-    caption?: MessageText
+    caption?: MessageText,
   ): Promise<void> {
     const formData = new FormData();
     formData.append('pic', pic);
     formData.append('chat-id', chatId.toString());
-    if (contextMessageId !== undefined)
-      formData.append('context-message-id', contextMessageId.toString());
+    if (contextMessageId !== undefined) formData.append('context-message-id', contextMessageId.toString());
     if (caption !== undefined) formData.append('caption', caption);
-    const response = await fetch(
-      `${this.protocol}://${this.apiUrl}/pic-message`,
-      {
-        method: 'POST',
-        headers: {Authorization: `Bearer ${accessToken}`},
-        body: formData,
-      }
-    );
-    if (response.status >= 500 && response.status <= 599)
-      throw new InternalServerError();
+    const response = await fetch(`${this.protocol}://${this.apiUrl}/pic-message`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${accessToken}` },
+      body: formData,
+    });
+    if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
     switch (response.status) {
       case 204:
         return;
@@ -241,28 +194,17 @@ export class RestApi {
   }
 
   /**
-   * Reads an audio message. You needn't pass an access token if the chat is
-   * public.
+   * Reads an audio message. You needn't pass an access token if the chat is public.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async getAudioMessage(
-    accessToken: string | undefined,
-    messageId: number
-  ): Promise<Audio> {
-    return await getMediaMessage(
-      this.protocol,
-      this.apiUrl,
-      accessToken,
-      'audio',
-      messageId
-    );
+  async getAudioMessage(accessToken: string | undefined, messageId: number): Promise<Audio> {
+    return await getMediaMessage(this.protocol, this.apiUrl, accessToken, 'audio', messageId);
   }
 
   /**
-   * Creates an audio message. If the chat is a broadcast group, the user must
-   * be an admin.
+   * Creates an audio message. If the chat is a broadcast group, the user must be an admin.
    * @throws {@link InternalServerError}
    * @throws {@link UserNotInChatError}
    * @throws {@link InvalidAudioError}
@@ -274,42 +216,23 @@ export class RestApi {
     accessToken: string,
     audio: File,
     chatId: number,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<void> {
-    await postMediaMessage(
-      this.protocol,
-      this.apiUrl,
-      accessToken,
-      'audio',
-      audio,
-      chatId,
-      contextMessageId
-    );
+    await postMediaMessage(this.protocol, this.apiUrl, accessToken, 'audio', audio, chatId, contextMessageId);
   }
 
   /**
-   * Reads a video message. You needn't pass an access token if the chat is
-   * public.
+   * Reads a video message. You needn't pass an access token if the chat is public.
    * @throws {@link UnauthorizedError}
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
    */
-  async getVideoMessage(
-    accessToken: string | undefined,
-    messageId: number
-  ): Promise<Video> {
-    return await getMediaMessage(
-      this.protocol,
-      this.apiUrl,
-      accessToken,
-      'video',
-      messageId
-    );
+  async getVideoMessage(accessToken: string | undefined, messageId: number): Promise<Video> {
+    return await getMediaMessage(this.protocol, this.apiUrl, accessToken, 'video', messageId);
   }
 
   /**
-   * Creates a video message. If the chat is a broadcast group, the user must be
-   * an admin.
+   * Creates a video message. If the chat is a broadcast group, the user must be an admin.
    * @throws {@link InternalServerError}
    * @throws {@link UserNotInChatError}
    * @throws {@link InvalidVideoError}
@@ -321,42 +244,23 @@ export class RestApi {
     accessToken: string,
     video: File,
     chatId: number,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<void> {
-    await postMediaMessage(
-      this.protocol,
-      this.apiUrl,
-      accessToken,
-      'video',
-      video,
-      chatId,
-      contextMessageId
-    );
+    await postMediaMessage(this.protocol, this.apiUrl, accessToken, 'video', video, chatId, contextMessageId);
   }
 
   /**
-   * Reads a doc message. You needn't pass an access token if the chat is
-   * public.
+   * Reads a doc message. You needn't pass an access token if the chat is public.
    * @throws {@link UnauthorizedError}
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
    */
-  async getDocMessage(
-    accessToken: string | undefined,
-    messageId: number
-  ): Promise<Doc> {
-    return await getMediaMessage(
-      this.protocol,
-      this.apiUrl,
-      accessToken,
-      'doc',
-      messageId
-    );
+  async getDocMessage(accessToken: string | undefined, messageId: number): Promise<Doc> {
+    return await getMediaMessage(this.protocol, this.apiUrl, accessToken, 'doc', messageId);
   }
 
   /**
-   * Creates a doc message. If the chat is a broadcast group, the user must be
-   * an admin.
+   * Creates a doc message. If the chat is a broadcast group, the user must be an admin.
    * @throws {@link InternalServerError}
    * @throws {@link UserNotInChatError}
    * @throws {@link InvalidDocError}
@@ -368,29 +272,18 @@ export class RestApi {
     accessToken: string,
     doc: File,
     chatId: number,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<void> {
-    await postMediaMessage(
-      this.protocol,
-      this.apiUrl,
-      accessToken,
-      'doc',
-      doc,
-      chatId,
-      contextMessageId
-    );
+    await postMediaMessage(this.protocol, this.apiUrl, accessToken, 'doc', doc, chatId, contextMessageId);
   }
 
   /**
-   * Check if all systems are operational. For example, a backend developer
-   * building atop Omni Chat can program the server to automatically restart
-   * when it becomes "unhealthy".
+   * Check if all systems are operational. For example, a backend developer building atop Omni Chat can program the
+   * server to automatically restart when it becomes "unhealthy".
    * @returns Whether the backend is "healthy".
    */
   async getHealthCheck(): Promise<boolean> {
-    const response = await fetch(
-      `${this.protocol}://${this.apiUrl}/health-check`
-    );
+    const response = await fetch(`${this.protocol}://${this.apiUrl}/health-check`);
     return response.status === 204;
   }
 }

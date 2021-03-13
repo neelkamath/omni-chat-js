@@ -5,6 +5,14 @@ export const CREATED_SUBSCRIPTION_FRAGMENT = `
   }
 `;
 
+export const ACTIONABLE_MESSAGE_FRAGMENT = `
+  ... on ActionableMessage {
+    __typename
+    text
+    actions
+  }
+`;
+
 export const NEW_CONTACT_FRAGMENT = `
   ... on NewContact {
     __typename
@@ -170,7 +178,9 @@ export const ACTION_MESSAGE_FRAGMENT = `
     }
     isForwarded
     hasStar
-    actionableMessage
+    actionableMessage {
+      ${ACTIONABLE_MESSAGE_FRAGMENT}
+    }
   }
 `;
 
@@ -356,10 +366,7 @@ export const PRIVATE_CHAT_FRAGMENT = `
   ... on PrivateChat {
     __typename
     id
-    messages(
-      last: $privateChat_messages_last
-      before: $privateChat_messages_before
-    ) {
+    messages(last: $privateChat_messages_last, before: $privateChat_messages_before) {
       ${MESSAGES_CONNECTION_FRAGMENT}
     }
     user {
@@ -426,14 +433,6 @@ export const NEW_TEXT_MESSAGE_FRAGMENT = `
     }
     isForwarded
     textMessage
-  }
-`;
-
-export const ACTIONABLE_MESSAGE_FRAGMENT = `
-  ... on ActionableMessage {
-    __typename
-    text
-    actions
   }
 `;
 
@@ -777,10 +776,7 @@ export const GROUP_CHAT_FRAGMENT = `
     users(first: $groupChat_users_first, after: $groupChat_users_after) {
       ${ACCOUNTS_CONNECTION_FRAGMENT}
     }
-    messages(
-      last: $groupChat_messages_last
-      before: $groupChat_messages_before
-    ) {
+    messages(last: $groupChat_messages_last, before: $groupChat_messages_before) {
       ${MESSAGES_CONNECTION_FRAGMENT}
     }
     isBroadcast

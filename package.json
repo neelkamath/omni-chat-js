@@ -1,13 +1,13 @@
 {
   "name": "@neelkamath/omni-chat",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Official Omni Chat API wrapper library",
   "scripts": {
     "test": "jest",
     "doc": "typedoc src/index.ts --includeVersion --readme none",
     "prepare": "tsc",
-    "lint": "gts lint",
-    "fix": "gts fix"
+    "lint": "eslint . && prettier -c .",
+    "fix": "eslint --fix . && prettier -w ."
   },
   "types": "dist/index.d.ts",
   "repository": "neelkamath/omni-chat-js",
@@ -28,8 +28,11 @@
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.20",
-    "gts": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "eslint": "^7.21.0",
     "jest": "^26.0.20",
+    "prettier": "2.2.1",
     "ts-jest": "^26.0.20",
     "ts-node": "^9.1.1",
     "typedoc": "^0.20.24",

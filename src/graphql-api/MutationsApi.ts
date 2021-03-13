@@ -11,7 +11,7 @@ import {
   PollInput,
   Uuid,
 } from './models';
-import {queryOrMutate} from './operator';
+import { queryOrMutate } from './operator';
 import {
   validateAccountInput,
   validateAccountUpdate,
@@ -23,19 +23,16 @@ import {
   validatePollInput,
   validateUuidScalar,
 } from '../validation';
-import {ContextMessageId} from '../rest-api/models';
-import {ApiUrl, HttpProtocol} from '../config';
+import { ContextMessageId } from '../rest-api/models';
+import { ApiUrl, HttpProtocol } from '../config';
 
 /** GraphQL mutations. */
 export class MutationsApi {
-  constructor(
-    private readonly protocol: HttpProtocol,
-    private readonly apiUrl: ApiUrl
-  ) {}
+  constructor(private readonly protocol: HttpProtocol, private readonly apiUrl: ApiUrl) {}
 
   /**
-   * Creates an account, and sends the user a verification email. The user will
-   * not be allowed to log in until they verify their email address.
+   * Creates an account, and sends the user a verification email. The user will not be allowed to log in until they
+   * verify their email address.
    * @throws {@link ConnectionError}
    * @throws {@link UsernameTakenError}
    * @throws {@link EmailAddressTakenError}
@@ -48,71 +45,57 @@ export class MutationsApi {
    */
   async createAccount(account: AccountInput): Promise<Placeholder> {
     validateAccountInput(account);
-    const {__typename, ...accountData} = account;
+    const { __typename, ...accountData } = account;
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
         mutation CreateAccount($account: AccountInput!) {
           createAccount(account: $account)
         }
       `,
-      variables: {account: accountData},
+      variables: { account: accountData },
     });
     return response.data!.createAccount;
   }
 
   /**
-   * When a user creates an account, or updates their email address, they'll
-   * receive an email with a verification code to verify their email address. If
-   * the verification code is valid, the account's email address verification
-   * status will be set to verified.
-   * @returns {boolean} If the verification code was valid, <true> will be
-   * returned since the account was verified. Otherwise, <false> will be
-   * returned.
+   * When a user creates an account, or updates their email address, they'll receive an email with a verification code
+   * to verify their email address. If the verification code is valid, the account's email address verification status
+   * will be set to verified.
+   * @returns {boolean} If the verification code was valid, <true> will be returned since the account was verified.
+   * Otherwise, <false> will be returned.
    * @throws {@link ConnectionError}
    * @throws {@link UnregisteredEmailAddressError}
    * @throws {@link InternalServerError}
    */
-  async verifyEmailAddress(
-    emailAddress: string,
-    verificationCode: number
-  ): Promise<boolean> {
+  async verifyEmailAddress(emailAddress: string, verificationCode: number): Promise<boolean> {
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
-        mutation VerifyEmailAddress(
-          $emailAddress: String!
-          $verificationCode: Int!
-        ) {
-          verifyEmailAddress(
-            emailAddress: $emailAddress
-            verificationCode: $verificationCode
-          )
+        mutation VerifyEmailAddress($emailAddress: String!, $verificationCode: Int!) {
+          verifyEmailAddress(emailAddress: $emailAddress, verificationCode: $verificationCode)
         }
       `,
-      variables: {emailAddress, verificationCode},
+      variables: { emailAddress, verificationCode },
     });
     return response.data!.verifyEmailAddress;
   }
 
   /**
-   * Sends the user an email to verify their email address. An example use case
-   * for this operation is when the user created an account (which caused an
-   * email address verification email to be sent) but accidentally deleted the
+   * Sends the user an email to verify their email address. An example use case for this operation is when the user
+   * created an account (which caused an email address verification email to be sent) but accidentally deleted the
    * email, and therefore requires it to be resent.
    * @throws {@link ConnectionError}
    * @throws {@link UnregisteredEmailAddressError}
    * @throws {@link EmailAddressVerifiedError}
    * @throws {@link InternalServerError}
    */
-  async emailEmailAddressVerification(
-    emailAddress: string
-  ): Promise<Placeholder> {
+  async emailEmailAddressVerification(emailAddress: string): Promise<Placeholder> {
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
         mutation EmailEmailAddressVerification($emailAddress: String!) {
           emailEmailAddressVerification(emailAddress: $emailAddress)
         }
       `,
-      variables: {emailAddress},
+      variables: { emailAddress },
     });
     return response.data!.emailEmailAddressVerification;
   }
@@ -124,8 +107,8 @@ export class MutationsApi {
    * @throws {@link UnregisteredEmailAddressError}
    * @throws {@link InternalServerError}
    * @see resetPassword Use this other operation once
-   * @see updateAccount Use this if the user is logged in (i.e., you have an
-   * access token), and wants to update their password.
+   * @see updateAccount Use this if the user is logged in (i.e., you have an access token), and wants to update their
+   * password.
    */
   async emailPasswordResetCode(emailAddress: string): Promise<Placeholder> {
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
@@ -134,26 +117,22 @@ export class MutationsApi {
           emailPasswordResetCode(emailAddress: $emailAddress)
         }
       `,
-      variables: {emailAddress},
+      variables: { emailAddress },
     });
     return response.data!.emailPasswordResetCode;
   }
 
   /**
-   * Updates the user's account. Only the non-`null` fields will be updated.
-   * None of the updates will take place if even one of the fields were invalid.
-   * If the user updates their email address to something other than their
-   * current address, you must log them out because the current access token
-   * will be invalid until they verify their new email address.
+   * Updates the user's account. Only the non-`null` fields will be updated. None of the updates will take place if even
+   * one of the fields were invalid. If the user updates their email address to something other than their current
+   * address, you must log them out because the current access token will be invalid until they verify their new email
+   * address.
    *
-   * If the user updates their email address, they'll be required to verify it
-   * before their next login via an email which is sent to it. This means
-   * they'll be locked out of their account if they provide an invalid address,
-   * and will have to contact the service's admin to correctly update their
-   * address. You could prevent this mistake by asking them to confirm their
-   * address. For example, a UI could require the user to enter their email
-   * address twice if they're updating it, and only allow the update to take
-   * place if both the entered addresses match.
+   * If the user updates their email address, they'll be required to verify it before their next login via an email
+   * which is sent to it. This means they'll be locked out of their account if they provide an invalid address, and will
+   * have to contact the service's admin to correctly update their address. You could prevent this mistake by asking
+   * them to confirm their address. For example, a UI could require the user to enter their email address twice if
+   * they're updating it, and only allow the update to take place if both the entered addresses match.
    * @throws {@link UnauthorizedError}
    * @throws {@link UsernameTakenError}
    * @throws {@link EmailAddressTakenError}
@@ -164,12 +143,9 @@ export class MutationsApi {
    * @throws {@link NameScalarError}
    * @throws {@link BioScalarError}
    */
-  async updateAccount(
-    accessToken: string,
-    update: AccountUpdate
-  ): Promise<Placeholder> {
+  async updateAccount(accessToken: string, update: AccountUpdate): Promise<Placeholder> {
     validateAccountUpdate(update);
-    const {__typename, ...updateData} = update;
+    const { __typename, ...updateData } = update;
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -179,40 +155,28 @@ export class MutationsApi {
             updateAccount(update: $update)
           }
         `,
-        variables: {update: updateData},
+        variables: { update: updateData },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.updateAccount;
   }
 
   /**
-   * @returns If the password reset code was correct, the password has been
-   * reset, and <true> will be returned. Otherwise, `false` will be returned.
+   * @returns If the password reset code was correct, the password has been reset, and <true> will be returned.
+   * Otherwise, `false` will be returned.
    * @throws {@link ConnectionError}
    * @throws {@link UnregisteredEmailAddressError}
    * @throws {@link InternalServerError}
    */
-  async resetPassword(
-    emailAddress: string,
-    passwordResetCode: number,
-    newPassword: string
-  ): Promise<boolean> {
+  async resetPassword(emailAddress: string, passwordResetCode: number, newPassword: string): Promise<boolean> {
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
-        mutation ResetPassword(
-          $emailAddress: String!
-          $passwordResetCode: Int!
-          $newPassword: Password!
-        ) {
-          resetPassword(
-            emailAddress: $emailAddress
-            passwordResetCode: $passwordResetCode
-            newPassword: $newPassword
-          )
+        mutation ResetPassword($emailAddress: String!, $passwordResetCode: Int!, $newPassword: Password!) {
+          resetPassword(emailAddress: $emailAddress, passwordResetCode: $passwordResetCode, newPassword: $newPassword)
         }
       `,
-      variables: {emailAddress, passwordResetCode, newPassword},
+      variables: { emailAddress, passwordResetCode, newPassword },
     });
     return response.data!.resetPassword;
   }
@@ -234,15 +198,14 @@ export class MutationsApi {
           }
         `,
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteProfilePic;
   }
 
   /**
-   * Deletes the user's account. All the user's data will be wiped from the
-   * system. This means that users in private chats with the user will have
-   * their chats deleted, etc.
+   * Deletes the user's account. All the user's data will be wiped from the system. This means that users in private
+   * chats with the user will have their chats deleted, etc.
    * @throws {@link CannotDeleteAccountError}
    * @throws {@link InternalServerError}
    * @throws {@link UnauthorizedError}
@@ -259,22 +222,18 @@ export class MutationsApi {
           }
         `,
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteAccount;
   }
 
   /**
-   * Saves contacts. Previously saved contacts, nonexistent users, and the
-   * user's own ID will be ignored.
+   * Saves contacts. Previously saved contacts, nonexistent users, and the user's own ID will be ignored.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async createContacts(
-    accessToken: string,
-    idList: number[]
-  ): Promise<Placeholder> {
+  async createContacts(accessToken: string, idList: number[]): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -284,24 +243,20 @@ export class MutationsApi {
             createContacts(idList: $idList)
           }
         `,
-        variables: {idList},
+        variables: { idList },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createContacts;
   }
 
   /**
-   * Remove saved contacts. Invalid contacts (e.g., invalid user IDs, unsaved
-   * contacts) will be ignored.
+   * Remove saved contacts. Invalid contacts (e.g., invalid user IDs, unsaved contacts) will be ignored.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async deleteContacts(
-    accessToken: string,
-    idList: number[]
-  ): Promise<Placeholder> {
+  async deleteContacts(accessToken: string, idList: number[]): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -311,16 +266,15 @@ export class MutationsApi {
             deleteContacts(idList: $idList)
           }
         `,
-        variables: {idList},
+        variables: { idList },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteContacts;
   }
 
   /**
-   * Blocks the specified user. Does nothing if they've already been blocked, or
-   * the user is blocking themselves.
+   * Blocks the specified user. Does nothing if they've already been blocked, or the user is blocking themselves.
    * @throws {@link InvalidUserIdError}
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
@@ -336,9 +290,9 @@ export class MutationsApi {
             blockUser(id: $id)
           }
         `,
-        variables: {id},
+        variables: { id },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.blockUser;
   }
@@ -359,9 +313,9 @@ export class MutationsApi {
             unblockUser(id: $id)
           }
         `,
-        variables: {id},
+        variables: { id },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.unblockUser;
   }
@@ -372,10 +326,7 @@ export class MutationsApi {
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async setOnline(
-    accessToken: string,
-    isOnline: boolean
-  ): Promise<Placeholder> {
+  async setOnline(accessToken: string, isOnline: boolean): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -385,16 +336,15 @@ export class MutationsApi {
             setOnline(isOnline: $isOnline)
           }
         `,
-        variables: {isOnline},
+        variables: { isOnline },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.setOnline;
   }
 
   /**
-   * Stars the message. The user can star their own messages. Starring an
-   * already starred message does nothing.
+   * Stars the message. The user can star their own messages. Starring an already starred message does nothing.
    * @throws {@link InvalidMessageIdError}
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
@@ -410,9 +360,9 @@ export class MutationsApi {
             star(messageId: $messageId)
           }
         `,
-        variables: {messageId},
+        variables: { messageId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.star;
   }
@@ -423,10 +373,7 @@ export class MutationsApi {
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async deleteStar(
-    accessToken: string,
-    messageId: number
-  ): Promise<Placeholder> {
+  async deleteStar(accessToken: string, messageId: number): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -436,9 +383,9 @@ export class MutationsApi {
             deleteStar(messageId: $messageId)
           }
         `,
-        variables: {messageId},
+        variables: { messageId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteStar;
   }
@@ -446,18 +393,14 @@ export class MutationsApi {
   /**
    * Sets whether the user is typing in the chat.
    *
-   * Let's consider an example use case. Once the user starts typing, the other
-   * users in the chat will see a typing status on the user. Once the user stops
-   * typing for more than two seconds, the typing status will be removed.
+   * Let's consider an example use case. Once the user starts typing, the other users in the chat will see a typing
+   * status on the user. Once the user stops typing for more than two seconds, the typing status will be removed.
    * @throws {@link InvalidChatIdError}
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async setTyping(
-    accessToken: string,
-    isTyping: boolean
-  ): Promise<Placeholder> {
+  async setTyping(accessToken: string, isTyping: boolean): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -467,9 +410,9 @@ export class MutationsApi {
             setTyping(isTyping: $isTyping)
           }
         `,
-        variables: {isTyping},
+        variables: { isTyping },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.setTyping;
   }
@@ -481,10 +424,7 @@ export class MutationsApi {
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async deleteGroupChatPic(
-    accessToken: string,
-    chatId: number
-  ): Promise<Placeholder> {
+  async deleteGroupChatPic(accessToken: string, chatId: number): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -494,28 +434,23 @@ export class MutationsApi {
             deleteGroupChatPic(chatId: $chatId)
           }
         `,
-        variables: {chatId},
+        variables: { chatId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteGroupChatPic;
   }
 
   /**
-   * Records that the user received or read the message. If the status is
-   * "read", and there's no "delivered" record, the delivery status will be
-   * created. Nothing will happen if the status already exists.
-   * @throws {@link InvalidMessageIdError} The message doesn't exist in a chat
-   * the user is in, or the message is the user's own.
+   * Records that the user received or read the message. If the status is "read", and there's no "delivered" record, the
+   * delivery status will be created. Nothing will happen if the status already exists.
+   * @throws {@link InvalidMessageIdError} The message doesn't exist in a chat the user is in, or the message is the
+   * user's own.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async createStatus(
-    accessToken: string,
-    messageId: number,
-    status: MessageStatus
-  ): Promise<Placeholder> {
+  async createStatus(accessToken: string, messageId: number, status: MessageStatus): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -525,9 +460,9 @@ export class MutationsApi {
             createStatus(messageId: $messageId, status: $status)
           }
         `,
-        variables: {messageId, status},
+        variables: { messageId, status },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createStatus;
   }
@@ -539,27 +474,20 @@ export class MutationsApi {
    * @throws {@link UnauthorizedError}
    * @throws {@link GroupChatTitleScalarError}
    */
-  async updateGroupChatTitle(
-    accessToken: string,
-    chatId: number,
-    title: GroupChatTitle
-  ): Promise<Placeholder> {
+  async updateGroupChatTitle(accessToken: string, chatId: number, title: GroupChatTitle): Promise<Placeholder> {
     validateGroupChatTitleScalar(title);
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation UpdateGroupChatTitle(
-            $chatId: Int!
-            $title: GroupChatTitle!
-          ) {
+          mutation UpdateGroupChatTitle($chatId: Int!, $title: GroupChatTitle!) {
             updateGroupChatTitle(chatId: $chatId, title: $title)
           }
         `,
-        variables: {chatId, title},
+        variables: { chatId, title },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.updateGroupChatTitle;
   }
@@ -574,7 +502,7 @@ export class MutationsApi {
   async updateGroupChatDescription(
     accessToken: string,
     chatId: number,
-    description: GroupChatDescription
+    description: GroupChatDescription,
   ): Promise<Placeholder> {
     validateGroupChatDescriptionScalar(description);
     const response = await queryOrMutate(
@@ -582,35 +510,24 @@ export class MutationsApi {
       this.apiUrl,
       {
         query: `
-          mutation UpdateGroupChatDescription(
-            $chatId: Int!
-            $description: GroupChatDescription!
-          ) {
-            updateGroupChatDescription(
-              chatId: $chatId
-              description: $description
-            )
+          mutation UpdateGroupChatDescription($chatId: Int!, $description: GroupChatDescription!) {
+            updateGroupChatDescription(chatId: $chatId, description: $description)
           }
         `,
-        variables: {chatId, description},
+        variables: { chatId, description },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.updateGroupChatDescription;
   }
 
   /**
-   * Users already in the chat, and nonexistent users will be ignored. Only an
-   * admin can perform this operation.
+   * Users already in the chat, and nonexistent users will be ignored. Only an admin can perform this operation.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async addGroupChatUsers(
-    accessToken: string,
-    chatId: number,
-    idList: number[]
-  ): Promise<Placeholder> {
+  async addGroupChatUsers(accessToken: string, chatId: number, idList: number[]): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -620,29 +537,23 @@ export class MutationsApi {
             addGroupChatUsers(chatId: $chatId, idList: $idList)
           }
         `,
-        variables: {chatId, idList},
+        variables: { chatId, idList },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.addGroupChatUsers;
   }
 
   /**
-   * Only an admin can perform this operation. Messages sent by, and polls voted
-   * on, by removed users will remain. Users who aren't in the chat, and
-   * nonexistent users will be ignored.
-   * @throws {@link InvalidUserIdError} The user attempted to leave the chat but
-   * they must first appoint another user as an admin because they're the last
-   * admin of an otherwise nonempty chat.
+   * Only an admin can perform this operation. Messages sent by, and polls voted on, by removed users will remain. Users
+   * who aren't in the chat, and nonexistent users will be ignored.
+   * @throws {@link InvalidUserIdError} The user attempted to leave the chat but they must first appoint another user as
+   * an admin because they're the last admin of an otherwise nonempty chat.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async removeGroupChatUsers(
-    accessToken: string,
-    chatId: number,
-    idList: number[]
-  ): Promise<Placeholder> {
+  async removeGroupChatUsers(accessToken: string, chatId: number, idList: number[]): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -652,26 +563,21 @@ export class MutationsApi {
             removeGroupChatUsers(chatId: $chatId, idList: $idList)
           }
         `,
-        variables: {chatId, idList},
+        variables: { chatId, idList },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.removeGroupChatUsers;
   }
 
   /**
-   * Makes every user in the user ID list an admin of the chat. Users who aren't
-   * in the chat, nonexistent users, and users who are already admins are
-   * ignored. Only an admin can perform this operation.
+   * Makes every user in the user ID list an admin of the chat. Users who aren't in the chat, nonexistent users, and
+   * users who are already admins are ignored. Only an admin can perform this operation.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async makeGroupChatAdmins(
-    accessToken: string,
-    chatId: number,
-    idList: number[]
-  ): Promise<Placeholder> {
+  async makeGroupChatAdmins(accessToken: string, chatId: number, idList: number[]): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -681,32 +587,28 @@ export class MutationsApi {
             makeGroupChatAdmins(chatId: $chatId, idList: $idList)
           }
         `,
-        variables: {chatId, idList},
+        variables: { chatId, idList },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.makeGroupChatAdmins;
   }
 
   /**
-   * Creates a group chat. The {@link GroupChatInput.userIdList} and
-   * {@link GroupChatInput}.adminIdList} needn't contain the user's own ID, as
-   * it's implicitly included. Nonexistent users are ignored.
+   * Creates a group chat. The {@link GroupChatInput.userIdList} and {@link GroupChatInput}.adminIdList} needn't contain
+   * the user's own ID, as it's implicitly included. Nonexistent users are ignored.
    * @returns The created chat's ID.
-   * @throws {@link InvalidAdminIdError} The {@link GroupChatInput.adminIdList}
-   * wasn't a subset of the {@link GroupChatInput.userIdList}.
+   * @throws {@link InvalidAdminIdError} The {@link GroupChatInput.adminIdList} wasn't a subset of the
+   * {@link GroupChatInput.userIdList}.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    * @throws {@link GroupChatTitleScalarError}
    * @throws {@link GroupChatDescriptionScalarError}
    */
-  async createGroupChat(
-    accessToken: string,
-    chat: GroupChatInput
-  ): Promise<number> {
+  async createGroupChat(accessToken: string, chat: GroupChatInput): Promise<number> {
     validateGroupChatInput(chat);
-    const {__typename, ...input} = chat;
+    const { __typename, ...input } = chat;
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -716,25 +618,20 @@ export class MutationsApi {
             createGroupChat(chat: $chat)
           }
         `,
-        variables: {chat: input},
+        variables: { chat: input },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createGroupChat;
   }
 
   /**
-   * Sets whether the chat is a broadcast chat. The user must be an admin to
-   * perform this operation.
+   * Sets whether the chat is a broadcast chat. The user must be an admin to perform this operation.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async setBroadcast(
-    accessToken: string,
-    chatId: number,
-    isBroadcast: boolean
-  ): Promise<Placeholder> {
+  async setBroadcast(accessToken: string, chatId: number, isBroadcast: boolean): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -744,26 +641,21 @@ export class MutationsApi {
             setBroadcast(chatId: $chatId, isBroadcast: $isBroadcast)
           }
         `,
-        variables: {chatId, isBroadcast},
+        variables: { chatId, isBroadcast },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.setBroadcast;
   }
 
   /**
    * The user must be an admin to perform this operation.
-   * @throws {@link InvalidChatIdError} The chat isn't a group chat, or the chat
-   * is a chat.
+   * @throws {@link InvalidChatIdError} The chat isn't a group chat, or the chat is a chat.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async setInvitability(
-    accessToken: string,
-    chatId: number,
-    isInvitable: boolean
-  ): Promise<Placeholder> {
+  async setInvitability(accessToken: string, chatId: number, isInvitable: boolean): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -773,26 +665,22 @@ export class MutationsApi {
             setInvitability(chatId: $chatId, isInvitable: $isInvitable)
           }
         `,
-        variables: {chatId, isInvitable},
+        variables: { chatId, isInvitable },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.setInvitability;
   }
 
   /**
-   * Joins the chat the invite code is for. Nothing will happen if the user is
-   * already in the chat.
+   * Joins the chat the invite code is for. Nothing will happen if the user is already in the chat.
    * @throws {@link InvalidInviteCodeError} The invite code doesn't exist.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    * @throws {@link UuidScalarError}
    */
-  async joinGroupChat(
-    accessToken: string,
-    inviteCode: Uuid
-  ): Promise<Placeholder> {
+  async joinGroupChat(accessToken: string, inviteCode: Uuid): Promise<Placeholder> {
     validateUuidScalar(inviteCode);
     const response = await queryOrMutate(
       this.protocol,
@@ -803,9 +691,9 @@ export class MutationsApi {
             joinGroupChat(inviteCode: $inviteCode)
           }
         `,
-        variables: {inviteCode},
+        variables: { inviteCode },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.joinGroupChat;
   }
@@ -817,10 +705,7 @@ export class MutationsApi {
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async deletePrivateChat(
-    accessToken: string,
-    chatId: number
-  ): Promise<Placeholder> {
+  async deletePrivateChat(accessToken: string, chatId: number): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -830,9 +715,9 @@ export class MutationsApi {
             deletePrivateChat(chatId: $chatId)
           }
         `,
-        variables: {chatId},
+        variables: { chatId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deletePrivateChat;
   }
@@ -845,10 +730,7 @@ export class MutationsApi {
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async createPrivateChat(
-    accessToken: string,
-    userId: number
-  ): Promise<number> {
+  async createPrivateChat(accessToken: string, userId: number): Promise<number> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -858,16 +740,15 @@ export class MutationsApi {
             createPrivateChat(userId: $userId)
           }
         `,
-        variables: {userId},
+        variables: { userId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createPrivateChat;
   }
 
   /**
-   * Sends the text in the chat. If the chat is a broadcast chat, the user must
-   * be an admin to message.
+   * Sends the text in the chat. If the chat is a broadcast chat, the user must be an admin to message.
    * @throws {@link InvalidChatIdError} The user isn't in the chat.
    * @throws {@link InvalidMessageIdError} The context message doesn't exist.
    * @throws {@link InternalServerError}
@@ -879,7 +760,7 @@ export class MutationsApi {
     accessToken: string,
     chatId: number,
     text: MessageText,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<Placeholder> {
     validateMessageTextScalar(text);
     const response = await queryOrMutate(
@@ -887,38 +768,26 @@ export class MutationsApi {
       this.apiUrl,
       {
         query: `
-          mutation CreateTextMessage(
-            $chatId: Int!
-            $text: MessageText!
-            $contextMessageId: Int!
-          ) {
-            createTextMessage(
-              chatId: $chatId
-              text: $text
-              contextMessageId: $contextMessageId
-            )
+          mutation CreateTextMessage($chatId: Int!, $text: MessageText!, $contextMessageId: Int!) {
+            createTextMessage(chatId: $chatId, text: $text, contextMessageId: $contextMessageId)
           }
         `,
-        variables: {chatId, text, contextMessageId},
+        variables: { chatId, text, contextMessageId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createTextMessage;
   }
 
   /**
-   * Sends the text in the chat. For example, a restaurant's bot asks if the
-   * user wants a burger or a pizza in the text, and the actions are "burger"
-   * and "pizza". If the chat is a broadcast chat, the user must be an admin to
-   * message.
+   * Sends the text in the chat. For example, a restaurant's bot asks if the user wants a burger or a pizza in the text,
+   * and the actions are "burger" and "pizza". If the chat is a broadcast chat, the user must be an admin to message.
    *
-   * A frontend UI could display this message like a regular text message but
-   * with buttons below it. Action messages are meant for bots; human users
-   * shouldn't be able to create them. Only the creator of the action message
-   * will be notified when {@link triggerAction} gets called.
+   * A frontend UI could display this message like a regular text message but with buttons below it. Action messages are
+   * meant for bots; human users shouldn't be able to create them. Only the creator of the action message will be
+   * notified when {@link triggerAction} gets called.
    * @throws {@link InvalidChatIdError} The user isn't in the chat.
-   * @throws {@link InvalidActionError} Either there were zero actions or the
-   * actions weren't unique.
+   * @throws {@link InvalidActionError} Either there were zero actions or the actions weren't unique.
    * @throws {@link InvalidMessageIdError} The context message doesn't exist.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
@@ -929,43 +798,33 @@ export class MutationsApi {
     accessToken: string,
     chatId: number,
     message: ActionMessageInput,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<Placeholder> {
     validateActionMessageInput(message);
-    const {__typename, ...input} = message;
+    const { __typename, ...input } = message;
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation CreateActionMessage(
-            $chatId: Int!
-            $message: ActionMessageInput!
-            $contextMessageId: Int
-          ) {
-            createActionMessage(
-              chatId: $chatId
-              message: $message
-              contextMessageId: $contextMessageId
-            )
+          mutation CreateActionMessage($chatId: Int!, $message: ActionMessageInput!, $contextMessageId: Int) {
+            createActionMessage(chatId: $chatId, message: $message, contextMessageId: $contextMessageId)
           }
         `,
-        variables: {chatId, message: input, contextMessageId},
+        variables: { chatId, message: input, contextMessageId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createActionMessage;
   }
 
   /**
-   * Creates a {@link GroupChatInviteMessage} in the chat inviting users to
-   * join. If the chat is a broadcast chat, the user must be an admin to
-   * message. A frontend UI might want to hide the
-   * {@link GroupChatInviteMessage.inviteCode}, and instead display the
-   * {@link GroupChatInfo}.
+   * Creates a {@link GroupChatInviteMessage} in the chat inviting users to join. If the chat is a broadcast chat, the
+   * user must be an admin to message. A frontend UI might want to hide the {@link GroupChatInviteMessage.inviteCode},
+   * and instead display the {@link GroupChatInfo}.
    * @throws {@link InvalidChatIdError} The user isn't in the chat.
-   * @throws {@link InvalidInvitedChatError} The invited chat ID isn't a group
-   * chat, or the chat has invitations turned off.
+   * @throws {@link InvalidInvitedChatError} The invited chat ID isn't a group chat, or the chat has invitations turned
+   * off.
    * @throws {@link InvalidMessageIdError} The context message doesn't exist.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
@@ -975,18 +834,14 @@ export class MutationsApi {
     accessToken: string,
     chatId: number,
     invitedChatId: number,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-            mutation CreateGroupChatInviteMessage(
-              $chatId: Int!
-              $invitedChatId: Int!
-              $contextMessageId: Int
-            ) {
+            mutation CreateGroupChatInviteMessage($chatId: Int!, $invitedChatId: Int!, $contextMessageId: Int) {
               createGroupChatInviteMessage(
                 chatId: $chatId
                 invitedChatId: $invitedChatId
@@ -994,20 +849,18 @@ export class MutationsApi {
               )
           }
         `,
-        variables: {chatId, invitedChatId, contextMessageId},
+        variables: { chatId, invitedChatId, contextMessageId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createGroupChatInviteMessage;
   }
 
   /**
-   * Sends the poll in the chat. If the chat is a broadcast chat, the user must
-   * be an admin to message.
+   * Sends the poll in the chat. If the chat is a broadcast chat, the user must be an admin to message.
    * @throws {@link InvalidChatIdError} The user isn't in the chat.
    * @throws {@link InvalidMessageIdError} The context message doesn't exist.
-   * @throws {@link InvalidPollError} There were less than two options, or an
-   * option was blocked.
+   * @throws {@link InvalidPollError} There were less than two options, or an option was blocked.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
@@ -1017,40 +870,30 @@ export class MutationsApi {
     accessToken: string,
     chatId: number,
     poll: PollInput,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<Placeholder> {
     validatePollInput(poll);
-    const {__typename, ...input} = poll;
+    const { __typename, ...input } = poll;
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation CreatePollMessage(
-            $chatId: Int!
-            $poll: PollInput!
-            $contextMessageId: Int
-          ) {
-            createPollMessage(
-              chatId: $chatId
-              poll: $poll
-              contextMessageId: $contextMessageId
-            )
+          mutation CreatePollMessage($chatId: Int!, $poll: PollInput!, $contextMessageId: Int) {
+            createPollMessage(chatId: $chatId, poll: $poll, contextMessageId: $contextMessageId)
           }
         `,
-        variables: {chatId, poll: input, contextMessageId},
+        variables: { chatId, poll: input, contextMessageId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.createPollMessage;
   }
 
   /**
-   * Forwards the message to the chat. If the chat is a broadcast chat, the user
-   * must be an admin to message.
+   * Forwards the message to the chat. If the chat is a broadcast chat, the user must be an admin to message.
    * @throws {@link InvalidChatIdError} The user isn't in the chat.
-   * @throws {@link InvalidMessageIdError} Either the message or context message
-   * didn't exist.
+   * @throws {@link InvalidMessageIdError} Either the message or context message didn't exist.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
@@ -1059,28 +902,20 @@ export class MutationsApi {
     accessToken: string,
     chatId: number,
     messageId: number,
-    contextMessageId?: ContextMessageId
+    contextMessageId?: ContextMessageId,
   ): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation ForwardMessage(
-            $chatId: Int!
-            $messageId: Int!
-            $contextMessageId: Int
-          ) {
-            forwardMessage(
-              chatId: $chatId
-              messageId: $messageId
-              contextMessageId: $contextMessageId
-            )
+          mutation ForwardMessage($chatId: Int!, $messageId: Int!, $contextMessageId: Int) {
+            forwardMessage(chatId: $chatId, messageId: $messageId, contextMessageId: $contextMessageId)
           }
         `,
-        variables: {chatId, messageId, contextMessageId},
+        variables: { chatId, messageId, contextMessageId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.forwardMessage;
   }
@@ -1094,11 +929,7 @@ export class MutationsApi {
    * @throws {@link UnauthorizedError}
    * @throws {@link MessageTextScalarError}
    */
-  async triggerAction(
-    accessToken: string,
-    messageId: number,
-    action: MessageText
-  ): Promise<Placeholder> {
+  async triggerAction(accessToken: string, messageId: number, action: MessageText): Promise<Placeholder> {
     validateMessageTextScalar(action);
     const response = await queryOrMutate(
       this.protocol,
@@ -1109,17 +940,17 @@ export class MutationsApi {
             triggerAction(messageId: $messageId, action: $action)
           }
         `,
-        variables: {messageId, action},
+        variables: { messageId, action },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.triggerAction;
   }
 
   /**
    * Updates the user's vote for the option on the message's poll
-   * @param vote If `true`, the user's vote will be added if it hasn't already.
-   * If `false`, the user's vote will be removed if there is one.
+   * @param vote If `true`, the user's vote will be added if it hasn't already. If `false`, the user's vote will be
+   * removed if there is one.
    * @throws {@link InvalidMessageIdError} There's no such poll message.
    * @throws {@link NonexistentOptionError} The option isn't in the poll.
    * @throws {@link InternalServerError}
@@ -1127,47 +958,33 @@ export class MutationsApi {
    * @throws {@link UnauthorizedError}
    * @throws {@link MessageTextScalarError}
    */
-  async setPollVote(
-    accessToken: string,
-    messageId: number,
-    option: MessageText,
-    vote: boolean
-  ): Promise<Placeholder> {
+  async setPollVote(accessToken: string, messageId: number, option: MessageText, vote: boolean): Promise<Placeholder> {
     validateMessageTextScalar(option);
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          mutation SetPollVote(
-            $messageId: Int!
-            option: $MessageText!
-            $vote: Boolean!
-          ) {
+          mutation SetPollVote($messageId: Int!, $option: $MessageText!, $vote: Boolean!) {
             setPollVote(messageId: $messageId, option: $option, vote: $vote)
           }
         `,
-        variables: {messageId, option, vote},
+        variables: { messageId, option, vote },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.setPollVote;
   }
 
   /**
-   * Deletes the message from the chat it's from. The user can only delete their
-   * own messages.
-   * @throws {@link InvalidMessageIdError} The message isn't in a chat the user
-   * is in, the message isn't visible to the user because they deleted the
-   * private chat, or the message isn't the user's own
+   * Deletes the message from the chat it's from. The user can only delete their own messages.
+   * @throws {@link InvalidMessageIdError} The message isn't in a chat the user is in, the message isn't visible to the
+   * user because they deleted the private chat, or the message isn't the user's own
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
    */
-  async deleteMessage(
-    accessToken: string,
-    messageId: number
-  ): Promise<Placeholder> {
+  async deleteMessage(accessToken: string, messageId: number): Promise<Placeholder> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -1177,9 +994,9 @@ export class MutationsApi {
             deleteMessage(id: $id)
           }
         `,
-        variables: {id: messageId},
+        variables: { id: messageId },
       },
-      accessToken
+      accessToken,
     );
     return response.data!.deleteMessage;
   }
