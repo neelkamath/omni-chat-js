@@ -21,6 +21,28 @@ import {
 import { ConnectionError, InternalServerError, UnauthorizedError } from '../errors';
 import { ApiUrl, HttpProtocol, WebSocketProtocol } from '../config';
 
+/**
+ * @example
+ * ```typescript
+ * {
+ *   query: `
+ *     mutation CreateAccount($account: AccountInput!) {
+ *       createAccount(account: $account)
+ *     }
+ *   `,
+ *   variables: {
+ *     account: {
+ *       username: 'john.doe',
+ *       password: 'pass',
+ *       emailAddress: 'john.doe@example.com',
+ *       firstName: 'John',
+ *       lastName: null,
+ *       bio: null,
+ *     },
+ *   },
+ * }
+ * ```
+ */
 export interface GraphQlRequest {
   readonly query: string;
   readonly variables?: any;
@@ -100,21 +122,21 @@ export interface OnSocketError {
  * For example, if the socket sends the following update:
  * ```
  * {
- *     "data": {
- *         "subscribeToMessages": {
- *             "__typename": "NewTextMessage",
- *             "chatId": 3,
- *             "message": "Hi!"
- *         }
+ *   "data": {
+ *     "subscribeToMessages": {
+ *       "__typename": "NewTextMessage",
+ *       "chatId": 3,
+ *       "message": "Hi!"
  *     }
+ *   }
  * }
  * ```
  * then, the following data would be passed to this function:
  * ```
  * {
- *     __typename: 'NewTextMessage',
- *     chatId: 3,
- *     message: 'Hi!',
+ *   __typename: 'NewTextMessage',
+ *   chatId: 3,
+ *   message: 'Hi!',
  * }
  * ```
  */
@@ -131,7 +153,7 @@ export interface OnSocketClose {
  * Creates a GraphQL subscription.
  * @param operation Example: `'subscribeToAccounts'`.
  * @param path For example, if the subscription is hosted on http://localhost/accounts-subscription, this should be
- * `/accounts-subscription`.
+ * `'/accounts-subscription'`.
  * @param query GraphQL document (i.e., the query to send to the GraphQL server).
  */
 export function subscribe<T>(
