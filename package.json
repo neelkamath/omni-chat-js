@@ -47,7 +47,8 @@
   },
   "eslintConfig": {
     "env": {
-      "browser": true,
+      "shared-node-browser": true,
+      "jest": true,
       "es6": true
     },
     "extends": [
