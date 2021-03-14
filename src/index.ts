@@ -1,6 +1,5 @@
 /**
- * This is the official ES6 (e.g., JavaScript, TypeScript) library for browsers which wraps the
- * [Omni Chat API](https://github.com/neelkamath/omni-chat-backend).
+ * Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) wrapper library.
  *
  * The Omni Chat API consists of one GraphQL API, and one REST API.
  *
@@ -24,6 +23,8 @@
  *
  * @packageDocumentation
  */
+
+import 'cross-fetch/polyfill';
 
 export * from './graphql-api/errors';
 export * from './graphql-api/models';

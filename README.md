@@ -2,8 +2,12 @@
 
 [![npm (scoped)](https://img.shields.io/npm/v/@neelkamath/omni-chat)](https://www.npmjs.com/package/@neelkamath/omni-chat)
 
-This is the official ES6 (e.g., JavaScript, TypeScript) library for browsers which wraps
-the [Omni Chat API](https://github.com/neelkamath/omni-chat-backend). It comes bundled with TypeScript definitions.
+Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) wrapper library.
+
+- Platforms: Browser, Node.js 14
+- Module systems: ES6, CommonJS
+- Language: ES6 (e.g., JavaScript, TypeScript)
+- Types: TypeScript definitions bundled
 
 ## Installation
 
