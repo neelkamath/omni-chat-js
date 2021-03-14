@@ -9,7 +9,7 @@ If you're forking the repo to develop the project as your own instead of just to
 
 ## Installation
 
-1. Install [node.js 14](https://nodejs.org/en/download/).
+1. Install [Node.js 14](https://nodejs.org/en/download/).
 1. Clone the repository using one of the following methods:
    - SSH: `git clone git@github.com:neelkamath/omni-chat-js.git`
    - HTTPS: `git clone https://github.com/neelkamath/omni-chat-js.git`
