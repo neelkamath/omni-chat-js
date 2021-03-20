@@ -25,21 +25,15 @@ export type MessagesSubscription =
   | NewDocMessage
   | NewVideoMessage
   | NewPollMessage
-  | UpdatedTextMessage
-  | UpdatedActionMessage
-  | UpdatedPicMessage
-  | UpdatedAudioMessage
-  | UpdatedGroupChatInviteMessage
-  | UpdatedDocMessage
-  | UpdatedVideoMessage
-  | UpdatedPollMessage
+  | UpdatedMessage
   | TriggeredAction
   | DeletedMessage
   | MessageDeletionPoint
   | DeletionOfEveryMessage
-  | UserChatMessagesRemoval;
+  | UserChatMessagesRemoval
+  | UnstarredChat;
 
-export type OnlineStatusesSubscription = CreatedSubscription | UpdatedOnlineStatus;
+export type OnlineStatusesSubscription = CreatedSubscription | OnlineStatus;
 
 export type TypingStatusesSubscription = CreatedSubscription | TypingStatus;
 
@@ -48,14 +42,14 @@ export type TypingStatusesSubscription = CreatedSubscription | TypingStatus;
  *
  * When a group chat's pic gets updated, an {@link UpdatedGroupChat} will be sent.
  *
- * If the subscriber leaves the chat, they won't receive their own {@link ExitedUser} message.
+ * If the subscriber leaves the chat, they will receive their own {@link ExitedUsers} message.
  */
 export type GroupChatsSubscription =
   | CreatedSubscription
   | GroupChatId
   | UpdatedGroupChat
   | UpdatedGroupChatPic
-  | ExitedUser;
+  | ExitedUsers;
 
 export type Uuid = string;
 
@@ -63,7 +57,7 @@ export type Uuid = string;
  * GraphQL mandates data be returned for every operation, and data be present in every type. However, certain operations
  * and types don't have relevant data. This type, which is an empty string, indicates such.
  */
-export type Placeholder = string;
+export type Placeholder = '';
 
 /** A unique identifier which isn't intended to be human-readable. */
 export type ID = string;
@@ -80,19 +74,27 @@ export type Username = string;
 /** A name must neither contain whitespace nor exceed 30 characters. */
 export type Name = string;
 
-/** A user's bio which cannot exceed 2,500 characters, and uses CommonMark. */
+/**
+ * A user's bio which cannot exceed 2,500 characters, disallows leading and trailing whitespace, and uses CommonMark.
+ */
 export type Bio = string;
 
 /** A password which contains non-whitespace characters.*/
 export type Password = string;
 
-/** 1-70 characters, of which at least one isn't whitespace. */
+/** 1-70 characters, of which at least one isn't whitespace. Leading and trailing whitespace is disallowed. */
 export type GroupChatTitle = string;
 
-/** At most 1,000 characters, and uses CommonMark. An empty string corresponds to no description. */
+/**
+ * At most 1,000 characters, disallows leading and trailing whitespace, and uses CommonMark. An empty string corresponds
+ * to no description.
+ */
 export type GroupChatDescription = string;
 
-/** 1-10,000 characters, of which at least one isn't whitespace. Uses CommonMark. */
+/**
+ * 1-10,000 characters, of which at least one isn't whitespace. Uses CommonMark. Leading and trailing whitespace is
+ * disallowed.
+ */
 export type MessageText = string;
 
 /**
@@ -273,17 +275,10 @@ export interface BareMessage {
     | 'NewAudioMessage'
     | 'NewGroupChatInviteMessage'
     | 'NewDocMessage'
-    | 'NewVideoMessage'
-    | 'UpdatedTextMessage'
-    | 'UpdatedActionMessage'
-    | 'UpdatedPicMessage'
-    | 'UpdatedPollMessage'
-    | 'UpdatedAudioMessage'
-    | 'UpdatedGroupChatInviteMessage'
-    | 'UpdatedDocMessage'
-    | 'UpdatedVideoMessage';
+    | 'NewVideoMessage';
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -307,6 +302,7 @@ export interface Message extends BareMessage {
     | 'VideoMessage';
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -320,6 +316,209 @@ export interface MessageDateTimes {
 }
 
 export type MessageStatus = 'DELIVERED' | 'READ';
+
+/**
+ * - `'SENT'` indicates that each user in the chat hasn't had the message delivered to them yet.
+ * - `'DELIVERED'` indicates that each user in the chat has had the message delivered to them but not everyone has read
+ * it yet.
+ * - `'READ'` indicates that each user in the chat has read the message.
+ */
+export type MessageState = 'SENT' | 'DELIVERED' | 'READ';
+
+/** The {@link users} who are typing in the {@link chatId}. */
+export interface TypingUsers {
+  readonly __typename: 'TypingUsers';
+  readonly chatId: number;
+  readonly users: Account[];
+}
+
+/** The username doesn't exist. */
+export interface NonexistentUser {
+  readonly __typename: 'NonexistentUser';
+  readonly placeholder: Placeholder;
+}
+
+export interface UnverifiedEmailAddress {
+  readonly __typename: 'UnverifiedEmailAddress';
+  readonly placeholder: Placeholder;
+}
+
+/** The email address is already verified. */
+export interface EmailAddressVerified {
+  readonly __typename: 'EmailAddressVerified';
+  readonly placeholder: Placeholder;
+}
+
+export interface UsernameTaken {
+  readonly __typename: 'UsernameTaken';
+  readonly placeholder: Placeholder;
+}
+
+export interface IncorrectPassword {
+  readonly __typename: 'IncorrectPassword';
+  readonly placeholder: Placeholder;
+}
+
+export interface EmailAddressTaken {
+  readonly __typename: 'EmailAddressTaken';
+  readonly placeholder: Placeholder;
+}
+
+export interface InvalidChatId {
+  readonly __typename: 'InvalidChatId';
+  readonly placeholder: Placeholder;
+}
+
+export interface InvalidAdminId {
+  readonly __typename: 'InvalidAdminId';
+  readonly placeholder: Placeholder;
+}
+
+export interface UnregisteredEmailAddress {
+  readonly __typename: 'UnregisteredEmailAddress';
+  readonly placeholder: Placeholder;
+}
+
+export interface InvalidUserId {
+  readonly __typename: 'InvalidUserId';
+  readonly placeholder: Placeholder;
+}
+
+export interface InvalidMessageId {
+  readonly __typename: 'InvalidMessageId';
+  readonly placeholder: Placeholder;
+}
+
+/**
+ * The only reason the account cannot be deleted is if the user is the only admin of a group chat containing users other
+ * than themselves. In this case, they must first appoint a different user as an admin.
+ */
+export interface CannotDeleteAccount {
+  readonly __typename: 'CannotDeleteAccount';
+  readonly placeholder: Placeholder;
+}
+
+/** There were fewer than two options, or an option was duplicated. */
+export interface InvalidPoll {
+  readonly __typename: 'InvalidPoll';
+  readonly placeholder: Placeholder;
+}
+
+/** The option isn't in the poll. */
+export interface NonexistentOption {
+  readonly __typename: 'NonexistentOption';
+  readonly placeholder: Placeholder;
+}
+
+export interface InvalidInviteCode {
+  readonly __typename: 'InvalidInviteCode';
+  readonly placeholder: Placeholder;
+}
+
+/** Either the invited isn't a group chat or the chat has turned off invitations. */
+export interface InvalidInvitedChat {
+  readonly __typename: 'InvalidInvitedChat';
+  readonly placeholder: Placeholder;
+}
+
+/**
+ * This Omni Chat instance disallows the provided email address's domain. For example, `"john.doe@private.company.com"`
+ * may be allowed, but not `"john.doe@gmail.com"`.
+ */
+export interface InvalidDomain {
+  readonly __typename: 'InvalidDomain';
+  readonly placeholder: Placeholder;
+}
+
+export interface InvalidAction {
+  readonly __typename: 'InvalidAction';
+  readonly placeholder: Placeholder;
+}
+
+export interface MessageEdges {
+  readonly __typename: 'MessageEdges';
+  readonly edges: MessageEdge[];
+}
+
+export interface InvalidVerificationCode {
+  readonly __typename: 'InvalidVerificationCode';
+  readonly placeholder: Placeholder;
+}
+
+export interface InvalidPasswordResetCode {
+  readonly __typename: 'InvalidPasswordResetCode';
+  readonly placeholder: Placeholder;
+}
+
+export interface CreatedChatId {
+  readonly __typename: 'CreatedChatId';
+  readonly id: number;
+}
+
+export type SearchChatMessagesResult = MessageEdges | InvalidChatId;
+
+export type ReadChatResult = PrivateChat | GroupChat | InvalidChatId;
+
+export type ReadGroupChatResult = GroupChatInfo | InvalidInviteCode;
+
+export type RequestTokenSetResult = TokenSet | NonexistentUser | UnverifiedEmailAddress | IncorrectPassword;
+
+export type VerifyEmailAddressResult = InvalidVerificationCode | UnregisteredEmailAddress;
+
+export type ResetPasswordResult = InvalidPasswordResetCode | UnregisteredEmailAddress;
+
+export type UpdateAccountResult = UsernameTaken | EmailAddressTaken;
+
+export type CreateAccountResult = UsernameTaken | EmailAddressTaken | InvalidDomain;
+
+export type EmailEmailAddressVerificationResult = UnregisteredEmailAddress | EmailAddressVerified;
+
+export type CreateGroupChatResult = CreatedChatId | InvalidAdminId;
+
+export type CreatePrivateChatResult = CreatedChatId | InvalidUserId;
+
+export type CreateTextMessageResult = InvalidChatId | InvalidMessageId;
+
+export type CreateActionMessageResult = InvalidChatId | InvalidAction | InvalidMessageId;
+
+export type CreateGroupChatInviteMessageResult = InvalidChatId | InvalidInvitedChat | InvalidMessageId;
+
+export type CreatePollMessageResult = InvalidChatId | InvalidMessageId | InvalidPoll;
+
+export type ForwardMessageResult = InvalidChatId | InvalidMessageId;
+
+export type TriggerActionResult = InvalidMessageId | InvalidAction;
+
+export type SetPollVoteResult = InvalidMessageId | NonexistentOption;
+
+export type LeaveGroupChatResult = InvalidChatId | CannotLeaveChat;
+
+export type ReadOnlineStatusResult = OnlineStatus | InvalidUserId;
+
+/**
+ * The user attempted to leave the chat but they must first appoint another user as an admin because they're the last
+ * admin of an otherwise nonempty chat.
+ */
+export interface CannotLeaveChat {
+  readonly __typename: 'CannotLeaveChat';
+  readonly placeholder: Placeholder;
+}
+
+/** An existing {@link messageId} in the {@link chatId} which has been updated. */
+export interface UpdatedMessage {
+  readonly __typename: 'UpdatedMessage';
+  readonly chatId: number;
+  readonly messageId: number;
+  readonly state: MessageState;
+  readonly statuses: MessageDateTimeStatus[];
+  readonly hasStar: boolean;
+}
+
+/** Every message in the chat has been unstarred by the user. */
+export interface UnstarredChat {
+  readonly __typename: 'UnstarredChat';
+  readonly chatId: number;
+}
 
 /** The {@link dateTime} the {@link user} created the {@link status}. */
 export interface MessageDateTimeStatus {
@@ -398,13 +597,6 @@ export interface TriggeredAction {
   readonly triggeredBy: Account;
 }
 
-export interface UpdatedOnlineStatus {
-  readonly __typename: 'UpdatedOnlineStatus';
-  readonly userId: number;
-  readonly isOnline: boolean;
-  readonly lastOnline: DateTime | null;
-}
-
 export interface OnlineStatus {
   readonly __typename: 'OnlineStatus';
   readonly userId: number;
@@ -426,11 +618,11 @@ export interface GroupChatId {
   readonly id: number;
 }
 
-/** The user who left the group chat. */
-export interface ExitedUser {
-  readonly __typename: 'ExitedUser';
+/** The users who left the group chat. */
+export interface ExitedUsers {
+  readonly __typename: 'ExitedUsers';
   readonly chatId: number;
-  readonly userId: number;
+  readonly userIdList: number[];
 }
 
 /**
@@ -542,6 +734,7 @@ export interface TextMessage extends BareMessage, Message {
   readonly __typename: 'TextMessage';
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -553,6 +746,7 @@ export interface ActionMessage extends BareMessage, Message {
   readonly __typename: 'ActionMessage';
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -564,6 +758,7 @@ export interface PicMessage extends BareMessage, Message {
   readonly __typename: 'PicMessage';
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -575,6 +770,7 @@ export interface PollMessage extends BareMessage, Message {
   readonly __typename: 'PollMessage';
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -586,6 +782,7 @@ export interface AudioMessage extends BareMessage, Message {
   readonly __typename: 'AudioMessage';
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -596,6 +793,7 @@ export interface GroupChatInviteMessage extends BareMessage, Message {
   readonly __typename: 'GroupChatInviteMessage';
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -607,6 +805,7 @@ export interface DocMessage extends BareMessage, Message {
   readonly __typename: 'DocMessage';
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -617,6 +816,7 @@ export interface VideoMessage extends BareMessage, Message {
   readonly __typename: 'VideoMessage';
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -640,18 +840,11 @@ export interface BareChatMessage extends BareMessage {
     | 'NewAudioMessage'
     | 'NewGroupChatInviteMessage'
     | 'NewDocMessage'
-    | 'NewVideoMessage'
-    | 'UpdatedTextMessage'
-    | 'UpdatedActionMessage'
-    | 'UpdatedPicMessage'
-    | 'UpdatedPollMessage'
-    | 'UpdatedAudioMessage'
-    | 'UpdatedGroupChatInviteMessage'
-    | 'UpdatedDocMessage'
-    | 'UpdatedVideoMessage';
+    | 'NewVideoMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -671,6 +864,7 @@ export interface StarredMessage extends BareChatMessage, BareMessage {
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -681,6 +875,7 @@ export interface StarredTextMessage extends StarredMessage, BareChatMessage, Bar
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -692,6 +887,7 @@ export interface StarredActionMessage extends StarredMessage, BareChatMessage, B
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -703,6 +899,7 @@ export interface StarredPicMessage extends StarredMessage, BareChatMessage, Bare
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -714,6 +911,7 @@ export interface StarredPollMessage extends StarredMessage, BareChatMessage, Bar
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -725,6 +923,7 @@ export interface StarredAudioMessage extends StarredMessage, BareChatMessage, Ba
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -735,6 +934,7 @@ export interface StarredGroupChatInviteMessage extends StarredMessage, BareChatM
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -746,6 +946,7 @@ export interface StarredDocMessage extends StarredMessage, BareChatMessage, Bare
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -756,6 +957,7 @@ export interface StarredVideoMessage extends StarredMessage, BareChatMessage, Ba
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -774,6 +976,7 @@ export interface NewMessage extends BareChatMessage, BareMessage {
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -784,6 +987,7 @@ export interface NewTextMessage extends NewMessage, BareChatMessage, BareMessage
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -795,6 +999,7 @@ export interface NewActionMessage extends NewMessage, BareChatMessage, BareMessa
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -806,6 +1011,7 @@ export interface NewPicMessage extends NewMessage, BareChatMessage, BareMessage 
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -817,6 +1023,7 @@ export interface NewPollMessage extends NewMessage, BareChatMessage, BareMessage
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -828,6 +1035,7 @@ export interface NewAudioMessage extends NewMessage, BareChatMessage, BareMessag
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -838,6 +1046,7 @@ export interface NewGroupChatInviteMessage extends NewMessage, BareChatMessage, 
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -849,6 +1058,7 @@ export interface NewDocMessage extends NewMessage, BareChatMessage, BareMessage 
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
@@ -859,81 +1069,10 @@ export interface NewVideoMessage extends NewMessage, BareChatMessage, BareMessag
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
+  readonly state: MessageState;
   readonly dateTimes: MessageDateTimes;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
-}
-
-/** An existing {@link messageId} in the {@link chatId} which had its {@link statuses} updated. */
-export interface UpdatedMessage extends BareChatMessage, BareMessage {
-  readonly __typename:
-    | 'UpdatedTextMessage'
-    | 'UpdatedActionMessage'
-    | 'UpdatedPicMessage'
-    | 'UpdatedPollMessage'
-    | 'UpdatedAudioMessage'
-    | 'UpdatedGroupChatInviteMessage'
-    | 'UpdatedDocMessage'
-    | 'UpdatedVideoMessage';
-  readonly chatId: number;
-  readonly messageId: number;
-  readonly statuses: MessageDateTimeStatus[];
-}
-
-export interface UpdatedTextMessage extends UpdatedMessage, BareChatMessage, BareMessage {
-  readonly __typename: 'UpdatedTextMessage';
-  readonly chatId: number;
-  readonly messageId: number;
-  readonly statuses: MessageDateTimeStatus[];
-}
-
-export interface UpdatedActionMessage extends UpdatedMessage, BareChatMessage, BareMessage {
-  readonly __typename: 'UpdatedActionMessage';
-  readonly chatId: number;
-  readonly messageId: number;
-  readonly statuses: MessageDateTimeStatus[];
-}
-
-export interface UpdatedPicMessage extends UpdatedMessage, BareChatMessage, BareMessage {
-  readonly __typename: 'UpdatedPicMessage';
-  readonly chatId: number;
-  readonly messageId: number;
-  readonly statuses: MessageDateTimeStatus[];
-}
-
-export interface UpdatedPollMessage extends UpdatedMessage, BareChatMessage, BareMessage {
-  readonly __typename: 'UpdatedPollMessage';
-  readonly chatId: number;
-  readonly messageId: number;
-  readonly statuses: MessageDateTimeStatus[];
-}
-
-export interface UpdatedAudioMessage extends UpdatedMessage, BareChatMessage, BareMessage {
-  readonly __typename: 'UpdatedAudioMessage';
-  readonly chatId: number;
-  readonly messageId: number;
-  readonly statuses: MessageDateTimeStatus[];
-}
-
-export interface UpdatedGroupChatInviteMessage extends UpdatedMessage, BareChatMessage, BareMessage {
-  readonly __typename: 'UpdatedGroupChatInviteMessage';
-  readonly chatId: number;
-  readonly messageId: number;
-  readonly statuses: MessageDateTimeStatus[];
-}
-
-export interface UpdatedDocMessage extends UpdatedMessage, BareChatMessage, BareMessage {
-  readonly __typename: 'UpdatedDocMessage';
-  readonly chatId: number;
-  readonly messageId: number;
-  readonly statuses: MessageDateTimeStatus[];
-}
-
-export interface UpdatedVideoMessage extends UpdatedMessage, BareChatMessage, BareMessage {
-  readonly __typename: 'UpdatedVideoMessage';
-  readonly chatId: number;
-  readonly messageId: number;
-  readonly statuses: MessageDateTimeStatus[];
 }
 
 export interface GroupChatInput {

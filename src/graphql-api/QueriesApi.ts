@@ -4,13 +4,15 @@ import {
   Chat,
   ChatMessages,
   GroupChat,
-  GroupChatInfo,
   Login,
-  MessageEdge,
-  OnlineStatus,
+  ReadChatResult,
+  ReadGroupChatResult,
+  ReadOnlineStatusResult,
+  RequestTokenSetResult,
+  SearchChatMessagesResult,
   StarredMessage,
   TokenSet,
-  TypingStatus,
+  TypingUsers,
   Uuid,
 } from './models';
 import { queryOrMutate } from './operator';
@@ -20,12 +22,14 @@ import {
   CHAT_FRAGMENT,
   CHAT_MESSAGES_FRAGMENT,
   GROUP_CHAT_FRAGMENT,
-  GROUP_CHAT_INFO_FRAGMENT,
-  MESSAGE_EDGE_FRAGMENT,
-  ONLINE_STATUS_FRAGMENT,
+  READ_CHAT_RESULT_FRAGMENT,
+  READ_GROUP_CHAT_RESULT_FRAGMENT,
+  READ_ONLINE_STATUS_RESULT_FRAGMENT,
+  REQUEST_TOKEN_SET_RESULT_FRAGMENT,
+  SEARCH_CHAT_MESSAGES_RESULT_FRAGMENT,
   STARRED_MESSAGE_FRAGMENT,
   TOKEN_SET_FRAGMENT,
-  TYPING_STATUS_FRAGMENT,
+  TYPING_USERS_FRAGMENT,
 } from './fragments';
 import { validateLogin, validateUuidScalar } from '../validation';
 import { BackwardPagination, ForwardPagination } from './pagination';
@@ -39,22 +43,19 @@ export class QueriesApi {
    * Certain operations require authentication via an access token. You can acquire one to authenticate the user by
    * passing their {@link Login} to this operation.
    * @throws {@link ConnectionError}
-   * @throws {@link NonexistentUserError}
-   * @throws {@link UnverifiedEmailAddressError}
-   * @throws {@link IncorrectPasswordError}
    * @throws {@link InternalServerError}
    * @throws {@link UsernameScalarError}
    * @throws {@link PasswordScalarError}
-   * @see refreshTokenSet
+   * @see {@link refreshTokenSet}
    */
-  async requestTokenSet(login: Login): Promise<TokenSet> {
+  async requestTokenSet(login: Login): Promise<RequestTokenSetResult> {
     validateLogin(login);
     const { __typename, ...loginData } = login;
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
         query RequestTokenSet($login: Login!) {
           requestTokenSet(login: $login) {
-            ${TOKEN_SET_FRAGMENT}
+            ${REQUEST_TOKEN_SET_RESULT_FRAGMENT}
           }
         }
       `,
@@ -166,7 +167,6 @@ export class QueriesApi {
 
   /**
    * @param accessToken Must be passed if the chat isn't a public chat.
-   * @throws {@link InvalidChatIdError}
    * @throws {@link UnauthorizedError}
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
@@ -177,7 +177,7 @@ export class QueriesApi {
     privateChatMessagesPagination?: BackwardPagination,
     groupChatUsersPagination?: ForwardPagination,
     groupChatMessagesPagination?: BackwardPagination,
-  ): Promise<Chat> {
+  ): Promise<ReadChatResult> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -193,7 +193,7 @@ export class QueriesApi {
             $groupChat_messages_before: Cursor
           ) {
             readChat(id: $id) {
-              ${CHAT_FRAGMENT}
+              ${READ_CHAT_RESULT_FRAGMENT}
             }
           }
         `,
@@ -210,30 +210,6 @@ export class QueriesApi {
       accessToken,
     );
     return response.data!.readChat;
-  }
-
-  /**
-   * @return The online statuses of users the user has in their contacts, or has a chat with.
-   * @throws {@link InternalServerError}
-   * @throws {@link ConnectionError}
-   * @throws {@link UnauthorizedError}
-   */
-  async readOnlineStatuses(accessToken: string): Promise<OnlineStatus[]> {
-    const response = await queryOrMutate(
-      this.protocol,
-      this.apiUrl,
-      {
-        query: `
-          query ReadOnlineStatuses {
-            readOnlineStatuses {
-              ${ONLINE_STATUS_FRAGMENT}
-            }
-          }
-        `,
-      },
-      accessToken,
-    );
-    return response.data!.readOnlineStatuses;
   }
 
   /**
@@ -333,17 +309,18 @@ export class QueriesApi {
    * @param accessToken Required if the chat isn't public.
    * @param query Used to case-insensitively queries text messages, poll message title and options, action message text
    * and actions, and pic message captions.
-   * @throws {@link InvalidChatIdError} The chat isn't public, and the user isn't in the chat.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
+   * @returns A returned {@link InvalidChatId} indicates that the chat isn't public, and the user isn't in the chat.
+   * {@link MessageEdge}s are chronologically ordered.
    */
   async searchChatMessages(
     accessToken: string | undefined,
     chatId: number,
     query: string,
     pagination?: BackwardPagination,
-  ): Promise<MessageEdge[]> {
+  ): Promise<SearchChatMessagesResult> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -351,7 +328,7 @@ export class QueriesApi {
         query: `
           query SearchChatMessages($chatId: Int!, $query: String!, $last: Int, $before: Cursor) {
             searchChatMessages(chatId: $chatId, query: $query, last: $last, before: $before) {
-              ${MESSAGE_EDGE_FRAGMENT}
+              ${SEARCH_CHAT_MESSAGES_RESULT_FRAGMENT}
             }
           }
         `,
@@ -418,19 +395,18 @@ export class QueriesApi {
   }
 
   /**
-   * @returns the group chat's info the invite code is for.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
-   * @throws {@link InvalidInviteCodeError}
-   * @throws {@link UuidScalarError}
+   * @returns The group chat's info the invite code is for. This could be used to display a chat the user isn't in but
+   * was invited to, so that they can check whether they'd like to join.
    */
-  async readGroupChat(inviteCode: Uuid): Promise<GroupChatInfo> {
+  async readGroupChat(inviteCode: Uuid): Promise<ReadGroupChatResult> {
     validateUuidScalar(inviteCode);
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
         query ReadGroupChat($inviteCode: Uuid!) {
           readGroupChat(inviteCode: $inviteCode) {
-            ${GROUP_CHAT_INFO_FRAGMENT}
+            ${READ_GROUP_CHAT_RESULT_FRAGMENT}
           }
         }
       `,
@@ -489,6 +465,24 @@ export class QueriesApi {
   }
 
   /**
+   * Whether the specified user is online.
+   * @returns {@link OnlineStatus} if the `userId` exists, and an {@link InvalidUserId} otherwise.
+   */
+  async readOnlineStatus(userId: number): Promise<ReadOnlineStatusResult> {
+    const response = await queryOrMutate(this.protocol, this.apiUrl, {
+      query: `
+        query ReadOnlineStatus($userId: Int!) {
+          readOnlineStatus(userId: $userId) {
+            ${READ_ONLINE_STATUS_RESULT_FRAGMENT}
+          }
+        }
+      `,
+      variables: { userId },
+    });
+    return response.data!.readOnlineStatus;
+  }
+
+  /**
    * Case-insensitively searches chats by case-insensitively querying their titles.
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
@@ -533,23 +527,26 @@ export class QueriesApi {
   }
 
   /**
-   * @returns The statuses of users who are typing in a chat the user is in. The user's own status won't be returned.
+   * @returns The users who are typing in a chat the user is in. The user's own status won't be returned.
+   * @throws {@link InternalServerError}
+   * @throws {@link ConnectionError}
+   * @throws {@link UnauthorizedError}
    */
-  async readTypingStatuses(accessToken: string): Promise<TypingStatus[]> {
+  async readTypingUsers(accessToken: string): Promise<TypingUsers[]> {
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
       {
         query: `
-          query ReadTypingStatuses {
-            readTypingStatuses {
-              ${TYPING_STATUS_FRAGMENT}
-            }
+        query ReadTypingUsers {
+          readTypingUsers {
+            ${TYPING_USERS_FRAGMENT}
           }
-        `,
+        }
+      `,
       },
       accessToken,
     );
-    return response.data!.readTypingStatuses;
+    return response.data!.readTypingUsers;
   }
 }

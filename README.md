@@ -2,21 +2,22 @@
 
 [![npm (scoped)](https://img.shields.io/npm/v/@neelkamath/omni-chat)](https://www.npmjs.com/package/@neelkamath/omni-chat)
 
-Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) wrapper library.
+Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
 
-- Platforms: Browser, Node.js 14
-- Module systems: ES6, CommonJS
-- Language: ES6 (e.g., JavaScript, TypeScript)
-- Types: TypeScript definitions bundled
+- Platforms: Browsers supporting ES6 or higher, Node.js 14, React Native
+- Module systems: ECMAScript Modules, CommonJS
+- Programming languages: ES6 (JavaScript, TypeScript, etc. which target ES6 or higher)
+- Static types: TypeScript definitions bundled
 
 ## Installation
 
-This table shows which version of this library supports which version of the API:
+This table shows which versions of Omni Chat JS support which versions of Omni Chat Backend:
 
-| Omni Chat JS  | Omni Chat Backend |
-| :-----------: | :---------------: |
-| 0.5.0 onwards |      0.16.0       |
-| 0.1.0 - 0.4.0 |      0.15.0       |
+|  Omni Chat JS   | Omni Chat Backend |
+| :-------------: | :---------------: |
+| 0.8.0 or higher |      0.17.0       |
+|  0.5.0 - 0.7.0  |      0.16.0       |
+|  0.1.0 - 0.4.0  |      0.15.0       |
 
 ```
 npm i @neelkamath/omni-chat
@@ -26,12 +27,24 @@ npm i @neelkamath/omni-chat
 
 - Here's the latest version's [documentation](https://neelkamath.github.io/omni-chat-js/). To view a previous version's documentation, find the relevant [release](https://github.com/neelkamath/omni-chat-js/releases), download **docs.zip** from **Assets**, unzip it, and open `docs/index.html` in your browser.
 - [Changelog](CHANGELOG.md)
+- Example of importing via ECMAScript Modules:
+
+  ```typescript
+  import { RestApi } from '@neelkamath/omni-chat';
+  ```
+
+- Example of importing via CommonJS:
+
+  ```typescript
+  const { RestApi } = require('@neelkamath/omni-chat');
+  ```
+
 - Never import APIs from nested files.
 
   For example, this is correct:
 
   ```typescript
-  import { restApi } from '@neelkamath/omni-chat';
+  import { RestApi } from '@neelkamath/omni-chat';
   ```
 
   For example, this is incorrect:

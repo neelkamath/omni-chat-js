@@ -1,5 +1,5 @@
 /**
- * Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) wrapper library.
+ * Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
  *
  * The Omni Chat API consists of one GraphQL API, and one REST API.
  *
@@ -8,8 +8,8 @@
  *
  * In order to avoid the
  * [under-fetching and over-fetching](https://stackoverflow.com/questions/44564905/what-is-over-fetching-or-under-fetching#44568365)
- * problems posed problems posed by REST APIs, the GraphQL API is the primary interface. There are two methods of
- * interacting with the GraphQL API:
+ * problems posed by REST APIs, the GraphQL API is the primary interface. There are two methods of interacting with the
+ * GraphQL API:
  * - The easier method is to use the {@link QueriesApi}, {@link MutationsApi}, and {@link SubscriptionsApi} classes.
  * These classes handle input validation (e.g., {@link MutationsApi.createAccount} may throw a
  * {@link UsernameScalarError}), building the GraphQL query, handling errors, and returning the data. Since this method
@@ -26,7 +26,6 @@
 
 import 'cross-fetch/polyfill';
 
-export * from './graphql-api/errors';
 export * from './graphql-api/models';
 export * from './graphql-api/MutationsApi';
 export * from './graphql-api/operator';
