@@ -20,7 +20,7 @@ If you're forking the repo to develop the project as your own instead of just to
 
 - Test: `npm t`
 - Check for lint issues: `npm run lint`
-- Fix lint issues: `npm run fix`
+- Check for, and fix lint issues: `npm run fix`
 - Generate docs to `docs/`: `npm run doc`
 
 ### Conventions

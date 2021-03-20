@@ -12,14 +12,12 @@
  * GraphQL API:
  * - The easier method is to use the {@link QueriesApi}, {@link MutationsApi}, and {@link SubscriptionsApi} classes.
  * These classes handle input validation (e.g., {@link MutationsApi.createAccount} may throw a
- * {@link UsernameScalarError}), building the GraphQL query, handling errors, and returning the data. Since this method
- * only allows you to perform one operation per request, and the GraphQL query is constructed to retrieve every possible
- * field, the under-fetching and over-fetching problems may come into play. This might not be a problem since you may
- * only execute a single GraphQL operation at a time even otherwise, and the data retrieved is still paginated so that
- * over-fetching is kept to a practical minimum.
+ * {@link UsernameScalarError}), and building the GraphQL query. Since this method constructs the GraphQL query to
+ * retrieve every possible field, the over-fetching problem may come into play. This may not be a problem since the
+ * data retrieved is still paginated so that over-fetching is kept to a practical minimum.
  * - The other method of interacting with the GraphQL API is to use the {@link queryOrMutate} and {@link subscribe}
- * functions. These functions allow you to pass your own GraphQL queries so that you can execute multiple operations at
- * a time, and only select the fields you need to retrieve.
+ * functions. These functions allow you to pass your own GraphQL queries so that you can only select the fields you need
+ * to retrieve.
  *
  * @packageDocumentation
  */

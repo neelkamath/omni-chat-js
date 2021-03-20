@@ -107,7 +107,7 @@ export class MutationsApi {
    * Joins the specified public chat. Nothing will happen if the user is already in the chat.
    * @returns `null` if the operation succeeded. An `InvalidChatId` if there's no such public chat.
    */
-  async joinPublicChat(chatId: number): Promise<InvalidChatId | null> {
+  async joinPublicChat(accessToken: string, chatId: number): Promise<InvalidChatId | null> {
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
         mutation JoinPublicChat($chatId: Int!) {
@@ -117,7 +117,7 @@ export class MutationsApi {
         }
       `,
       variables: { chatId },
-    });
+    }, accessToken);
     return response.data!.joinPublicChat;
   }
 
