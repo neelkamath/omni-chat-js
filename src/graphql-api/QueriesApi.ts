@@ -5,7 +5,6 @@ import {
   ChatMessages,
   GroupChat,
   Login,
-  MessageEdge,
   ReadChatResult,
   ReadGroupChatResult,
   ReadOnlineStatusResult,

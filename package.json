@@ -6,8 +6,8 @@
     "test": "jest",
     "doc": "typedoc src/index.ts --includeVersion --readme none",
     "prepare": "tsc --module commonjs --outDir dist/cjs && tsc --module es6 --outDir dist/es6",
-    "lint": "eslint . && prettier -c .",
-    "fix": "eslint --fix . && prettier -w ."
+    "lint": "eslint . && prettier -c . && tsc --noEmit",
+    "fix": "eslint --fix . && prettier -w . && tsc --noEmit"
   },
   "types": "dist/es6/index.d.ts",
   "repository": "neelkamath/omni-chat-js",
