@@ -62,16 +62,19 @@ describe('validateBioScalar()', () => {
       .reduce((prev, curr) => prev + curr, '');
     expect(() => validateBioScalar(value)).toThrowError(BioScalarError);
   });
+
+  test('bio must disallow leading and trailing whitespace', () =>
+    expect(() => validateBioScalar(' Bio ')).toThrowError(BioScalarError));
 });
 
 describe('validateGroupChatTitleScalar()', () => {
   test('title must be valid', () => expect(() => validateGroupChatTitleScalar('Title')).not.toThrowError());
 
-  test('title must not be pure whitespace', () =>
-    expect(() => validateGroupChatTitleScalar(' ')).toThrowError(GroupChatTitleScalarError));
-
   test('title must be at least one character', () =>
     expect(() => validateGroupChatTitleScalar('')).toThrowError(GroupChatTitleScalarError));
+
+  test('title must disallow leading and trailing whitespace', () =>
+    expect(() => validateGroupChatTitleScalar(' Title ')).toThrowError(GroupChatTitleScalarError));
 
   test('title must be at most 70 characters', () => {
     const value = Array(71)
@@ -84,9 +87,6 @@ describe('validateGroupChatTitleScalar()', () => {
 describe('validateMessageTextScalar()', () => {
   test('text must be valid', () => expect(() => validateMessageTextScalar('text')).not.toThrowError());
 
-  test('text must not be purely whitespace', () =>
-    expect(() => validateMessageTextScalar(' ')).toThrowError(MessageTextScalarError));
-
   test('text must be at least one character', () =>
     expect(() => validateMessageTextScalar('')).toThrowError(MessageTextScalarError));
 
@@ -96,6 +96,9 @@ describe('validateMessageTextScalar()', () => {
       .reduce((prev, curr) => prev + curr, '');
     expect(() => validateMessageTextScalar(value)).toThrowError(MessageTextScalarError);
   });
+
+  test('text must disallow leading and trailing whitespace', () =>
+    expect(() => validateMessageTextScalar(' text ')).toThrowError(MessageTextScalarError));
 });
 
 describe('validateGroupChatDescriptionScalar()', () => {
@@ -108,6 +111,9 @@ describe('validateGroupChatDescriptionScalar()', () => {
       .reduce((prev, curr) => prev + curr, '');
     expect(() => validateGroupChatDescriptionScalar(value)).toThrowError(GroupChatDescriptionScalarError);
   });
+
+  test('description must disallow leading and trailing whitespace', () =>
+    expect(() => validateGroupChatDescriptionScalar(' description ')).toThrowError(GroupChatDescriptionScalarError));
 });
 
 describe('validateDateTimeScalar()', () => {

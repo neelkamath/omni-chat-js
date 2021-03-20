@@ -1,6 +1,6 @@
 {
   "name": "@neelkamath/omni-chat",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Official Omni Chat API wrapper library",
   "scripts": {
     "test": "jest",

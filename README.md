@@ -4,7 +4,7 @@
 
 Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
 
-- Platforms: Browser, Node.js, React Native
+- Platforms: Browsers supporting ES6 or higher, Node.js 14, React Native
 - Module systems: ECMAScript Modules, CommonJS
 - Programming languages: ES6 (JavaScript, TypeScript, etc. which target ES6 or higher)
 - Static types: TypeScript definitions bundled
@@ -15,7 +15,8 @@ This table shows which versions of Omni Chat JS support which versions of Omni C
 
 |  Omni Chat JS   | Omni Chat Backend |
 | :-------------: | :---------------: |
-| 0.5.0 or higher |      0.16.0       |
+| 0.8.0 or higher |      0.17.0       |
+|  0.5.0 - 0.7.0  |      0.16.0       |
 |  0.1.0 - 0.4.0  |      0.15.0       |
 
 ```

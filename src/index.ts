@@ -26,7 +26,6 @@
 
 import 'cross-fetch/polyfill';
 
-export * from './graphql-api/errors';
 export * from './graphql-api/models';
 export * from './graphql-api/MutationsApi';
 export * from './graphql-api/operator';

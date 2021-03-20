@@ -49,22 +49,23 @@ export function validateNameScalar(value: string | null): void {
 
 /** @throws {@link BioScalarError} if the value is neither `null` nor a value {@link Bio}. */
 export function validateBioScalar(value: string | null): void {
-  if (value !== null && value.length > 2500) throw new BioScalarError();
+  if (value === null) return;
+  if (value.trim() !== value || value.length > 2500) throw new BioScalarError();
 }
 
 /** @throws {@link GroupChatTitleScalarError} if the value is an invalid {@link GroupChatTitle}. */
 export function validateGroupChatTitleScalar(value: string): void {
-  if (value.length < 1 || value.length > 70 || value.trim().length === 0) throw new GroupChatTitleScalarError();
+  if (value.length < 1 || value.length > 70 || value.trim() !== value) throw new GroupChatTitleScalarError();
 }
 
 /** @throws {@link MessageTextScalarError} if the value is an invalid {@link MessageText}. */
 export function validateMessageTextScalar(value: string): void {
-  if (value.length < 1 || value.length > 10_000 || value.trim().length === 0) throw new MessageTextScalarError();
+  if (value.length < 1 || value.length > 10_000 || value.trim() !== value) throw new MessageTextScalarError();
 }
 
 /** @throws {@link GroupChatDescriptionScalarError} if the value is an invalid {@link GroupChatDescription}. */
 export function validateGroupChatDescriptionScalar(value: string): void {
-  if (value.length > 1000) throw new GroupChatDescriptionScalarError();
+  if (value.length > 1000 || value.trim() !== value) throw new GroupChatDescriptionScalarError();
 }
 
 /** @throws {@link DateTimeScalarError} if the value is an invalid {@link DateTime}. */

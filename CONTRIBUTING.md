@@ -18,29 +18,15 @@ If you're forking the repo to develop the project as your own instead of just to
 
 ## Developing
 
-### Testing
-
-```
-npm t
-```
-
-### Linting
-
-- Check: `npm run lint`
-- Fix: `npm run fix`
-
-### Documentation
-
-```
-npm run doc
-```
-
-Documentation will be generated to `docs/`.
+- Test: `npm t`
+- Check for lint issues: `npm run lint`
+- Fix lint issues: `npm run fix`
+- Generate docs to `docs/`: `npm run doc`
 
 ### Conventions
 
-- Group each function's test cases in a `describe()` block. See [`MutationsApi.test.ts`](src/graphql-api/__tests__/MutationsApi.test.ts) for an example.
-- Name TypeScript files having a main `export` the same as the `export` (e.g., [`src/graphql-api/MutationsApi.ts`](MutationsApi.ts)). Name other TypeScript files using _camelCase_.
+- Group each function's test cases in a `describe()` block. See [`validators.test.ts`](src/__tests__/validators.test.test.ts) for an example.
+- Name TypeScript files having a main export the same as the export (e.g., [`MutationsApi.ts`](MutationsApi.ts)). Name other TypeScript files using _camelCase_.
 - Name directories and non-TypeScript files using _kebab-case_.
 - Don't document [GraphQL fragments](src/graphql-api/fragments.ts); only [GraphQL models](src/graphql-api/models.ts).
 - Since the GraphQL [inline fragments](src/graphql-api/fragments.ts) can be nested within each other, arguments to fields may clash. To avoid this, use the format `<FRAGMENT>_<FIELD>_<ARGUMENT>` when naming variables. For example, an argument `last` to a field `messages` in a fragment `ChatMessages` would be named `chatMessages_messages_last`.
@@ -82,5 +68,5 @@ Documentation will be generated to `docs/`.
 
 1. Bump the version in [`package.json`](package.json).
 1. Add a [Changelog](CHANGELOG.md) entry.
-1. Update the [README's version matrix](README.md#installation) if required.
+1. Update the [README's version matrix](README.md#installation).
 1. Commit to the `main` branch. The CI/CD pipeline will take care of the rest.
