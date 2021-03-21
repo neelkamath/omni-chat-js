@@ -1,5 +1,5 @@
 import { ConnectionError, InternalServerError, UnauthorizedError } from '../errors';
-import { ApiUrl, HttpProtocol, WebSocketProtocol } from '../config';
+import { HttpApiConfig, WsApiConfig } from '../config';
 
 /**
  * @example
@@ -28,8 +28,8 @@ export interface GraphQlRequest {
   readonly variables?: any;
 }
 
-export interface GraphQlResponse {
-  readonly data?: GraphQlResponseValue;
+export interface GraphQlResponse<T = GraphQlResponseValue> {
+  readonly data?: T;
   readonly errors?: GraphQlResponseValue[];
 }
 
@@ -43,12 +43,11 @@ export interface GraphQlResponseValue {
  * @throws {@link InternalServerError}
  * @throws {@link ConnectionError}
  */
-export async function queryOrMutate(
-  protocol: HttpProtocol,
-  apiUrl: ApiUrl,
+export async function queryOrMutate<T = GraphQlResponseValue>(
+  { apiUrl, protocol }: HttpApiConfig,
   request: GraphQlRequest,
   accessToken?: string,
-): Promise<GraphQlResponse> {
+): Promise<GraphQlResponse<T>> {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
   if (accessToken !== undefined) headers.Authorization = `Bearer ${accessToken}`;
   const response = await fetch(`${protocol}://${apiUrl}/query-or-mutation`, {
@@ -105,14 +104,13 @@ export interface OnSocketClose {
 
 /**
  * Creates a GraphQL subscription.
- * @param operation Example: `'subscribeToAccounts'`.
- * @param path For example, if the subscription is hosted on http://localhost/accounts-subscription, this should be
+ * @param operation - Example: `'subscribeToAccounts'`.
+ * @param path - For example, if the subscription is hosted on http://localhost/accounts-subscription, this should be
  * `'/accounts-subscription'`.
- * @param query GraphQL document (i.e., the query to send to the GraphQL server).
+ * @param query - GraphQL document (i.e., the query to send to the GraphQL server).
  */
 export function subscribe<T>(
-  protocol: WebSocketProtocol,
-  apiUrl: ApiUrl,
+  { apiUrl, protocol }: WsApiConfig,
   accessToken: string,
   operation: string,
   path: string,

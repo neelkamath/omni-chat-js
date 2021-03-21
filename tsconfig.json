@@ -6,6 +6,7 @@
     "lib": ["DOM", "ES2020"],
     "declaration": true,
     "outDir": "dist",
+    "moduleResolution": "Node",
     "strict": true,
     "esModuleInterop": true,
     "noFallthroughCasesInSwitch": true,
