@@ -31,7 +31,6 @@ import {
   TOKEN_SET_FRAGMENT,
   TYPING_USERS_FRAGMENT,
 } from './fragments';
-import { validateLogin, validateUuidScalar } from '../validation';
 import { BackwardPagination, ForwardPagination } from './pagination';
 import { ApiUrl, HttpProtocol } from '../config';
 
@@ -44,12 +43,9 @@ export class QueriesApi {
    * passing their {@link Login} to this operation.
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
-   * @throws {@link UsernameScalarError}
-   * @throws {@link PasswordScalarError}
    * @see {@link refreshTokenSet}
    */
   async requestTokenSet(login: Login): Promise<RequestTokenSetResult> {
-    validateLogin(login);
     const { __typename, ...loginData } = login;
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
@@ -401,7 +397,6 @@ export class QueriesApi {
    * was invited to, so that they can check whether they'd like to join.
    */
   async readGroupChat(inviteCode: Uuid): Promise<ReadGroupChatResult> {
-    validateUuidScalar(inviteCode);
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
         query ReadGroupChat($inviteCode: Uuid!) {

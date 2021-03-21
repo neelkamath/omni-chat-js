@@ -34,17 +34,6 @@ import {
   VerifyEmailAddressResult,
 } from './models';
 import { queryOrMutate } from './operator';
-import {
-  validateAccountInput,
-  validateAccountUpdate,
-  validateActionMessageInput,
-  validateGroupChatDescriptionScalar,
-  validateGroupChatInput,
-  validateGroupChatTitleScalar,
-  validateMessageTextScalar,
-  validatePollInput,
-  validateUuidScalar,
-} from '../validation';
 import { ContextMessageId } from '../rest-api/models';
 import { ApiUrl, HttpProtocol } from '../config';
 import {
@@ -82,13 +71,8 @@ export class MutationsApi {
    * @returns `null` if the operation succeeded.
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
-   * @throws {@link UsernameScalarError}
-   * @throws {@link PasswordScalarError}
-   * @throws {@link NameScalarError}
-   * @throws {@link BioScalarError}
    */
   async createAccount(account: AccountInput): Promise<CreateAccountResult | null> {
-    validateAccountInput(account);
     const { __typename, ...accountData } = account;
     const response = await queryOrMutate(this.protocol, this.apiUrl, {
       query: `
@@ -108,16 +92,21 @@ export class MutationsApi {
    * @returns `null` if the operation succeeded. An `InvalidChatId` if there's no such public chat.
    */
   async joinPublicChat(accessToken: string, chatId: number): Promise<InvalidChatId | null> {
-    const response = await queryOrMutate(this.protocol, this.apiUrl, {
-      query: `
+    const response = await queryOrMutate(
+      this.protocol,
+      this.apiUrl,
+      {
+        query: `
         mutation JoinPublicChat($chatId: Int!) {
           joinPublicChat(chatId: $chatId) {
             ${INVALID_CHAT_ID_FRAGMENT}
           }
         }
       `,
-      variables: { chatId },
-    }, accessToken);
+        variables: { chatId },
+      },
+      accessToken,
+    );
     return response.data!.joinPublicChat;
   }
 
@@ -215,7 +204,7 @@ export class MutationsApi {
   /**
    * Updates the user's account. Only the non-`null` fields will be updated. None of the updates will take place if even
    * one of the fields were invalid. If the user updates their email address to something other than their current
-   * address, they must be loged out because the current access token will be invalid until they verify their new email
+   * address, they must be logged out because the current access token will be invalid until they verify their new email
    * address.
    *
    * If the user updates their email address, they'll be required to verify it before their next login via an email
@@ -227,13 +216,8 @@ export class MutationsApi {
    * @throws {@link UnauthorizedError}
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
-   * @throws {@link UsernameScalarError}
-   * @throws {@link PasswordScalarError}
-   * @throws {@link NameScalarError}
-   * @throws {@link BioScalarError}
    */
   async updateAccount(accessToken: string, update: AccountUpdate): Promise<UpdateAccountResult | null> {
-    validateAccountUpdate(update);
     const { __typename, ...updateData } = update;
     const response = await queryOrMutate(
       this.protocol,
@@ -579,10 +563,8 @@ export class MutationsApi {
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
-   * @throws {@link GroupChatTitleScalarError}
    */
   async updateGroupChatTitle(accessToken: string, chatId: number, title: GroupChatTitle): Promise<Placeholder> {
-    validateGroupChatTitleScalar(title);
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -604,14 +586,12 @@ export class MutationsApi {
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
-   * @throws {@link GroupChatDescriptionScalarError}
    */
   async updateGroupChatDescription(
     accessToken: string,
     chatId: number,
     description: GroupChatDescription,
   ): Promise<Placeholder> {
-    validateGroupChatDescriptionScalar(description);
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -714,11 +694,8 @@ export class MutationsApi {
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
-   * @throws {@link GroupChatTitleScalarError}
-   * @throws {@link GroupChatDescriptionScalarError}
    */
   async createGroupChat(accessToken: string, chat: GroupChatInput): Promise<CreateGroupChatResult> {
-    validateGroupChatInput(chat);
     const { __typename, ...input } = chat;
     const response = await queryOrMutate(
       this.protocol,
@@ -796,11 +773,9 @@ export class MutationsApi {
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
-   * @throws {@link UuidScalarError}
    * @see {@link MutationsApi.joinPublicChat}
    */
   async joinGroupChat(accessToken: string, inviteCode: Uuid): Promise<InvalidInviteCode | null> {
-    validateUuidScalar(inviteCode);
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -880,7 +855,6 @@ export class MutationsApi {
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
-   * @throws {@link MessageTextScalarError}
    */
   async createTextMessage(
     accessToken: string,
@@ -888,7 +862,6 @@ export class MutationsApi {
     text: MessageText,
     contextMessageId?: ContextMessageId,
   ): Promise<CreateTextMessageResult | null> {
-    validateMessageTextScalar(text);
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -923,7 +896,6 @@ export class MutationsApi {
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
-   * @throws {@link MessageTextScalarError}
    */
   async createActionMessage(
     accessToken: string,
@@ -931,7 +903,6 @@ export class MutationsApi {
     message: ActionMessageInput,
     contextMessageId?: ContextMessageId,
   ): Promise<CreateActionMessageResult | null> {
-    validateActionMessageInput(message);
     const { __typename, ...input } = message;
     const response = await queryOrMutate(
       this.protocol,
@@ -1004,7 +975,6 @@ export class MutationsApi {
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
-   * @throws {@link MessageTextScalarError}
    */
   async createPollMessage(
     accessToken: string,
@@ -1012,7 +982,6 @@ export class MutationsApi {
     poll: PollInput,
     contextMessageId?: ContextMessageId,
   ): Promise<CreatePollMessageResult | null> {
-    validatePollInput(poll);
     const { __typename, ...input } = poll;
     const response = await queryOrMutate(
       this.protocol,
@@ -1075,14 +1044,12 @@ export class MutationsApi {
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
-   * @throws {@link MessageTextScalarError}
    */
   async triggerAction(
     accessToken: string,
     messageId: number,
     action: MessageText,
   ): Promise<TriggerActionResult | null> {
-    validateMessageTextScalar(action);
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,
@@ -1110,7 +1077,6 @@ export class MutationsApi {
    * @throws {@link InternalServerError}
    * @throws {@link ConnectionError}
    * @throws {@link UnauthorizedError}
-   * @throws {@link MessageTextScalarError}
    */
   async setPollVote(
     accessToken: string,
@@ -1118,7 +1084,6 @@ export class MutationsApi {
     option: MessageText,
     vote: boolean,
   ): Promise<SetPollVoteResult | null> {
-    validateMessageTextScalar(option);
     const response = await queryOrMutate(
       this.protocol,
       this.apiUrl,

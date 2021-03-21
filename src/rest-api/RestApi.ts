@@ -2,13 +2,13 @@ import { ConnectionError, InternalServerError, UnauthorizedError } from '../erro
 import {
   InvalidContextMessageError,
   InvalidPicError,
+  MessageTextScalarError,
   NonexistentChatError,
   NonexistentUserIdError,
   UserNotInChatError,
 } from './errors';
 import { Audio, ContextMessageId, Doc, Pic, PicType, Video } from './models';
 import { MessageText } from '../graphql-api/models';
-import { MessageTextScalarError } from '../validation';
 import { getMediaMessage, postMediaMessage } from './operator';
 import { ApiUrl, HttpProtocol } from '../config';
 
@@ -146,10 +146,10 @@ export class RestApi {
    * @throws {@link UserNotInChatError}
    * @throws {@link InvalidPicError}
    * @throws {@link InvalidContextMessageError}
-   * @throws {@link MessageTextScalarError}
    * @throws {@link UnauthorizedError}
    * @throws {@link ConnectionError}
    * @throws {@link InternalServerError}
+   * @throws {@link MessageTextScalarError}
    */
   async postPicMessage(
     accessToken: string,

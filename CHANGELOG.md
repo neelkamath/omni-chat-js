@@ -7,9 +7,38 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 0.9.0
 
+### Added
+
+- `isValidUsernameScalar()`
+- `isValidNameScalar()`
+- `isValidBioScalar()`
+- `isValidGroupChatTitleScalar()`
+- `isValidMessageTextScalar()`
+- `isValidGroupChatDescriptionScalar()`
+- `isValidDateTimeScalar()`
+- `isValidPasswordScalar()`
+- `isValidUuidScalar()`
+
+### Changed
+
+- `class QueriesApi`, `class MutationsApi`, `class SubscriptionsApi`, and `class RestApi` no longer throw scalar errors such as `class BioScalarError`. You can validate the input manually using the new validation functions such as `isValidBioScalar()` instead. Note that `RestApi.postPicMessage()` still throws a `class MessageTextScalarError`.
+
 ### Fixed
 
 - Require an access token for `MutationsApi.joinPublicChat()`.
+
+### Removed
+
+- Drop support for Node.js.
+- Drop support for React Native.
+- `class UuidScalarError`
+- `class PasswordScalarError`
+- `class BioScalarError`
+- `class GroupChatDescriptionScalarError`
+- `class GroupChatTitleScalarError`
+- `class UsernameScalarError`
+- `class NameScalarError`
+- `class DateTimeScalarError`
 
 ## [0.8.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.7.0) - 2020-03-20
 
