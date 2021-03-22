@@ -20,7 +20,7 @@ jobs:
           node-version: 14
       - run: npm i
       - run: npm run lint
-  docs:
+  host-docs:
     if: github.ref == 'refs/heads/main'
     needs: [test, lint]
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
           build_dir: docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  publish:
+  npm-publish:
     if: github.ref == 'refs/heads/main'
     needs: [test, lint]
     runs-on: ubuntu-latest
@@ -53,7 +53,7 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
-  release:
+  github-release:
     if: github.ref == 'refs/heads/main'
     needs: docs
     runs-on: ubuntu-latest

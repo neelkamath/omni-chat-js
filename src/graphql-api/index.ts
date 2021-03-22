@@ -1,5 +1,5 @@
-export * from './mutations/index';
-export * from './queries/index';
+export * from './mutations';
+export * from './queries';
 export * from './models';
 export * from './operator';
 export * from './pagination';
