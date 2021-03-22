@@ -23,7 +23,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Make functions previously in `class QueriesApi`, `class MutationsApi`, `class SubscriptionsApi`, and `class RestApi` as top-level functions with a different function signature but the same functionality. These functions no longer throw scalar errors such as `class BioScalarError`. You can validate the input manually using the new validation functions such as `isValidBioScalar()` instead. Note that `postPicMessage()` still throws a `class MessageTextScalarError` because the API server explicitly returns it as one of its responses.
+- Make functions previously in `class QueriesApi`, `class MutationsApi`, `class SubscriptionsApi`, and `class RestApi` as top-level functions with different function signatures but the same functionality. These functions no longer throw scalar errors such as `class BioScalarError`. You can validate the input manually using the new validation functions such as `isValidBioScalar()` instead. Note that `postPicMessage()` still throws a `class MessageTextScalarError` because the API server explicitly returns it as one of its responses.
 - Change the function signature of `queryOrMutate()`.
 - Change the function signature of `subscribe()`.
 - `interface GraphQlResponse`
@@ -48,8 +48,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `class UsernameScalarError`
 - `class NameScalarError`
 - `class DateTimeScalarError`
-- `type HttpProtocol`
-- `type WebSocketProtocol`
 
 ## [0.8.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.7.0) - 2020-03-20
 
