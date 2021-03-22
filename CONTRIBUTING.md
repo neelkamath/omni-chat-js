@@ -20,18 +20,22 @@ If you're forking the repo to develop the project as your own instead of just to
 
 - Test: `npm t`
 - Check for lint issues: `npm run lint`
-- Fix lint issues: `npm run fix`
+- Check for, and fix lint issues: `npm run fix`
 - Generate docs to `docs/`: `npm run doc`
 
 ### Conventions
 
 - Group each function's test cases in a `describe()` block. See [`validators.test.ts`](src/__tests__/validators.test.test.ts) for an example.
-- Name TypeScript files having a main export the same as the export (e.g., [`MutationsApi.ts`](MutationsApi.ts)). Name other TypeScript files using _camelCase_.
+- Every directory must contain an `index.ts` file which exports public APIs in order to make it easier to (re-)export.
+- Name TypeScript files having a main export the same as the export (e.g., [`createAccount.ts`](src/graphql-api/mutations/createAccount.ts)). Name other TypeScript files using _camelCase_.
 - Name directories and non-TypeScript files using _kebab-case_.
 - Don't document [GraphQL fragments](src/graphql-api/fragments.ts); only [GraphQL models](src/graphql-api/models.ts).
 - Since the GraphQL [inline fragments](src/graphql-api/fragments.ts) can be nested within each other, arguments to fields may clash. To avoid this, use the format `<FRAGMENT>_<FIELD>_<ARGUMENT>` when naming variables. For example, an argument `last` to a field `messages` in a fragment `ChatMessages` would be named `chatMessages_messages_last`.
-- Functions dealing with GraphQL operations which take a JWT must have the token as the first parameter regardless of whether it's optional. This is for the purpose of a consistent public API. Internal APIs such as [`operator.ts`](src/graphql-api/operator.ts) don't follow this.
-- Use the `ForwardPagination` and `BackwardPagination` [models](src/graphql-api/pagination.ts) instead of passing `first`, `after`, `last`, and `before` arguments in API call functions.
+- Follow these function signature conventions for the purpose of a consistent public API:
+  - Functions which take either an `interface HttpApiConfig` or `interface WsApiConfig` must it as their first parameter.
+  - With the exception of `queryOrMutate()` in [`operator.ts`](src/graphql-api/operator.ts), functions which take a JWT must have the token as the second parameter regardless of whether it's optional.
+- GraphQL operations wrappers such as `createAccount()` from [`createAccount.ts`](src/graphql-api/mutations/createAccount.ts) return a `Promise<GraphQlResponse<T>>`. Name the `T` using the format `<OPERATION>Data` (`CreateAccountData` in this case).
+- Use the `ForwardPagination` and `BackwardPagination` [models](src/graphql-api/pagination.ts) instead of passing `first`, `after`, `last`, and `before` arguments in functions parameters.
 - Here's how to convert GraphQL syntax to TypeScript syntax to create [GraphQL models](src/graphql-api/models.ts):
 
   | GraphQL                      | TypeScript  |

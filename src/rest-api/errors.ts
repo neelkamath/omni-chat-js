@@ -17,3 +17,5 @@ export class NonexistentChatError extends Error {}
 export class UserNotInChatError extends Error {}
 
 export class InvalidContextMessageError extends Error {}
+
+export class MessageTextScalarError extends Error {}

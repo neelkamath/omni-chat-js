@@ -1,140 +1,122 @@
 import {
-  BioScalarError,
-  DateTimeScalarError,
-  GroupChatDescriptionScalarError,
-  GroupChatTitleScalarError,
-  MessageTextScalarError,
-  NameScalarError,
-  PasswordScalarError,
-  UsernameScalarError,
-  UuidScalarError,
-  validateBioScalar,
-  validateDateTimeScalar,
-  validateGroupChatDescriptionScalar,
-  validateGroupChatTitleScalar,
-  validateMessageTextScalar,
-  validateNameScalar,
-  validatePasswordScalar,
-  validateUsernameScalar,
-  validateUuidScalar,
-} from '../validation';
+  isValidBioScalar,
+  isValidDateTimeScalar,
+  isValidGroupChatDescriptionScalar,
+  isValidGroupChatTitleScalar,
+  isValidMessageTextScalar,
+  isValidNameScalar,
+  isValidPasswordScalar,
+  isValidUsernameScalar,
+  isValidUuidScalar,
+} from '../graphql-api';
 
-describe('validateUsernameScalar()', () => {
-  test('username must be valid', () => expect(() => validateUsernameScalar('username')).not.toThrowError());
+describe('isValidUsernameScalar()', () => {
+  test('username must be valid', () => expect(isValidUsernameScalar('username')).toBe(true));
 
-  test('username cannot contain whitespace', () =>
-    expect(() => validateUsernameScalar('user name')).toThrowError(UsernameScalarError));
+  test('username cannot contain whitespace', () => expect(isValidUsernameScalar('user name')).toBe(false));
 
-  test('username must be lowercase', () =>
-    expect(() => validateUsernameScalar('Username')).toThrowError(UsernameScalarError));
+  test('username must be lowercase', () => expect(isValidUsernameScalar('Username')).toBe(false));
 
-  test('username must contain at least one character', () =>
-    expect(() => validateUsernameScalar('')).toThrowError(UsernameScalarError));
+  test('username must contain at least one character', () => expect(isValidUsernameScalar('')).toBe(false));
 
   test('username must be at most 30 characters', () => {
     const value = Array(31)
       .fill('a')
       .reduce((prev, curr) => prev + curr, '');
-    expect(() => validateUsernameScalar(value)).toThrowError(UsernameScalarError);
+    expect(isValidUsernameScalar(value)).toBe(false);
   });
 });
 
-describe('validateNameScalar()', () => {
-  test('name must be valid', () => expect(() => validateNameScalar('Name')).not.toThrowError());
+describe('isValidNameScalar()', () => {
+  test('name must be valid', () => expect(isValidNameScalar('Name')).toBe(true));
 
-  test('name must not contain whitespace', () =>
-    expect(() => validateNameScalar('Middle Name')).toThrowError(NameScalarError));
+  test('name must not contain whitespace', () => expect(isValidNameScalar('Middle Name')).toBe(false));
 
   test('name must be at most 30 characters', () => {
     const value = Array(31)
       .fill('a')
       .reduce((prev, curr) => prev + curr, '');
-    expect(() => validateNameScalar(value)).toThrowError(NameScalarError);
+    expect(isValidNameScalar(value)).toBe(false);
   });
 });
 
-describe('validateBioScalar()', () => {
-  test('bio must be valid', () => expect(() => validateBioScalar('Bio')).not.toThrowError());
+describe('isValidBioScalar()', () => {
+  test('bio must be valid', () => expect(isValidBioScalar('Bio')).toBe(true));
 
   test('bio must be at most 2,500 characters', () => {
     const value = Array(2501)
       .fill('a')
       .reduce((prev, curr) => prev + curr, '');
-    expect(() => validateBioScalar(value)).toThrowError(BioScalarError);
+    expect(isValidBioScalar(value)).toBe(false);
   });
 
-  test('bio must disallow leading and trailing whitespace', () =>
-    expect(() => validateBioScalar(' Bio ')).toThrowError(BioScalarError));
+  test('bio must disallow leading and trailing whitespace', () => expect(isValidBioScalar(' Bio ')).toBe(false));
 });
 
-describe('validateGroupChatTitleScalar()', () => {
-  test('title must be valid', () => expect(() => validateGroupChatTitleScalar('Title')).not.toThrowError());
+describe('isValidGroupChatTitleScalar()', () => {
+  test('title must be valid', () => expect(isValidGroupChatTitleScalar('Title')).toBe(true));
 
-  test('title must be at least one character', () =>
-    expect(() => validateGroupChatTitleScalar('')).toThrowError(GroupChatTitleScalarError));
+  test('title must be at least one character', () => expect(isValidGroupChatTitleScalar('')).toBe(false));
 
   test('title must disallow leading and trailing whitespace', () =>
-    expect(() => validateGroupChatTitleScalar(' Title ')).toThrowError(GroupChatTitleScalarError));
+    expect(isValidGroupChatTitleScalar(' Title ')).toBe(false));
 
   test('title must be at most 70 characters', () => {
     const value = Array(71)
       .fill('a')
       .reduce((prev, curr) => prev + curr, '');
-    expect(() => validateGroupChatTitleScalar(value)).toThrowError(GroupChatTitleScalarError);
+    expect(isValidGroupChatTitleScalar(value)).toBe(false);
   });
 });
 
-describe('validateMessageTextScalar()', () => {
-  test('text must be valid', () => expect(() => validateMessageTextScalar('text')).not.toThrowError());
+describe('isValidMessageTextScalar()', () => {
+  test('text must be valid', () => expect(isValidMessageTextScalar('text')).toBe(true));
 
-  test('text must be at least one character', () =>
-    expect(() => validateMessageTextScalar('')).toThrowError(MessageTextScalarError));
+  test('text must be at least one character', () => expect(isValidMessageTextScalar('')).toBe(false));
 
   test('text must be at most 10,000 characters', () => {
     const value = Array(10_001)
       .fill('a')
       .reduce((prev, curr) => prev + curr, '');
-    expect(() => validateMessageTextScalar(value)).toThrowError(MessageTextScalarError);
+    expect(isValidMessageTextScalar(value)).toBe(false);
   });
 
   test('text must disallow leading and trailing whitespace', () =>
-    expect(() => validateMessageTextScalar(' text ')).toThrowError(MessageTextScalarError));
+    expect(isValidMessageTextScalar(' text ')).toBe(false));
 });
 
-describe('validateGroupChatDescriptionScalar()', () => {
-  test('description must be valid', () =>
-    expect(() => validateGroupChatDescriptionScalar('description')).not.toThrowError());
+describe('isValidGroupChatDescriptionScalar()', () => {
+  test('description must be valid', () => expect(isValidGroupChatDescriptionScalar('description')).toBe(true));
 
   test('description must be at most 1,000 characters', () => {
     const value = Array(1001)
       .fill('a')
       .reduce((prev, curr) => prev + curr, '');
-    expect(() => validateGroupChatDescriptionScalar(value)).toThrowError(GroupChatDescriptionScalarError);
+    expect(isValidGroupChatDescriptionScalar(value)).toBe(false);
   });
 
   test('description must disallow leading and trailing whitespace', () =>
-    expect(() => validateGroupChatDescriptionScalar(' description ')).toThrowError(GroupChatDescriptionScalarError));
+    expect(isValidGroupChatDescriptionScalar(' description ')).toBe(false));
 });
 
-describe('validateDateTimeScalar()', () => {
-  test('date and time must be valid', () =>
-    expect(() => validateDateTimeScalar('2021-01-19T11:18:19.402Z')).not.toThrowError());
+describe('isValidDateTimeScalar()', () => {
+  test('date and time must be valid', () => expect(isValidDateTimeScalar('2021-01-19T11:18:19.402Z')).toBe(true));
 
-  test('date and time must not be valid', () =>
-    expect(() => validateDateTimeScalar('2021-01-19T11:18:19.:')).toThrowError(DateTimeScalarError));
+  test('date and time must not be valid', () => expect(isValidDateTimeScalar('2021-01-19T11:18:19.:')).toBe(false));
 });
 
-describe('validatePasswordScalar()', () => {
-  test('password must be valid', () => expect(() => validatePasswordScalar('password')).not.toThrowError());
+describe('isValidPasswordScalar()', () => {
+  test('password must be valid', () => expect(isValidPasswordScalar('password')).toBe(true));
 
-  test('password must contain non-whitespace characters', () =>
-    expect(() => validatePasswordScalar(' ')).toThrowError(PasswordScalarError));
+  test('password must contain non-whitespace characters', () => expect(isValidPasswordScalar(' ')).toBe(false));
 });
 
-describe('validateUuidScalar()', () => {
-  test('the scalar must be valid', () =>
-    expect(() => validateUuidScalar('123e4567-e89b-12d3-a456-426614174000')).not.toThrowError());
+describe('isValidUuidScalar()', () => {
+  test('the scalar must be valid', () => expect(isValidUuidScalar('123e4567-e89b-12d3-a456-426614174000')).toBe(true));
 
   test('the scalar must not be valid', () =>
-    expect(() => validateUuidScalar('123e4567-e89b-12d3-a456-42661417400')).toThrowError(UuidScalarError));
+    expect(isValidUuidScalar('123e4567-e89b-12d3-a456-42661417400')).toBe(false));
+
+  test('a nested UUID must be invalid', () =>
+    expect(isValidUuidScalar('UUID: 123e4567-e89b-12d3-a456-426614174000')).toBe(false));
 });

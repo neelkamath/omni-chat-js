@@ -7,28 +7,25 @@ import {
   InvalidVideoError,
   UserNotInChatError,
 } from './errors';
-import { ApiUrl, HttpProtocol } from '../config';
+import { HttpApiConfig } from '../config';
 
 /**
- * @param accessToken You needn't pass an access token if the chat is public.
- * @param type The type of media to read.
- * @param messageId The message to read the media from.
- * @param picType Must be sent if retrieving a pic message.
+ * @param accessToken - You needn't pass an access token if the chat is public.
+ * @param type - The type of media to read.
+ * @param messageId - The message to read the media from.
+ * @param picType - Must be sent if retrieving a pic message.
  * @throws {@link UnauthorizedError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
  */
 export async function getMediaMessage(
-  protocol: HttpProtocol,
-  apiUrl: ApiUrl,
+  { apiUrl, protocol }: HttpApiConfig,
   accessToken: string | undefined,
   type: 'pic' | 'audio' | 'video' | 'doc',
   messageId: number,
   picType?: PicType,
 ): Promise<Blob> {
-  const paramsInit: Record<string, string> = {
-    'message-id': messageId.toString(),
-  };
+  const paramsInit: Record<string, string> = { 'message-id': messageId.toString() };
   if (picType !== undefined) paramsInit['pic-type'] = picType;
   const params = new URLSearchParams(paramsInit).toString();
   const headers: Record<string, string> = {};
@@ -59,8 +56,7 @@ export type MediaType = 'audio' | 'video' | 'doc';
  * @throws {@link ConnectionError}
  */
 export async function postMediaMessage(
-  protocol: HttpProtocol,
-  apiUrl: ApiUrl,
+  { apiUrl, protocol }: HttpApiConfig,
   accessToken: string,
   type: MediaType,
   file: File,

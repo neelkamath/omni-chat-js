@@ -5,6 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.9.0
+
+### Added
+
+- `interface HttpApiConfig`
+- `interface WsApiConfig`
+- `isValidUsernameScalar()`
+- `isValidNameScalar()`
+- `isValidBioScalar()`
+- `isValidGroupChatTitleScalar()`
+- `isValidMessageTextScalar()`
+- `isValidGroupChatDescriptionScalar()`
+- `isValidDateTimeScalar()`
+- `isValidPasswordScalar()`
+- `isValidUuidScalar()`
+
+### Changed
+
+- Make functions previously in `class QueriesApi`, `class MutationsApi`, `class SubscriptionsApi`, and `class RestApi` as top-level functions with different function signatures but the same functionality. These functions no longer throw scalar errors such as `class BioScalarError`. You can validate the input manually using the new validation functions such as `isValidBioScalar()` instead. Note that `postPicMessage()` still throws a `class MessageTextScalarError` because the API server explicitly returns it as one of its responses.
+- Change the function signature of `queryOrMutate()`.
+- Change the function signature of `subscribe()`.
+- `interface GraphQlResponse`
+
+### Fixed
+
+- Require an access token for `MutationsApi.joinPublicChat()`.
+
+### Removed
+
+- Drop support for Node.js.
+- Drop support for React Native.
+- `class QueriesApi`
+- `class MutationsApi`
+- `class SubscriptionsApi`
+- `class RestApi`
+- `class UuidScalarError`
+- `class PasswordScalarError`
+- `class BioScalarError`
+- `class GroupChatDescriptionScalarError`
+- `class GroupChatTitleScalarError`
+- `class UsernameScalarError`
+- `class NameScalarError`
+- `class DateTimeScalarError`
+
 ## [0.8.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.7.0) - 2020-03-20
 
 ### Added

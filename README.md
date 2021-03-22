@@ -4,8 +4,8 @@
 
 Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
 
-- Platforms: Browsers supporting ES6 or higher, Node.js 14, React Native
-- Module systems: ECMAScript Modules, CommonJS
+- Platforms: Browsers supporting ES6 or higher
+- Module systems: ECMAScript Modules
 - Programming languages: ES6 (JavaScript, TypeScript, etc. which target ES6 or higher)
 - Static types: TypeScript definitions bundled
 
@@ -27,18 +27,6 @@ npm i @neelkamath/omni-chat
 
 - Here's the latest version's [documentation](https://neelkamath.github.io/omni-chat-js/). To view a previous version's documentation, find the relevant [release](https://github.com/neelkamath/omni-chat-js/releases), download **docs.zip** from **Assets**, unzip it, and open `docs/index.html` in your browser.
 - [Changelog](CHANGELOG.md)
-- Example of importing via ECMAScript Modules:
-
-  ```typescript
-  import { RestApi } from '@neelkamath/omni-chat';
-  ```
-
-- Example of importing via CommonJS:
-
-  ```typescript
-  const { RestApi } = require('@neelkamath/omni-chat');
-  ```
-
 - Never import APIs from nested files.
 
   For example, this is correct:
