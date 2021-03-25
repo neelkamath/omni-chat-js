@@ -55,7 +55,7 @@ jobs:
           access: public
   github-release:
     if: github.ref == 'refs/heads/main'
-    needs: docs
+    needs: [host-docs]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
