@@ -85,10 +85,7 @@ export type Password = string;
 /** 1-70 characters, of which at least one isn't whitespace. Leading and trailing whitespace is disallowed. */
 export type GroupChatTitle = string;
 
-/**
- * At most 1,000 characters, disallows leading and trailing whitespace, and uses CommonMark. An empty string corresponds
- * to no description.
- */
+/** At most 1,000 characters, disallows leading and trailing whitespace, and uses CommonMark. */
 export type GroupChatDescription = string;
 
 /**

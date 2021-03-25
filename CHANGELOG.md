@@ -5,7 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.9.0
+## [0.10.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.7.0) - 2020-03-25
+
+### Added
+
+- `interface SubscribeToAccountsData`
+- `interface SubscribeToGroupChatsData`
+- `interface SubscribeToMessagesData`
+- `interface SubscribeToOnlineStatusesData`
+- `interface SubscribeToTypingStatusesData`
+
+### Changed
+
+- `interface OnSocketMessage`
+- `interface OnSocketError`
+- `subscribe()`
+- `subscribeToAccounts()`
+- `subscribeToGroupChats()`
+- `subscribeToMessages()`
+- `subscribeToOnlineStatuses()`
+- `subscribeToTypingStatuses()`
+
+### Fixed
+
+- `readAccount()`
+- `searchChatMessages()`
+- `subscribeToMessages()`
+
+## [0.9.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.7.0) - 2020-03-21
 
 ### Added
 
@@ -30,7 +57,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Require an access token for `MutationsApi.joinPublicChat()`.
+- Require an access token for `joinPublicChat()`.
 
 ### Removed
 

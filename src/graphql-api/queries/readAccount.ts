@@ -1,6 +1,7 @@
 import { HttpApiConfig } from '../../config';
 import { GraphQlResponse, queryOrMutate } from '../operator';
 import { ACCOUNT_FRAGMENT } from '../fragments';
+import { Account } from '../models';
 
 export interface ReadAccountData {
   readonly readAccount: Account;

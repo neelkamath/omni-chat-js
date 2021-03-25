@@ -1049,7 +1049,7 @@ export const CREATED_CHAT_ID_FRAGMENT = `
 `;
 
 export const SEARCH_CHAT_MESSAGES_RESULT_FRAGMENT = `
-  ${MESSAGE_EDGE_FRAGMENT}
+  ${MESSAGE_EDGES_FRAGMENT}
   ${INVALID_CHAT_ID_FRAGMENT}
 `;
 
@@ -1177,6 +1177,7 @@ export const UPDATED_MESSAGE_FRAGMENT = `
     state
     statuses {
       ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
+    }
     hasStar
   }
 `;

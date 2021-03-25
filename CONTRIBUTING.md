@@ -34,7 +34,7 @@ If you're forking the repo to develop the project as your own instead of just to
 - Follow these function signature conventions for the purpose of a consistent public API:
   - Functions which take either an `interface HttpApiConfig` or `interface WsApiConfig` must it as their first parameter.
   - With the exception of `queryOrMutate()` in [`operator.ts`](src/graphql-api/operator.ts), functions which take a JWT must have the token as the second parameter regardless of whether it's optional.
-- GraphQL operations wrappers such as `createAccount()` from [`createAccount.ts`](src/graphql-api/mutations/createAccount.ts) return a `Promise<GraphQlResponse<T>>`. Name the `T` using the format `<OPERATION>Data` (`CreateAccountData` in this case).
+- GraphQL operations wrappers (e.g., [`createAccount()`](src/graphql-api/mutations/createAccount.ts), [`subscribeToAccounts()`](src/graphql-api/subscriptions/subscribeToAccounts.ts)) either return a `Promise<GraphQlResponse<T>>` or take a `OnSocketMessage<T>`. Name the `T` using the format `<OPERATION>Data` (e.g., `interface CreateAccountData`, `interface SubscribeToAccountsData`).
 - Use the `ForwardPagination` and `BackwardPagination` [models](src/graphql-api/pagination.ts) instead of passing `first`, `after`, `last`, and `before` arguments in functions parameters.
 - Here's how to convert GraphQL syntax to TypeScript syntax to create [GraphQL models](src/graphql-api/models.ts):
 
