@@ -66,13 +66,11 @@ export async function queryOrMutate<T = GraphQlResponseValue>(
  * user that the server is currently unreachable.
  */
 export interface OnSocketError {
-  (): void;
+  (error: Event): void;
 }
 
 /**
- * Every time the socket sends an update, this will be called with the data.
- *
- * For example, if the socket sends the following update:
+ * Every time the socket sends an update, this will be called with the received GraphQL document. For example:
  * ```
  * {
  *   "data": {
@@ -84,17 +82,9 @@ export interface OnSocketError {
  *   }
  * }
  * ```
- * then, the following data would be passed to this function:
- * ```
- * {
- *   __typename: 'NewTextMessage',
- *   chatId: 3,
- *   message: 'Hi!',
- * }
- * ```
  */
 export interface OnSocketMessage<T> {
-  (message: T): void;
+  (message: GraphQlResponse<T>): void;
 }
 
 /** Call this function to close the connection. */
@@ -104,7 +94,6 @@ export interface OnSocketClose {
 
 /**
  * Creates a GraphQL subscription.
- * @param operation - Example: `'subscribeToAccounts'`.
  * @param path - For example, if the subscription is hosted on http://localhost/accounts-subscription, this should be
  * `'/accounts-subscription'`.
  * @param query - GraphQL document (i.e., the query to send to the GraphQL server).
@@ -112,7 +101,6 @@ export interface OnSocketClose {
 export function subscribe<T>(
   { apiUrl, protocol }: WsApiConfig,
   accessToken: string,
-  operation: string,
   path: string,
   query: string,
   onMessage: OnSocketMessage<T>,
@@ -123,13 +111,7 @@ export function subscribe<T>(
     socket.send(accessToken);
     socket.send(JSON.stringify({ query }));
   });
-  socket.addEventListener('message', ({ data }) => {
-    const response = JSON.parse(data) as GraphQlResponse;
-    if (response.errors !== undefined) {
-      onError();
-      socket.close();
-    } else onMessage(response.data![operation]);
-  });
+  socket.addEventListener('message', ({ data }) => onMessage(JSON.parse(data)));
   socket.addEventListener('error', onError);
   return () => socket.close();
 }
