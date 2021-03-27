@@ -1,6 +1,5 @@
 import { ActionMessageInput, CreateActionMessageResult } from '../models';
 import { HttpApiConfig } from '../../config';
-import { ContextMessageId } from '../../rest-api';
 import { GraphQlResponse, queryOrMutate } from '../operator';
 import { CREATE_ACTION_MESSAGE_RESULT_FRAGMENT } from '../fragments';
 
@@ -30,7 +29,7 @@ export async function createActionMessage(
   accessToken: string,
   chatId: number,
   message: ActionMessageInput,
-  contextMessageId?: ContextMessageId,
+  contextMessageId?: number,
 ): Promise<GraphQlResponse<CreateActionMessageData>> {
   const { __typename, ...input } = message;
   return await queryOrMutate(

@@ -114,14 +114,15 @@ export interface AccountUpdate {
   readonly bio: Bio | null;
 }
 
+/** The server will use an empty string for fields which are `undefined`. */
 export interface AccountInput {
   readonly __typename: 'AccountInput';
   readonly username: Username;
   readonly password: Password;
   readonly emailAddress: string;
-  readonly firstName: Name | null;
-  readonly lastName: Name | null;
-  readonly bio: Bio | null;
+  readonly firstName?: Name;
+  readonly lastName?: Name;
+  readonly bio?: Bio;
 }
 
 export interface Login {

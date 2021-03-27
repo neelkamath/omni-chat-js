@@ -1,6 +1,5 @@
 import { CREATE_GROUP_CHAT_INVITE_MESSAGE_RESULT_FRAGMENT } from '../fragments';
 import { HttpApiConfig } from '../../config';
-import { ContextMessageId } from '../../rest-api';
 import { GraphQlResponse, queryOrMutate } from '../operator';
 import { CreateGroupChatInviteMessageResult } from '../models';
 
@@ -28,7 +27,7 @@ export async function createGroupChatInviteMessage(
   accessToken: string,
   chatId: number,
   invitedChatId: number,
-  contextMessageId?: ContextMessageId,
+  contextMessageId?: number,
 ): Promise<GraphQlResponse<CreateGroupChatInviteMessageData>> {
   return await queryOrMutate(
     config,
