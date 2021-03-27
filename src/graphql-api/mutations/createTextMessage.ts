@@ -28,7 +28,7 @@ export async function createTextMessage(
     config,
     {
       query: `
-        mutation CreateTextMessage($chatId: Int!, $text: MessageText!, $contextMessageId: Int!) {
+        mutation CreateTextMessage($chatId: Int!, $text: MessageText!, $contextMessageId: Int) {
           createTextMessage(chatId: $chatId, text: $text, contextMessageId: $contextMessageId) {
             ${CREATE_TEXT_MESSAGE_RESULT_FRAGMENT}
           }
