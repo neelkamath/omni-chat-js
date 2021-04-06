@@ -13,11 +13,12 @@ Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaSc
 
 This table shows which versions of Omni Chat JS support which versions of Omni Chat Backend:
 
-|  Omni Chat JS   | Omni Chat Backend |
-| :-------------: | :---------------: |
-| 0.8.0 or higher |      0.17.0       |
-|  0.5.0 - 0.7.0  |      0.16.0       |
-|  0.1.0 - 0.4.0  |      0.15.0       |
+|   Omni Chat JS   | Omni Chat Backend |
+| :--------------: | :---------------: |
+| 0.11.0 or higher |      0.18.0       |
+|  0.8.0 - 0.10.0  |      0.17.0       |
+|  0.5.0 - 0.7.0   |      0.16.0       |
+|  0.1.0 - 0.4.0   |      0.15.0       |
 
 ```
 npm i @neelkamath/omni-chat

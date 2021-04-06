@@ -13,7 +13,8 @@ export type AccountsSubscription =
   | UpdatedProfilePic
   | DeletedContact
   | BlockedAccount
-  | UnblockedAccount;
+  | UnblockedAccount
+  | DeletedAccount;
 
 export type MessagesSubscription =
   | CreatedSubscription
@@ -68,14 +69,18 @@ export type DateTime = string;
 /** A cursor for pagination. */
 export type Cursor = string;
 
-/** A username must not contain whitespace, must be lowercase, and must be 1-30 characters long. */
+/**
+ * A username must be 1-30 characters long. Only lowercase English letters (a-z), English numbers (0-9), periods, and
+ * underscores are allowed.
+ */
 export type Username = string;
 
 /** A name must neither contain whitespace nor exceed 30 characters. */
 export type Name = string;
 
 /**
- * A user's bio which cannot exceed 2,500 characters, disallows leading and trailing whitespace, and uses CommonMark.
+ * A user's bio which cannot exceed 2,500 characters, disallows leading and trailing whitespace, and uses GitHub
+ * Flavored Markdown.
  */
 export type Bio = string;
 
@@ -85,12 +90,12 @@ export type Password = string;
 /** 1-70 characters, of which at least one isn't whitespace. Leading and trailing whitespace is disallowed. */
 export type GroupChatTitle = string;
 
-/** At most 1,000 characters, disallows leading and trailing whitespace, and uses CommonMark. */
+/** At most 1,000 characters, disallows leading and trailing whitespace, and uses GitHub Flavored Markdown. */
 export type GroupChatDescription = string;
 
 /**
- * 1-10,000 characters, of which at least one isn't whitespace. Uses CommonMark. Leading and trailing whitespace is
- * disallowed.
+ * 1-10,000 characters, of which at least one isn't whitespace. Uses GitHub Flavored Markdown. Leading and trailing
+ * whitespace is disallowed.
  */
 export type MessageText = string;
 
@@ -101,6 +106,12 @@ export type MessageText = string;
 export interface CreatedSubscription {
   readonly __typename: 'CreatedSubscription';
   readonly placeholder: Placeholder;
+}
+
+/** The {@link id} of the user who deleted their account. */
+export interface DeletedAccount {
+  readonly __typename: 'DeletedAccount';
+  readonly id: number;
 }
 
 /** Only non-`null` fields will be updated. */
@@ -248,47 +259,13 @@ export interface MessageEdge {
   readonly cursor: Cursor;
 }
 
-export interface BareMessage {
-  readonly __typename:
-    | 'TextMessage'
-    | 'ActionMessage'
-    | 'PicMessage'
-    | 'PollMessage'
-    | 'AudioMessage'
-    | 'GroupChatInviteMessage'
-    | 'DocMessage'
-    | 'VideoMessage'
-    | 'StarredTextMessage'
-    | 'StarredActionMessage'
-    | 'StarredPicMessage'
-    | 'StarredPollMessage'
-    | 'StarredAudioMessage'
-    | 'StarredGroupChatInviteMessage'
-    | 'StarredDocMessage'
-    | 'StarredVideoMessage'
-    | 'NewTextMessage'
-    | 'NewActionMessage'
-    | 'NewPicMessage'
-    | 'NewPollMessage'
-    | 'NewAudioMessage'
-    | 'NewGroupChatInviteMessage'
-    | 'NewDocMessage'
-    | 'NewVideoMessage';
-  readonly messageId: number;
-  readonly sender: Account;
-  readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-}
-
 /** The {@link id} of the group chat whose pic was updated. */
 export interface UpdatedGroupChatPic {
   readonly __typename: 'UpdatedGroupChatPic';
   readonly id: number;
 }
 
-export interface Message extends BareMessage {
+export interface Message {
   readonly __typename:
     | 'TextMessage'
     | 'ActionMessage'
@@ -301,16 +278,11 @@ export interface Message extends BareMessage {
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
-}
-
-export interface MessageDateTimes {
-  readonly __typename: 'MessageDateTimes';
-  readonly sent: DateTime;
-  readonly statuses: MessageDateTimeStatus[];
 }
 
 export type MessageStatus = 'DELIVERED' | 'READ';
@@ -515,7 +487,7 @@ export interface UpdatedMessage {
 /** Every message in the chat has been unstarred by the user. */
 export interface UnstarredChat {
   readonly __typename: 'UnstarredChat';
-  readonly chatId: number;
+  readonly id: number;
 }
 
 /** The {@link dateTime} the {@link user} created the {@link status}. */
@@ -728,128 +700,109 @@ export interface GroupChatInfo extends BareGroupChat {
   readonly publicity: GroupChatPublicity;
 }
 
-export interface TextMessage extends BareMessage, Message {
+export interface TextMessage extends Message {
   readonly __typename: 'TextMessage';
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
   readonly textMessage: MessageText;
 }
 
-export interface ActionMessage extends BareMessage, Message {
+export interface ActionMessage extends Message {
   readonly __typename: 'ActionMessage';
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
   readonly actionableMessage: ActionableMessage;
 }
 
-export interface PicMessage extends BareMessage, Message {
+export interface PicMessage extends Message {
   readonly __typename: 'PicMessage';
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
   readonly caption: MessageText | null;
 }
 
-export interface PollMessage extends BareMessage, Message {
+export interface PollMessage extends Message {
   readonly __typename: 'PollMessage';
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
   readonly poll: Poll;
 }
 
-export interface AudioMessage extends BareMessage, Message {
+export interface AudioMessage extends Message {
   readonly __typename: 'AudioMessage';
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
 }
 
-export interface GroupChatInviteMessage extends BareMessage, Message {
+export interface GroupChatInviteMessage extends Message {
   readonly __typename: 'GroupChatInviteMessage';
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
   readonly inviteCode: Uuid;
 }
 
-export interface DocMessage extends BareMessage, Message {
+export interface DocMessage extends Message {
   readonly __typename: 'DocMessage';
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
 }
 
-export interface VideoMessage extends BareMessage, Message {
+export interface VideoMessage extends Message {
   readonly __typename: 'VideoMessage';
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly hasStar: boolean;
 }
 
-export interface BareChatMessage extends BareMessage {
-  readonly __typename:
-    | 'StarredTextMessage'
-    | 'StarredActionMessage'
-    | 'StarredPicMessage'
-    | 'StarredPollMessage'
-    | 'StarredAudioMessage'
-    | 'StarredGroupChatInviteMessage'
-    | 'StarredDocMessage'
-    | 'StarredVideoMessage'
-    | 'NewTextMessage'
-    | 'NewActionMessage'
-    | 'NewPicMessage'
-    | 'NewPollMessage'
-    | 'NewAudioMessage'
-    | 'NewGroupChatInviteMessage'
-    | 'NewDocMessage'
-    | 'NewVideoMessage';
-  readonly chatId: number;
-  readonly messageId: number;
-  readonly sender: Account;
-  readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
-  readonly context: MessageContext;
-  readonly isForwarded: boolean;
-}
-
 /** The message which the user starred. */
-export interface StarredMessage extends BareChatMessage, BareMessage {
+export interface StarredMessage {
   readonly __typename:
     | 'StarredTextMessage'
     | 'StarredActionMessage'
@@ -863,105 +816,114 @@ export interface StarredMessage extends BareChatMessage, BareMessage {
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
 }
 
-export interface StarredTextMessage extends StarredMessage, BareChatMessage, BareMessage {
+export interface StarredTextMessage extends StarredMessage {
   readonly __typename: 'StarredTextMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly textMessage: MessageText;
 }
 
-export interface StarredActionMessage extends StarredMessage, BareChatMessage, BareMessage {
+export interface StarredActionMessage extends StarredMessage {
   readonly __typename: 'StarredActionMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly actionableMessage: ActionableMessage;
 }
 
-export interface StarredPicMessage extends StarredMessage, BareChatMessage, BareMessage {
+export interface StarredPicMessage extends StarredMessage {
   readonly __typename: 'StarredPicMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly caption: MessageText | null;
 }
 
-export interface StarredPollMessage extends StarredMessage, BareChatMessage, BareMessage {
+export interface StarredPollMessage extends StarredMessage {
   readonly __typename: 'StarredPollMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly poll: Poll;
 }
 
-export interface StarredAudioMessage extends StarredMessage, BareChatMessage, BareMessage {
+export interface StarredAudioMessage extends StarredMessage {
   readonly __typename: 'StarredAudioMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
 }
 
-export interface StarredGroupChatInviteMessage extends StarredMessage, BareChatMessage, BareMessage {
+export interface StarredGroupChatInviteMessage extends StarredMessage {
   readonly __typename: 'StarredGroupChatInviteMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly inviteCode: Uuid;
 }
 
-export interface StarredDocMessage extends StarredMessage, BareChatMessage, BareMessage {
+export interface StarredDocMessage extends StarredMessage {
   readonly __typename: 'StarredDocMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
 }
 
-export interface StarredVideoMessage extends StarredMessage, BareChatMessage, BareMessage {
+export interface StarredVideoMessage extends StarredMessage {
   readonly __typename: 'StarredVideoMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
+  readonly statuses: MessageDateTimeStatus[];
   readonly context: MessageContext;
   readonly isForwarded: boolean;
 }
 
-export interface NewMessage extends BareChatMessage, BareMessage {
+export interface NewMessage {
   readonly __typename:
     | 'NewTextMessage'
     | 'NewActionMessage'
@@ -975,100 +937,100 @@ export interface NewMessage extends BareChatMessage, BareMessage {
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
 }
 
-export interface NewTextMessage extends NewMessage, BareChatMessage, BareMessage {
+export interface NewTextMessage extends NewMessage {
   readonly __typename: 'NewTextMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly textMessage: MessageText;
 }
 
-export interface NewActionMessage extends NewMessage, BareChatMessage, BareMessage {
+export interface NewActionMessage extends NewMessage {
   readonly __typename: 'NewActionMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly actionableMessage: ActionableMessage;
 }
 
-export interface NewPicMessage extends NewMessage, BareChatMessage, BareMessage {
+export interface NewPicMessage extends NewMessage {
   readonly __typename: 'NewPicMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly caption: MessageText | null;
 }
 
-export interface NewPollMessage extends NewMessage, BareChatMessage, BareMessage {
+export interface NewPollMessage extends NewMessage {
   readonly __typename: 'NewPollMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly poll: Poll;
 }
 
-export interface NewAudioMessage extends NewMessage, BareChatMessage, BareMessage {
+export interface NewAudioMessage extends NewMessage {
   readonly __typename: 'NewAudioMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
 }
 
-export interface NewGroupChatInviteMessage extends NewMessage, BareChatMessage, BareMessage {
+export interface NewGroupChatInviteMessage extends NewMessage {
   readonly __typename: 'NewGroupChatInviteMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
   readonly inviteCode: Uuid;
 }
 
-export interface NewDocMessage extends NewMessage, BareChatMessage, BareMessage {
+export interface NewDocMessage extends NewMessage {
   readonly __typename: 'NewDocMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
 }
 
-export interface NewVideoMessage extends NewMessage, BareChatMessage, BareMessage {
+export interface NewVideoMessage extends NewMessage {
   readonly __typename: 'NewVideoMessage';
   readonly chatId: number;
   readonly messageId: number;
   readonly sender: Account;
   readonly state: MessageState;
-  readonly dateTimes: MessageDateTimes;
+  readonly sent: DateTime;
   readonly context: MessageContext;
   readonly isForwarded: boolean;
 }
@@ -1081,4 +1043,44 @@ export interface GroupChatInput {
   readonly adminIdList: number[];
   readonly isBroadcast: boolean;
   readonly publicity: GroupChatPublicity;
+}
+
+export interface StarredMessagesConnection {
+  readonly edges: StarredMessageEdge[];
+  readonly pageInfo: PageInfo;
+}
+
+export interface StarredMessageEdge {
+  readonly node: StarredMessage;
+  readonly cursor: Cursor;
+}
+
+export interface ChatMessagesConnection {
+  readonly edges: ChatMessagesEdge[];
+  readonly pageInfo: PageInfo;
+}
+
+export interface ChatMessagesEdge {
+  readonly node: ChatMessages;
+  readonly cursor: Cursor;
+}
+
+export interface ChatsConnection {
+  readonly edges: ChatEdge[];
+  readonly pageInfo: PageInfo;
+}
+
+export interface ChatEdge {
+  readonly node: Chat;
+  readonly cursor: Cursor;
+}
+
+export interface GroupChatsConnection {
+  readonly edges: GroupChatEdge[];
+  readonly pageInfo: PageInfo;
+}
+
+export interface GroupChatEdge {
+  readonly node: GroupChat;
+  readonly cursor: Cursor;
 }

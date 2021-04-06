@@ -1,11 +1,11 @@
-import { CHAT_FRAGMENT } from '../fragments';
+import { CHATS_CONNECTION_FRAGMENT } from '../fragments';
 import { GraphQlResponse, queryOrMutate } from '../operator';
-import { Chat } from '../models';
+import { ChatsConnection } from '../models';
 import { BackwardPagination, ForwardPagination } from '../pagination';
 import { HttpApiConfig } from '../../config';
 
 export interface ReadChatsData {
-  readonly readChats: Chat[];
+  readonly readChats: ChatsConnection;
 }
 
 /**
@@ -17,6 +17,7 @@ export interface ReadChatsData {
 export async function readChats(
   config: HttpApiConfig,
   accessToken: string,
+  pagination?: ForwardPagination,
   privateChatMessagesPagination?: BackwardPagination,
   groupChatUsersPagination?: ForwardPagination,
   groupChatMessagesPagination?: BackwardPagination,
@@ -26,6 +27,8 @@ export async function readChats(
     {
       query: `
         query ReadChats(
+          $first: Int
+          $after: Cursor
           $privateChat_messages_last: Int
           $privateChat_messages_before: Cursor
           $groupChat_users_first: Int
@@ -33,12 +36,14 @@ export async function readChats(
           $groupChat_messages_last: Int
           $groupChat_messages_before: Cursor
         ) {
-          readChats {
-             ${CHAT_FRAGMENT}
+          readChats(first: $first, after: $after) {
+             ${CHATS_CONNECTION_FRAGMENT}
           }
         }
       `,
       variables: {
+        first: pagination?.first,
+        after: pagination?.after,
         privateChat_messages_last: privateChatMessagesPagination?.last,
         privateChat_messages_before: privateChatMessagesPagination?.before,
         groupChat_users_first: groupChatUsersPagination?.first,

@@ -126,16 +126,6 @@ export const MESSAGE_DATE_TIME_STATUS_FRAGMENT = `
   }
 `;
 
-export const MESSAGE_DATE_TIMES_FRAGMENT = `
-  ... on MessageDateTimes {
-    __typename
-    sent
-    statuses {
-      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
-    }
-  }
-`;
-
 export const MESSAGE_CONTEXT_FRAGMENT = `
   ... on MessageContext {
     __typename
@@ -152,8 +142,9 @@ export const TEXT_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -172,8 +163,9 @@ export const ACTION_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -194,8 +186,9 @@ export const AUDIO_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -227,8 +220,9 @@ export const GROUP_CHAT_INVITE_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -247,8 +241,9 @@ export const DOC_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -266,8 +261,9 @@ export const VIDEO_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -285,8 +281,9 @@ export const PIC_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -323,8 +320,9 @@ export const POLL_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -420,9 +418,7 @@ export const NEW_TEXT_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
+    sent
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
     }
@@ -440,9 +436,7 @@ export const NEW_ACTION_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
+    sent
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
     }
@@ -462,9 +456,7 @@ export const NEW_PIC_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
+    sent
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
     }
@@ -482,9 +474,7 @@ export const NEW_AUDIO_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
+    sent
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
     }
@@ -501,9 +491,7 @@ export const NEW_GROUP_CHAT_INVITE_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
+    sent
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
     }
@@ -521,9 +509,7 @@ export const NEW_DOC_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
+    sent
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
     }
@@ -540,9 +526,7 @@ export const NEW_VIDEO_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
+    sent
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
     }
@@ -559,9 +543,7 @@ export const NEW_POLL_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
-    }
+    sent
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
     }
@@ -709,8 +691,9 @@ export const STARRED_TEXT_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -729,8 +712,9 @@ export const STARRED_ACTION_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -751,8 +735,9 @@ export const STARRED_PIC_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -771,8 +756,9 @@ export const STARRED_POLL_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -793,8 +779,9 @@ export const STARRED_AUDIO_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -812,8 +799,9 @@ export const STARRED_GROUP_CHAT_INVITE_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -832,8 +820,9 @@ export const STARRED_DOC_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -851,8 +840,9 @@ export const STARRED_VIDEO_MESSAGE_FRAGMENT = `
       ${ACCOUNT_FRAGMENT}
     }
     state
-    dateTimes {
-      ${MESSAGE_DATE_TIMES_FRAGMENT}
+    sent
+    statuses {
+      ${MESSAGE_DATE_TIME_STATUS_FRAGMENT}
     }
     context {
       ${MESSAGE_CONTEXT_FRAGMENT}
@@ -872,6 +862,13 @@ export const STARRED_MESSAGE_FRAGMENT = `
   ${STARRED_VIDEO_MESSAGE_FRAGMENT}
 `;
 
+export const DELETED_ACCOUNT_FRAGMENT = `
+  ... on DeletedAccount {
+    __typename
+    id
+  }
+`;
+
 export const ACCOUNTS_SUBSCRIPTION_FRAGMENT = `
   ${CREATED_SUBSCRIPTION_FRAGMENT}
   ${NEW_CONTACT_FRAGMENT}
@@ -880,6 +877,7 @@ export const ACCOUNTS_SUBSCRIPTION_FRAGMENT = `
   ${DELETED_CONTACT_FRAGMENT}
   ${BLOCKED_ACCOUNT_FRAGMENT}
   ${UNBLOCKED_ACCOUNT_FRAGMENT}
+  ${DELETED_ACCOUNT_FRAGMENT}
 `;
 
 export const TYPING_USERS_FRAGMENT = `
@@ -1155,7 +1153,7 @@ export const CANNOT_LEAVE_CHAT_FRAGMENT = `
 export const UNSTARRED_CHAT_FRAGMENT = `
   ... on UnstarredChat {
     __typename
-    chatId
+    id
   }
 `;
 
@@ -1204,4 +1202,90 @@ export const MESSAGES_SUBSCRIPTION_FRAGMENT = `
 export const ONLINE_STATUSES_SUBSCRIPTION_FRAGMENT = `
   ${CREATED_SUBSCRIPTION_FRAGMENT}
   ${ONLINE_STATUS_FRAGMENT}
+`;
+
+export const STARRED_MESSAGES_CONNECTION_FRAGMENT = `
+  ... on StarredMessagesConnection {
+    __typename
+    edges {
+      ${STARRED_MESSAGE_FRAGMENT}
+    pageInfo {
+      ${PAGE_INFO_FRAGMENT}
+    }
+  }
+`;
+
+export const STARRED_MESSAGE_EDGE_FRAGMENT = `
+  ... on StarredMessageEdge {
+    __typename
+    node {
+      ${STARRED_MESSAGE_FRAGMENT}
+    }
+    cursor
+  }
+`;
+
+export const CHAT_MESSAGES_EDGE_FRAGMENT = `
+  ... on ChatMessageEdge {
+    node {
+      ${CHAT_MESSAGES_FRAGMENT}
+    }
+    cursor
+  }
+`;
+
+export const CHAT_MESSAGES_CONNECTION_FRAGMENT = `
+  ... on ChatMessagesConnection {
+    __typename
+    edges {
+      ${CHAT_MESSAGES_EDGE_FRAGMENT}
+    }
+    pageInfo {
+      ${PAGE_INFO_FRAGMENT}
+    }
+  }
+`;
+
+export const CHAT_EDGE_FRAGMENT = `
+  ... on ChatEdge {
+    __typename
+    node {
+      ${CHAT_FRAGMENT}
+    }
+    cursor
+  }
+`;
+
+export const CHATS_CONNECTION_FRAGMENT = `
+  ... on ChatsConnection {
+    __typename
+    edges {
+      ${CHAT_EDGE_FRAGMENT}
+    }
+    pageInfo {
+      ${PAGE_INFO_FRAGMENT}
+    }
+  }
+`;
+
+export const GROUP_CHAT_EDGE_FRAGMENT = `
+  ... on GroupChatEdge {
+    __typename
+    node {
+      ${GROUP_CHAT_FRAGMENT}
+    }
+    cursor
+  }
+`;
+
+export const GROUP_CHATS_CONNECTION_FRAGMENT = `
+  ... on GroupChatsConnection {
+    __typename
+    edges {
+      ${GROUP_CHAT_EDGE_FRAGMENT}
+    }
+    pageInfo {
+      ${PAGE_INFO_FRAGMENT}
+    }
+  }
 `;

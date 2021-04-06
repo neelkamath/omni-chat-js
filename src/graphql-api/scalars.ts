@@ -1,6 +1,6 @@
 /** @returns Whether the value is a valid {@link Username}. */
 export function isValidUsernameScalar(value: string): boolean {
-  return value.match(/\s/) === null && value.match(/[A-Z]/) === null && value.length > 0 && value.length < 31;
+  return value.length > 0 && value.length < 31 && value.match(/[^a-z0-9_.]/) === null;
 }
 
 /** @returns Whether the value is a valid {@link Name}. */
