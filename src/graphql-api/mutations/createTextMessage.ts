@@ -1,6 +1,5 @@
 import { CreateTextMessageResult, MessageText } from '../models';
 import { HttpApiConfig } from '../../config';
-import { ContextMessageId } from '../../rest-api';
 import { GraphQlResponse, queryOrMutate } from '../operator';
 import { CREATE_TEXT_MESSAGE_RESULT_FRAGMENT } from '../fragments';
 
@@ -23,13 +22,13 @@ export async function createTextMessage(
   accessToken: string,
   chatId: number,
   text: MessageText,
-  contextMessageId?: ContextMessageId,
+  contextMessageId?: number,
 ): Promise<GraphQlResponse<CreateTextMessageData>> {
   return await queryOrMutate(
     config,
     {
       query: `
-        mutation CreateTextMessage($chatId: Int!, $text: MessageText!, $contextMessageId: Int!) {
+        mutation CreateTextMessage($chatId: Int!, $text: MessageText!, $contextMessageId: Int) {
           createTextMessage(chatId: $chatId, text: $text, contextMessageId: $contextMessageId) {
             ${CREATE_TEXT_MESSAGE_RESULT_FRAGMENT}
           }

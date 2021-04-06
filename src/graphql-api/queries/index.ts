@@ -8,6 +8,7 @@ export * from './readBlockedUsers';
 export * from './readContacts';
 export * from './readStars';
 export * from './requestTokenSet';
+export * from './searchBlockedUsers';
 export * from './searchContacts';
 export * from './searchUsers';
 export * from './readChat';

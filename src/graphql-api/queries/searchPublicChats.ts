@@ -1,10 +1,11 @@
-import { GroupChat } from '../models';
+import { GroupChatsConnection } from '../models';
 import { HttpApiConfig } from '../../config';
 import { GraphQlResponse, queryOrMutate } from '../operator';
-import { GROUP_CHAT_FRAGMENT } from '../fragments';
+import { GROUP_CHATS_CONNECTION_FRAGMENT } from '../fragments';
+import { ForwardPagination } from '../pagination';
 
 export interface SearchPublicChatsData {
-  readonly searchPublicChats: GroupChat[];
+  readonly searchPublicChats: GroupChatsConnection;
 }
 
 /**
@@ -15,15 +16,16 @@ export interface SearchPublicChatsData {
 export async function searchPublicChats(
   config: HttpApiConfig,
   query: string,
+  pagination?: ForwardPagination,
 ): Promise<GraphQlResponse<SearchPublicChatsData>> {
   return await queryOrMutate(config, {
     query: `
-      query SearchPublicChats($query: String!) {
-        searchPublicChats(query: $query) {
-          ${GROUP_CHAT_FRAGMENT}
+      query SearchPublicChats($query: String!, $first: Int, $after: Cursor) {
+        searchPublicChats(query: $query, first: $first, after: $after) {
+          ${GROUP_CHATS_CONNECTION_FRAGMENT}
         }
       }
     `,
-    variables: { query },
+    variables: { query, first: pagination?.first, after: pagination?.after },
   });
 }

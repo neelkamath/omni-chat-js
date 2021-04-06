@@ -1,11 +1,11 @@
-import { Chat } from '../models';
+import { ChatsConnection } from '../models';
 import { HttpApiConfig } from '../../config';
 import { BackwardPagination, ForwardPagination } from '../pagination';
 import { GraphQlResponse, queryOrMutate } from '../operator';
-import { CHAT_FRAGMENT } from '../fragments';
+import { CHATS_CONNECTION_FRAGMENT } from '../fragments';
 
 export interface SearchChatsData {
-  readonly searchChats: Chat[];
+  readonly searchChats: ChatsConnection;
 }
 
 /**
@@ -20,6 +20,7 @@ export async function searchChats(
   config: HttpApiConfig,
   accessToken: string,
   query: string,
+  pagination?: ForwardPagination,
   privateChatMessagesPagination?: BackwardPagination,
   groupChatUsersPagination?: ForwardPagination,
   groupChatMessagesPagination?: BackwardPagination,
@@ -30,6 +31,8 @@ export async function searchChats(
       query: `
         query SearchChats(
           $query: String!
+          $first: Int
+          $after: Cursor
           $privateChat_messages_last: Int
           $privateChat_messages_before: Cursor
           $groupChat_users_first: Int
@@ -37,13 +40,15 @@ export async function searchChats(
           $groupChat_messages_last: Int
           $groupChat_messages_before: Cursor
         ) {
-          searchChats(query: $query) {
-            ${CHAT_FRAGMENT}
+          searchChats(query: $query, first: $first, after: $after) {
+            ${CHATS_CONNECTION_FRAGMENT}
           }
         }
       `,
       variables: {
         query,
+        first: pagination?.first,
+        after: pagination?.after,
         privateChat_messages_last: privateChatMessagesPagination?.last,
         privateChat_messages_before: privateChatMessagesPagination?.before,
         groupChat_users_first: groupChatUsersPagination?.first,

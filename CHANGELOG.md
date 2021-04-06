@@ -5,7 +5,80 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.10.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.7.0) - 2020-03-25
+## [0.11.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.11.0) - 2020-04-06
+
+### Added
+
+- `searchBlockedUsers()`
+- `interface DeletedAccount`
+- `createContact()`
+- `deleteContact()`
+- `interface StarredMessagesConnection`
+- `interface StarredMessageEdge`
+- `interface ChatMessagesConnection`
+- `interface ChatMessagesEdge`
+- `interface ChatsConnection`
+- `interface ChatEdge`
+- `interface GroupChatsConnection`
+- `interface GroupChatEdge`
+
+### Changed
+
+- `interface AccountInput`
+- Rename `chatId` to `id` in `interface UnstarredChat`.
+- `scalar Username`
+- Add `interface DeletedAccount` to `interface AccountsSubscription`.
+- Return a `boolean` instead of a `Placeholder` from `unblockUser()` to indicate whether the user got unblocked.
+- Use GitHub Flavored Markdown instead of CommonMark (update `type Bio`, `type GroupChatDescription`, and `type MessageText` accordingly).
+- Paginate `readStars()`.
+- Paginate `searchMessages()`.
+- Paginate `readChats()`.
+- Paginate `searchChats()`.
+- Paginate `searchPublicChats()`.
+- Remove the `dateTimes` field, and add the `sent` field to the following:
+  - `interface NewMessage`
+  - `interface NewTextMessage`
+  - `interface NewActionMessage`
+  - `interface NewPicMessage`
+  - `interface NewPollMessage`
+  - `interface NewAudioMessage`
+  - `interface NewGroupChatInviteMessage`
+  - `interface NewDocMessage`
+  - `interface NewVideoMessage`
+- Remove the `dateTimes` field, and add the `sent` and `statuses` fields to the following:
+  - `interface Message`
+  - `interface TextMessage`
+  - `interface ActionMessage`
+  - `interface PicMessage`
+  - `interface PollMessage`
+  - `interface AudioMessage`
+  - `interface GroupChatInviteMessage`
+  - `interface DocMessage`
+  - `interface VideoMessage`
+  - `interface StarredMessage`
+  - `interface StarredTextMessage`
+  - `interface StarredActionMessage`
+  - `interface StarredPicMessage`
+  - `interface StarredPollMessage`
+  - `interface StarredAudioMessage`
+  - `interface StarredGroupChatInviteMessage`
+  - `interface StarredDocMessage`
+  - `interface StarredVideoMessage`
+
+### Removed
+
+- Remove `createContacts()` in favor of `createContact()`.
+- Remove `deleteContacts()` in favor of `deleteContact()`.
+- `interface BareMessage`
+- `interface BareChatMessage`
+- `interface MessageDateTimes`
+
+### Fixed
+
+- Fix pagination bugs.
+- `createTextMessage()`
+
+## [0.10.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.10.0) - 2020-03-25
 
 ### Added
 
@@ -32,7 +105,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `searchChatMessages()`
 - `subscribeToMessages()`
 
-## [0.9.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.7.0) - 2020-03-21
+## [0.9.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.9.0) - 2020-03-21
 
 ### Added
 
@@ -76,7 +149,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `class NameScalarError`
 - `class DateTimeScalarError`
 
-## [0.8.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.7.0) - 2020-03-20
+## [0.8.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.8.0) - 2020-03-20
 
 ### Added
 

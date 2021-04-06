@@ -11,7 +11,7 @@ import {
 } from '../graphql-api';
 
 describe('isValidUsernameScalar()', () => {
-  test('username must be valid', () => expect(isValidUsernameScalar('username')).toBe(true));
+  test('username must be valid', () => expect(isValidUsernameScalar('a0._')).toBe(true));
 
   test('username cannot contain whitespace', () => expect(isValidUsernameScalar('user name')).toBe(false));
 

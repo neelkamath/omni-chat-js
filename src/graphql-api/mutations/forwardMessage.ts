@@ -1,6 +1,5 @@
 import { ForwardMessageResult } from '../models';
 import { HttpApiConfig } from '../../config';
-import { ContextMessageId } from '../../rest-api';
 import { GraphQlResponse, queryOrMutate } from '../operator';
 import { FORWARD_MESSAGE_RESULT_FRAGMENT } from '../fragments';
 
@@ -25,7 +24,7 @@ export async function forwardMessage(
   accessToken: string,
   chatId: number,
   messageId: number,
-  contextMessageId?: ContextMessageId,
+  contextMessageId?: number,
 ): Promise<GraphQlResponse<ForwardMessageData>> {
   return await queryOrMutate(
     config,

@@ -1,6 +1,5 @@
 import { HttpApiConfig } from '../../config';
 import { CreatePollMessageResult, PollInput } from '../models';
-import { ContextMessageId } from '../../rest-api';
 import { GraphQlResponse, queryOrMutate } from '../operator';
 import { CREATE_POLL_MESSAGE_RESULT_FRAGMENT } from '../fragments';
 
@@ -24,7 +23,7 @@ export async function createPollMessage(
   accessToken: string,
   chatId: number,
   poll: PollInput,
-  contextMessageId?: ContextMessageId,
+  contextMessageId?: number,
 ): Promise<GraphQlResponse<CreatePollMessageResult>> {
   const { __typename, ...input } = poll;
   return await queryOrMutate(

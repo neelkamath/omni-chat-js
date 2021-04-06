@@ -1,7 +1,7 @@
 /**
  * Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
  *
- * The Omni Chat API consists of a REST and GraphQL API.
+ * The Omni Chat API consists of a REST API, and a GraphQL API.
  *
  * The REST API is used for tasks not well suited for GraphQL such as image uploads. Use the wrapper functions which
  * have the same name as the operation name in Omni Chat Backend's REST API docs (e.g., {@link getProfilePic}) to
@@ -20,7 +20,7 @@
  * functions to handle queries and mutations, and subscriptions respectively. These functions allow you to pass your own
  * GraphQL queries so that you can only select the fields you need to retrieve.
  *
- * Use the `isValid*Scalar()` (e.g., {@link isValidUsernameScalar}) functions to validate inputs.
+ * Use the `isValid*Scalar()` (e.g., {@link isValidUsernameScalar}) functions to validate GraphQL scalars.
  * @packageDocumentation
  */
 
