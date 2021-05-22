@@ -5,7 +5,74 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.11.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.11.0) - 2020-04-06
+## [0.12.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.12.0) - 2021-05-22
+
+### Removed
+
+- `addGroupChatUsers()`
+- `blockUser()`
+- `createAccount()`
+- `createActionMessage()`
+- `createContact()`
+- `createGroupChat()`
+- `createGroupChatInviteMessage()`
+- `createPollMessage()`
+- `createPrivateChat()`
+- `createStatus()`
+- `createTextMessage()`
+- `deleteAccount()`
+- `deleteContact()`
+- `deleteGroupChatPic()`
+- `deleteMessage()`
+- `deletePrivateChat()`
+- `deleteProfilePic()`
+- `emailEmailAddressVerification()`
+- `emailPasswordResetCode()`
+- `forwardMessage()`
+- `joinGroupChat()`
+- `joinPublicChat()`
+- `leaveGroupChat()`
+- `makeGroupChatAdmins()`
+- `readAccount()`
+- `readBlockedUsers()`
+- `readChat()`
+- `readChats()`
+- `readContacts()`
+- `readGroupChat()`
+- `readOnlineStatus()`
+- `readStars()`
+- `readTypingUsers()`
+- `refreshTokenSet()`
+- `removeGroupChatUsers()`
+- `requestTokenSet()`
+- `resetPassword()`
+- `searchBlockedUsers()`
+- `searchChatMessages()`
+- `searchChats()`
+- `searchContacts()`
+- `searchMessages()`
+- `searchPublicChats()`
+- `searchUsers()`
+- `setBroadcast()`
+- `setInvitability()`
+- `setOnline()`
+- `setPollVote()`
+- `setTyping()`
+- `star()`
+- `subscribeToAccounts()`
+- `subscribeToGroupChats()`
+- `subscribeToMessages()`
+- `subscribeToOnlineStatuses()`
+- `subscribeToTypingStatuses()`
+- `triggerAction()`
+- `unblockUser()`
+- `unstar()`
+- `updateAccount()`
+- `updateGroupChatDescription()`
+- `updateGroupChatTitle()`
+- `verifyEmailAddress()`
+
+## [0.11.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.11.0) - 2021-04-06
 
 ### Added
 
@@ -78,7 +145,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fix pagination bugs.
 - `createTextMessage()`
 
-## [0.10.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.10.0) - 2020-03-25
+## [0.10.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.10.0) - 2021-03-25
 
 ### Added
 
@@ -105,7 +172,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `searchChatMessages()`
 - `subscribeToMessages()`
 
-## [0.9.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.9.0) - 2020-03-21
+## [0.9.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.9.0) - 2021-03-21
 
 ### Added
 
@@ -149,7 +216,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `class NameScalarError`
 - `class DateTimeScalarError`
 
-## [0.8.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.8.0) - 2020-03-20
+## [0.8.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.8.0) - 2021-03-20
 
 ### Added
 
@@ -333,14 +400,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `class UnverifiedEmailAddressError`
 - `class IncorrectPasswordError`
 
-## [0.7.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.7.0) - 2020-03-14
+## [0.7.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.7.0) - 2021-03-14
 
 ### Added
 
 - Support Node.js.
 - Support CommonJS modules.
 
-## [0.6.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.6.0) - 2020-03-13
+## [0.6.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.6.0) - 2021-03-13
 
 ### Added
 
@@ -351,7 +418,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fix GraphQL queries which contain `ActionMessage`.
 - Fix `MutationsApi.setPollVote()`.
 
-## [0.5.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.5.0) - 2020-03-11
+## [0.5.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.5.0) - 2021-03-11
 
 ### Added
 
@@ -398,26 +465,26 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fix `QueriesApi.searchChatMessages()`.
 - Fix `QueriesApi.searchMessages()`.
 
-## [0.4.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.4.0) - 2020-02-27
+## [0.4.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.4.0) - 2021-02-27
 
 ### Fixed
 
 - Fix `SubscriptionsApi.subscribeToMessages()`.
 - Fix `SubscriptionsApi.subscribeToGroupChats()`.
 
-## [0.3.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.3.0) - 2020-02-20
+## [0.3.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.3.0) - 2021-02-20
 
 ### Fixed
 
 - Fix `QueriesApi.readContacts()`.
 
-## [0.2.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.2.0) - 2020-02-20
+## [0.2.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.2.0) - 2021-02-20
 
 ### Fixed
 
 - Fix `QueriesApi.readContacts()`.
 
-## [0.1.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.1.0) - 2020-02-12
+## [0.1.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v0.1.0) - 2021-02-12
 
 ### Added
 

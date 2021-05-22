@@ -8,7 +8,7 @@ import {
   isValidPasswordScalar,
   isValidUsernameScalar,
   isValidUuidScalar,
-} from '../graphql-api';
+} from '../index';
 
 describe('isValidUsernameScalar()', () => {
   test('username must be valid', () => expect(isValidUsernameScalar('a0._')).toBe(true));
