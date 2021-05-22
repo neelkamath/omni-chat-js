@@ -25,48 +25,11 @@ If you're forking the repo to develop the project as your own instead of just to
 
 ### Conventions
 
-- Group each function's test cases in a `describe()` block. See [`validators.test.ts`](src/__tests__/validators.test.test.ts) for an example.
+- Each directory's tests must be placed in a subdirectory named `__tests__`, and the test files named using the format `<FILENAME>.test.ts` where `<FILENAME>` is the name of file getting tested. For example, the tests for [`graphql-api/scalars.ts`](src/graphql-api/scalars.ts) are in [`graphql-api/__tests__/scalars.test.ts`](src/graphql-api/__tests__/scalars.test.ts).
+- Group each function's test cases in a `describe()` block. See [`scalars.test.ts`](src/graphql-api/__tests__/scalars.test.ts) for an example.
 - Every directory must contain an `index.ts` file which exports public APIs in order to make it easier to (re-)export.
 - Name TypeScript files having a main export the same as the export (e.g., [`createAccount.ts`](src/graphql-api/mutations/createAccount.ts)). Name other TypeScript files using _camelCase_.
 - Name directories and non-TypeScript files using _kebab-case_.
-- Don't document [GraphQL fragments](src/graphql-api/fragments.ts); only [GraphQL models](src/graphql-api/models.ts).
-- Since the GraphQL [inline fragments](src/graphql-api/fragments.ts) can be nested within each other, arguments to fields may clash. To avoid this, use the format `<FRAGMENT>_<FIELD>_<ARGUMENT>` when naming variables. For example, an argument `last` to a field `messages` in a fragment `ChatMessages` would be named `chatMessages_messages_last`.
-- Follow these function signature conventions for the purpose of a consistent public API:
-  - Functions which take either an `interface HttpApiConfig` or `interface WsApiConfig` must it as their first parameter.
-  - With the exception of `queryOrMutate()` in [`operator.ts`](src/graphql-api/operator.ts), functions which take a JWT must have the token as the second parameter regardless of whether it's optional.
-- GraphQL operations wrappers (e.g., [`createAccount()`](src/graphql-api/mutations/createAccount.ts), [`subscribeToAccounts()`](src/graphql-api/subscriptions/subscribeToAccounts.ts)) either return a `Promise<GraphQlResponse<T>>` or take a `OnSocketMessage<T>`. Name the `T` using the format `<OPERATION>Data` (e.g., `interface CreateAccountData`, `interface SubscribeToAccountsData`).
-- Use the `ForwardPagination` and `BackwardPagination` [models](src/graphql-api/pagination.ts) instead of passing `first`, `after`, `last`, and `before` arguments in functions parameters.
-- Here's how to convert GraphQL syntax to TypeScript syntax to create [GraphQL models](src/graphql-api/models.ts):
-
-  | GraphQL                      | TypeScript  |
-  | ---------------------------- | ----------- |
-  | `type`, `input`, `interface` | `interface` |
-  | `union`, `enum`, `scalar`    | `type`      |
-  | `implements`                 | `extends`   |
-
-- Models must have each of their fields defined when written as a TypeScript `interface` because it makes it easier to compare to the GraphQL schema models. For example, even though the `NewContact` `interface` can omit the fields it's `extend`ing from `AccountData`, it defines them since that's how it appears in the GraphQL schema:
-
-  ```typescript
-  export interface AccountData {
-    readonly __typename: 'Account' | 'BlockedAccount' | 'NewContact';
-    readonly id: number;
-    readonly username: Username;
-    readonly emailAddress: string;
-    readonly firstName: Name;
-    readonly lastName: Name;
-    readonly bio: Bio;
-  }
-
-  export interface NewContact extends AccountData {
-    readonly __typename: 'NewContact';
-    readonly id: number;
-    readonly username: Username;
-    readonly emailAddress: string;
-    readonly firstName: Name;
-    readonly lastName: Name;
-    readonly bio: Bio;
-  }
-  ```
 
 ### Releasing a New Version
 
