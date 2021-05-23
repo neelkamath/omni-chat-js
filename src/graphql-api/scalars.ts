@@ -1,6 +1,13 @@
 export type Uuid = string;
 
 /**
+ * The ID scalar type represents a unique identifier, often used to refetch an object or as the key for a cache. The ID
+ * type is serialized in the same way as a String; however, defining it as an ID signifies that it is not intended to be
+ * human‐readable.
+ */
+export type Id = string;
+
+/**
  * GraphQL mandates data be returned for every operation, and data be present in every type. However, certain operations
  * and types don't have relevant data. This type, which is an empty string, indicates such.
  */
