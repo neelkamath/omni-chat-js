@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v2.0.0) - 2021-07-05
+
+### Added
+
+- `type GroupChatPublicity`
+- `class MustBeAdminError`
+
+### Changed
+
+- Throw `class InvalidPicError`, `class InvalidAudioError`, `class InvalidVideoError`, and `class InvalidDocError` when the media is 3 MiB instead of 5 MiB.
+- Limit `type Pic`, `type Audio`, `type Video`, and `type Doc` to 3 MiB instead of 5 MiB.
+- Throw a `class MustBeAdminError` instead of a `class UnauthorizedError` when `postPicMessage()`, `postAudioMessage()`, `postVideoMessage()`, and `postDocMessage()` fail because the user attempted to send a message in a broadcast chat they're not an admin of.
+
 ## [1.0.0](https://github.com/neelkamath/omni-chat-js/releases/tag/v1.0.0) - 2021-06-03
 
 ### Changed
