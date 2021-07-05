@@ -1,6 +1,6 @@
 export type PicType = 'ORIGINAL' | 'THUMBNAIL';
 
-/** A PNG or JPEG image not exceeding 5 MiB. */
+/** A PNG or JPEG image not exceeding 3 MiB. */
 export type Pic = Blob;
 
 /**
@@ -9,11 +9,11 @@ export type Pic = Blob;
  */
 export type ContextMessageId = number;
 
-/** An MP3/MP4 audio not exceeding 5 MiB. */
+/** An MP3/MP4 audio not exceeding 3 MiB. */
 export type Audio = Blob;
 
-/** An MP4 video not exceeding 5 MiB. */
+/** An MP4 video not exceeding 3 MiB. */
 export type Video = Blob;
 
-/** A doc not exceeding 5 MiB. */
+/** A doc not exceeding 3 MiB. */
 export type Doc = Blob;

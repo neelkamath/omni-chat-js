@@ -3,6 +3,7 @@ import {
   InvalidContextMessageError,
   InvalidPicError,
   MessageTextScalarError,
+  MustBeAdminError,
   NonexistentChatError,
   NonexistentUserIdError,
   UserNotInChatError,
@@ -13,7 +14,7 @@ import { HttpApiConfig } from '../config';
 import { MessageText } from '../graphql-api';
 
 /**
- * @return `Blob` if the user has a profile pic, and `null` if they don't.
+ * @return {Pic | null} if the user has a profile pic, and `null` if they don't.
  * @throws {@link NonexistentUserIdError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
@@ -76,7 +77,7 @@ export async function patchProfilePic(
 /**
  * Retrieves the group chat's pic. An access token needn't be sent if the chat is public. Otherwise, the user must be
  * a participant to view the pic.
- * @return `Pic` if the chat has a pic, and `null` otherwise.
+ * @return {Pic | null} if the chat has a pic, and `null` otherwise.
  * @throws {@link NonexistentChatError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
@@ -161,7 +162,7 @@ export async function getPicMessage(
 
 /**
  *
- * Creates a pic message. If the chat is a broadcast group, the user must be an admin.
+ * Creates a pic message.
  * @throws {@link UserNotInChatError}
  * @throws {@link InvalidPicError}
  * @throws {@link InvalidContextMessageError}
@@ -203,6 +204,8 @@ export async function postPicMessage(
           throw new InvalidContextMessageError();
         case 'INVALID_CAPTION':
           throw new MessageTextScalarError();
+        case 'MUST_BE_ADMIN':
+          throw new MustBeAdminError();
       }
       break;
     }
@@ -228,7 +231,7 @@ export async function getAudioMessage(
 }
 
 /**
- * Creates an audio message. If the chat is a broadcast group, the user must be an admin.
+ * Creates an audio message.
  * @throws {@link InternalServerError}
  * @throws {@link UserNotInChatError}
  * @throws {@link InvalidAudioError}
@@ -261,7 +264,7 @@ export async function getVideoMessage(
 }
 
 /**
- * Creates a video message. If the chat is a broadcast group, the user must be an admin.
+ * Creates a video message.
  * @throws {@link InternalServerError}
  * @throws {@link UserNotInChatError}
  * @throws {@link InvalidVideoError}
@@ -294,7 +297,7 @@ export async function getDocMessage(
 }
 
 /**
- * Creates a doc message. If the chat is a broadcast group, the user must be an admin.
+ * Creates a doc message.
  * @throws {@link InternalServerError}
  * @throws {@link UserNotInChatError}
  * @throws {@link InvalidDocError}

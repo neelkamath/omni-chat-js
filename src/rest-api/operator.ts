@@ -5,6 +5,7 @@ import {
   InvalidContextMessageError,
   InvalidDocError,
   InvalidVideoError,
+  MustBeAdminError,
   UserNotInChatError,
 } from './errors';
 import { HttpApiConfig } from '../config';
@@ -86,7 +87,7 @@ export async function postMediaMessage(
 }
 
 interface InvalidMessage {
-  readonly reason: 'USER_NOT_IN_CHAT' | 'INVALID_FILE' | 'INVALID_CONTEXT_MESSAGE';
+  readonly reason: 'USER_NOT_IN_CHAT' | 'INVALID_FILE' | 'INVALID_CONTEXT_MESSAGE' | 'MUST_BE_ADMIN';
 }
 
 function readInvalidMessageError(message: InvalidMessage, type: MediaType): Error {
@@ -95,6 +96,8 @@ function readInvalidMessageError(message: InvalidMessage, type: MediaType): Erro
       return new UserNotInChatError();
     case 'INVALID_CONTEXT_MESSAGE':
       return new InvalidContextMessageError();
+    case 'MUST_BE_ADMIN':
+      return new MustBeAdminError();
     case 'INVALID_FILE':
       switch (type) {
         case 'audio':

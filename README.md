@@ -2,7 +2,7 @@
 
 [![npm (scoped)](https://img.shields.io/npm/v/@neelkamath/omni-chat)](https://www.npmjs.com/package/@neelkamath/omni-chat)
 
-Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
+[Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
 
 - Platforms: Browsers supporting ES6 or higher
 - Module systems: ECMAScript Modules
@@ -13,13 +13,14 @@ Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaSc
 
 This table shows which versions of Omni Chat JS support which versions of Omni Chat Backend:
 
-|   Omni Chat JS   | Omni Chat Backend |
-| :--------------: | :---------------: |
-| 0.12.0 or higher | 0.19.0 or higher  |
-|      0.11.0      |      0.18.0       |
-|  0.8.0 - 0.10.0  |      0.17.0       |
-|  0.5.0 - 0.7.0   |      0.16.0       |
-|  0.1.0 - 0.4.0   |      0.15.0       |
+|  Omni Chat JS   | Omni Chat Backend |
+| :-------------: | :---------------: |
+| 2.0.0 or higher | 0.23.0 or higher  |
+| 0.12.0 - 1.0.0  |  0.19.0 - 0.22.0  |
+|     0.11.0      |      0.18.0       |
+| 0.8.0 - 0.10.0  |      0.17.0       |
+|  0.5.0 - 0.7.0  |      0.16.0       |
+|  0.1.0 - 0.4.0  |      0.15.0       |
 
 ```
 npm i @neelkamath/omni-chat

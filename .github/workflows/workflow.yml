@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 14
       - run: npm i
-      - run: npm run doc
+      - run: npm run doc:build
       - uses: actions/upload-artifact@v2
         with:
           name: docs

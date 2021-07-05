@@ -1,10 +1,12 @@
 {
   "name": "@neelkamath/omni-chat",
-  "version": "1.0.0",
-  "description": "Official Omni Chat API wrapper library",
+  "version": "2.0.0",
+  "description": "Omni Chat API wrapper library",
   "scripts": {
     "test": "jest",
     "doc": "typedoc src/index.ts --includeVersion --readme none",
+    "doc:build": "npm run doc",
+    "doc:watch": "npm run doc -- --watch",
     "prepare": "tsc",
     "lint": "eslint . && prettier -c . && tsc --noEmit",
     "fix": "eslint --fix . && prettier -w . && tsc --noEmit"
