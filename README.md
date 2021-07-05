@@ -2,7 +2,7 @@
 
 [![npm (scoped)](https://img.shields.io/npm/v/@neelkamath/omni-chat)](https://www.npmjs.com/package/@neelkamath/omni-chat)
 
-Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
+[Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
 
 - Platforms: Browsers supporting ES6 or higher
 - Module systems: ECMAScript Modules

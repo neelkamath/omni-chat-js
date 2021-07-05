@@ -1,7 +1,7 @@
 {
   "name": "@neelkamath/omni-chat",
   "version": "1.0.0",
-  "description": "Official Omni Chat API wrapper library",
+  "description": "Omni Chat API wrapper library",
   "scripts": {
     "test": "jest",
     "doc": "typedoc src/index.ts --includeVersion --readme none",

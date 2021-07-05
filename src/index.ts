@@ -1,5 +1,5 @@
 /**
- * Official [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
+ * [Omni Chat API](https://github.com/neelkamath/omni-chat-backend) JavaScript wrapper library.
  *
  * The Omni Chat API consists of a REST API, and a GraphQL API.
  *
