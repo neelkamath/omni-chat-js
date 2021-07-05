@@ -13,7 +13,7 @@ import { HttpApiConfig } from '../config';
 import { MessageText } from '../graphql-api';
 
 /**
- * @return `Blob` if the user has a profile pic, and `null` if they don't.
+ * @return {Pic | null} if the user has a profile pic, and `null` if they don't.
  * @throws {@link NonexistentUserIdError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
@@ -76,7 +76,7 @@ export async function patchProfilePic(
 /**
  * Retrieves the group chat's pic. An access token needn't be sent if the chat is public. Otherwise, the user must be
  * a participant to view the pic.
- * @return `Pic` if the chat has a pic, and `null` otherwise.
+ * @return {Pic | null} if the chat has a pic, and `null` otherwise.
  * @throws {@link NonexistentChatError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
