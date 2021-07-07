@@ -64,11 +64,12 @@ export async function postMediaMessage(
   chatId: number,
   contextMessageId?: ContextMessageId,
 ): Promise<void> {
-  const params: Record<string, string> = { 'chat-id': chatId.toString() };
-  if (contextMessageId !== undefined) params['context-message-id'] = contextMessageId.toString();
+  const paramsInit: Record<string, string> = { 'chat-id': chatId.toString() };
+  if (contextMessageId !== undefined) paramsInit['context-message-id'] = contextMessageId.toString();
+  const params = new URLSearchParams(paramsInit).toString();
   const formData = new FormData();
   formData.append(type, file);
-  const response = await fetch(`${protocol}://${apiUrl}/${type}-message?${params.toString()}`, {
+  const response = await fetch(`${protocol}://${apiUrl}/${type}-message?${params}`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${accessToken}` },
     body: formData,
