@@ -1,7 +1,7 @@
-export type PicType = 'ORIGINAL' | 'THUMBNAIL';
+export type ImageType = 'ORIGINAL' | 'THUMBNAIL';
 
 /** A PNG or JPEG image not exceeding 3 MiB. */
-export type Pic = Blob;
+export type Image = Blob;
 
 /**
  * The user might want to give their message a context, such as when replying to a message sent several messages ago. In

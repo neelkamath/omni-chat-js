@@ -4,7 +4,7 @@
  * The Omni Chat API consists of a REST API, and a GraphQL API.
  *
  * The REST API is used for tasks not well suited for GraphQL such as image uploads. Use the wrapper functions which
- * have the same name as the operation name in Omni Chat Backend's REST API docs (e.g., {@link getProfilePic}) to
+ * have the same name as the operation name in Omni Chat Backend's REST API docs (e.g., {@link getProfileImage}) to
  * interact with the REST API.
  *
  * In order to avoid the

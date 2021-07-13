@@ -1,4 +1,4 @@
-import { ContextMessageId, PicType } from './models';
+import { ContextMessageId, ImageType } from './models';
 import { ConnectionError, InternalServerError, UnauthorizedError } from '../errors';
 import {
   InvalidAudioError,
@@ -14,7 +14,7 @@ import { HttpApiConfig } from '../config';
  * @param accessToken - You needn't pass an access token if the chat is public.
  * @param type - The type of media to read.
  * @param messageId - The message to read the media from.
- * @param picType - Must be sent if retrieving a pic message.
+ * @param imageType - Must be sent if retrieving a pic message.
  * @throws {@link UnauthorizedError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
@@ -22,12 +22,12 @@ import { HttpApiConfig } from '../config';
 export async function getMediaMessage(
   { apiUrl, protocol }: HttpApiConfig,
   accessToken: string | undefined,
-  type: 'pic' | 'audio' | 'video' | 'doc',
+  type: 'image' | 'audio' | 'video' | 'doc',
   messageId: number,
-  picType?: PicType,
+  imageType?: ImageType,
 ): Promise<Blob> {
   const paramsInit: Record<string, string> = { 'message-id': messageId.toString() };
-  if (picType !== undefined) paramsInit['pic-type'] = picType;
+  if (imageType !== undefined) paramsInit['image-type'] = imageType;
   const params = new URLSearchParams(paramsInit).toString();
   const headers: Record<string, string> = {};
   if (accessToken !== undefined) headers.Authorization = `Bearer ${accessToken}`;

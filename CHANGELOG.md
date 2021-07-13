@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.0.0
+
+### Changed
+
+- Rename `class InvalidPicError` to `class InvalidImageError`.
+- Rename `type PicType` to `type ImageType`.
+- Rename `type Pic` to `type Image`.
+- Rename `getProfilePic()` to `getProfileImage()`.
+- Rename `patchProfilePic()` to `patchProfileImage()`.
+- Rename `getGroupChatPic()` to `getGroupChatImage()`.
+- Remove the `accessToken` parameter from `getGroupChatImage()`.
+- Rename `patchGroupChatPic()` to `patchGroupChatImage()`.
+- Rename `getPicMessage()` to `getImageMessage()`.
+- Rename `postPicMessage()` to `postImageMessage()`.
+- Change the type of the `type` parameter in `getMediaMessage()` from `'pic' | 'audio' | 'video' | 'doc'` to `'image' | 'audio' | 'video' | 'doc'`.
+
 ## [2.0.1](https://github.com/neelkamath/omni-chat-js/releases/tag/v2.0.1) - 2021-07-07
 
 ### Fixed
