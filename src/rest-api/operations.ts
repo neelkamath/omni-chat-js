@@ -8,13 +8,13 @@ import {
   NonexistentUserIdError,
   UserNotInChatError,
 } from './errors';
-import { Audio, ContextMessageId, Doc, Image, ImageType, Video } from './models';
+import { AudioFile, ContextMessageId, DocFile, ImageFile, ImageType, VideoFile } from './models';
 import { extractFilename, getMediaMessage, postMediaMessage } from './operator';
 import { HttpApiConfig } from '../config';
 import { MessageText } from '../graphql-api';
 
 /**
- * @return {Image | null} if the user has a profile image, and `null` if they don't.
+ * @return {ImageFile | null} if the user has a profile image, and `null` if they don't.
  * @throws {@link NonexistentUserIdError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
@@ -23,7 +23,7 @@ export async function getProfileImage(
   { apiUrl, protocol }: HttpApiConfig,
   userId: number,
   imageType: ImageType,
-): Promise<Image | null> {
+): Promise<ImageFile | null> {
   const params = new URLSearchParams({
     'user-id': userId.toString(),
     'image-type': imageType,
@@ -76,7 +76,7 @@ export async function patchProfileImage(
 
 /**
  * Retrieves the group chat's image. Otherwise, the user must be a participant to view the pic.
- * @return {Image | null} if the chat has a image, and `null` otherwise.
+ * @return {ImageFile | null} if the chat has a image, and `null` otherwise.
  * @throws {@link NonexistentChatError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
@@ -85,7 +85,7 @@ export async function getGroupChatImage(
   { apiUrl, protocol }: HttpApiConfig,
   chatId: number,
   imageType: ImageType,
-): Promise<Image | null> {
+): Promise<ImageFile | null> {
   const params = new URLSearchParams({
     'chat-id': chatId.toString(),
     'image-type': imageType,
@@ -152,7 +152,7 @@ export async function getImageMessage(
   accessToken: string | undefined,
   messageId: number,
   imageType: ImageType,
-): Promise<Image> {
+): Promise<ImageFile> {
   return await getMediaMessage(config, accessToken, 'image', messageId, imageType);
 }
 
@@ -222,7 +222,7 @@ export async function getAudioMessage(
   config: HttpApiConfig,
   accessToken: string | undefined,
   messageId: number,
-): Promise<Audio> {
+): Promise<AudioFile> {
   return await getMediaMessage(config, accessToken, 'audio', messageId);
 }
 
@@ -255,7 +255,7 @@ export async function getVideoMessage(
   config: HttpApiConfig,
   accessToken: string | undefined,
   messageId: number,
-): Promise<Video> {
+): Promise<VideoFile> {
   return await getMediaMessage(config, accessToken, 'video', messageId);
 }
 
@@ -288,7 +288,7 @@ export async function getDocMessage(
   config: HttpApiConfig,
   accessToken: string | undefined,
   messageId: number,
-): Promise<Doc> {
+): Promise<DocFile> {
   return await getMediaMessage(config, accessToken, 'doc', messageId);
 }
 

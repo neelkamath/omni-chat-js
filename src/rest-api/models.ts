@@ -3,25 +3,25 @@ export interface MediaFile {
   readonly blob: Blob;
 }
 
-export interface Image {
+export interface ImageFile {
   readonly filename: string;
   /** A PNG or JPEG image not exceeding 3 MiB. */
   readonly blob: Blob;
 }
 
-export interface Audio {
+export interface AudioFile {
   readonly filename: string;
   /** An MP3/MP4 audio not exceeding 3 MiB. */
   readonly blob: Blob;
 }
 
-export interface Video {
+export interface VideoFile {
   readonly filename: string;
   /** An MP4 video not exceeding 3 MiB. */
   readonly blob: Blob;
 }
 
-export interface Doc {
+export interface DocFile {
   readonly filename: string;
   /** A doc not exceeding 3 MiB. */
   readonly blob: Blob;

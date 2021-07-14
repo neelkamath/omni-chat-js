@@ -7,6 +7,13 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 3.0.0
 
+### Added
+
+- `interface ImageFile`
+- `interface AudioFile`
+- `interface VideoFile`
+- `interface DocFile`
+
 ### Changed
 
 - Rename `class InvalidPicError` to `class InvalidImageError`.
@@ -19,10 +26,17 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Rename `patchGroupChatPic()` to `patchGroupChatImage()`.
 - Rename `getPicMessage()` to `getImageMessage()`.
 - Rename `postPicMessage()` to `postImageMessage()`.
-- Replace `type Image` with `interface Image`.
-- Replace `type Audio` with `interface Audio`.
-- Replace `type Video` with `interface Video`.
-- Replace `type Doc` with `interface Doc`.
+- Return an `interface ImageFile` instead of a `type Image` from `getProfileImage()`, `getGroupChatImage()`, and `getImageMessage()`.
+- Return an `interface AudioFile` instead of a `type Audio` from `getAudioMessage()`.
+- Return an `interface VideoFile` instead of a `type Video` from `getVideoMessage()`.
+- Return an `interface DocFile` instead of a `type Doc` from `getDocMessage()`.
+
+### Removed
+
+- Remove `type Image` in favor of `interface ImageFile`.
+- Remove `type Audio` in favor of `interface AudioFile`.
+- Remove `type Video` in favor of `interface VideoFile`.
+- Remove `type Doc` in favor of `interface DocFile`.
 
 ## [2.0.1](https://github.com/neelkamath/omni-chat-js/releases/tag/v2.0.1) - 2021-07-07
 
