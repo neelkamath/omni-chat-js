@@ -19,7 +19,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Rename `patchGroupChatPic()` to `patchGroupChatImage()`.
 - Rename `getPicMessage()` to `getImageMessage()`.
 - Rename `postPicMessage()` to `postImageMessage()`.
-- Change the type of the `type` parameter in `getMediaMessage()` from `'pic' | 'audio' | 'video' | 'doc'` to `'image' | 'audio' | 'video' | 'doc'`.
+- Replace `type Image` with `interface Image`.
+- Replace `type Audio` with `interface Audio`.
+- Replace `type Video` with `interface Video`.
+- Replace `type Doc` with `interface Doc`.
 
 ## [2.0.1](https://github.com/neelkamath/omni-chat-js/releases/tag/v2.0.1) - 2021-07-07
 

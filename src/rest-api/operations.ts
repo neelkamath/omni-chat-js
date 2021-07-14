@@ -9,7 +9,7 @@ import {
   UserNotInChatError,
 } from './errors';
 import { Audio, ContextMessageId, Doc, Image, ImageType, Video } from './models';
-import { getMediaMessage, postMediaMessage } from './operator';
+import { extractFilename, getMediaMessage, postMediaMessage } from './operator';
 import { HttpApiConfig } from '../config';
 import { MessageText } from '../graphql-api';
 
@@ -32,7 +32,7 @@ export async function getProfileImage(
   if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
   switch (response.status) {
     case 200:
-      return await response.blob();
+      return { filename: extractFilename(response), blob: await response.blob() };
     case 204:
       return null;
     case 400:
@@ -94,7 +94,7 @@ export async function getGroupChatImage(
   if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
   switch (response.status) {
     case 200:
-      return await response.blob();
+      return { filename: extractFilename(response), blob: await response.blob() };
     case 204:
       return null;
     case 400:

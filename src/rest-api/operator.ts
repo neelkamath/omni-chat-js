@@ -1,4 +1,4 @@
-import { ContextMessageId, ImageType } from './models';
+import { ContextMessageId, ImageType, MediaFile } from './models';
 import { ConnectionError, InternalServerError, UnauthorizedError } from '../errors';
 import {
   InvalidAudioError,
@@ -9,6 +9,15 @@ import {
   UserNotInChatError,
 } from './errors';
 import { HttpApiConfig } from '../config';
+
+/**
+ * Extracts the filename from a `Content-Disposition` header in the {@link Response}.
+ * @param response `'attachment; filename="image.png"'` is an example value of the `Content-Disposition` header.
+ * @returns {string} Example: `'image.png'`
+ */
+export function extractFilename(response: Response): string {
+  return response.headers.get('Content-Disposition')!.match(/filename="(.*)"/)![1]!;
+}
 
 /**
  * @param accessToken - You needn't pass an access token if the chat is public.
@@ -25,7 +34,7 @@ export async function getMediaMessage(
   type: 'image' | 'audio' | 'video' | 'doc',
   messageId: number,
   imageType?: ImageType,
-): Promise<Blob> {
+): Promise<MediaFile> {
   const paramsInit: Record<string, string> = { 'message-id': messageId.toString() };
   if (imageType !== undefined) paramsInit['image-type'] = imageType;
   const params = new URLSearchParams(paramsInit).toString();
@@ -35,7 +44,7 @@ export async function getMediaMessage(
   if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
   switch (response.status) {
     case 200:
-      return await response.blob();
+      return { filename: extractFilename(response), blob: await response.blob() };
     case 401:
       throw new UnauthorizedError();
     default:

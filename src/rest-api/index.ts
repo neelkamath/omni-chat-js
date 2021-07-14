@@ -1,3 +1,3 @@
 export * from './errors';
-export * from './models';
+export { Image, Doc, Audio, Video, ImageType, ContextMessageId } from './models';
 export * from './operations';

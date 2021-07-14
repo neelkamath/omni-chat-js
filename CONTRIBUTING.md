@@ -22,8 +22,8 @@ If you're forking the repo to develop the project as your own instead of just to
 - Check for lint issues: `npm run lint`
 - Check for, and fix lint issues: `npm run fix`
 - Generate docs to `docs/`:
-  - Production: `npm run doc:build`
   - Development (watches for changes): `npm run doc:watch`
+  - Production: `npm run doc:build`
 
 ### Conventions
 
