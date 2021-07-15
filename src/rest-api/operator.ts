@@ -16,7 +16,7 @@ import { HttpApiConfig } from '../config';
  * @returns {string} Example: `'image.png'`
  */
 export function extractFilename(response: Response): string {
-  return response.headers.get('Content-Disposition')!.match(/filename="(.*)"/)![1]!;
+  return response.headers.get('Content-Disposition')!.match(/filename="?(.*)"?/)![1]!;
 }
 
 /**
