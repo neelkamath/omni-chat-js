@@ -16,7 +16,13 @@ import { HttpApiConfig } from '../config';
  * @returns {string} Example: `'image.png'`
  */
 export function extractFilename(response: Response): string {
-  return response.headers.get('Content-Disposition')!.match(/filename="?(.*)"?/)![1]!;
+  const filename = response.headers.get('Content-Disposition')!.match(/filename=(.*)/)![1]!;
+  /*
+  The filename may be wrapped in double-quotes. We need to check if it starts and ends with a double quote instead of
+  just checking if it contains a double quote because filenames may allow double quotes.
+   */
+  if (filename[0] === '"' && filename[filename.length - 1] === '"') return filename.substring(1, filename.length - 1);
+  return filename;
 }
 
 /**
