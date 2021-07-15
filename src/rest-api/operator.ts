@@ -1,4 +1,4 @@
-import { ContextMessageId, PicType } from './models';
+import { ContextMessageId, ImageType, MediaFile } from './models';
 import { ConnectionError, InternalServerError, UnauthorizedError } from '../errors';
 import {
   InvalidAudioError,
@@ -11,10 +11,25 @@ import {
 import { HttpApiConfig } from '../config';
 
 /**
+ * Extracts the filename from a `Content-Disposition` header in the {@link Response}.
+ * @param response `'attachment; filename="image.png"'` is an example value of the `Content-Disposition` header.
+ * @returns {string} Example: `'image.png'`
+ */
+export function extractFilename(response: Response): string {
+  const filename = response.headers.get('Content-Disposition')!.match(/filename=(.*)/)![1]!;
+  /*
+  The filename may be wrapped in double-quotes. We need to check if it starts and ends with a double quote instead of
+  just checking if it contains a double quote because filenames may allow double quotes.
+   */
+  if (filename[0] === '"' && filename[filename.length - 1] === '"') return filename.substring(1, filename.length - 1);
+  return filename;
+}
+
+/**
  * @param accessToken - You needn't pass an access token if the chat is public.
  * @param type - The type of media to read.
  * @param messageId - The message to read the media from.
- * @param picType - Must be sent if retrieving a pic message.
+ * @param imageType - Must be sent if retrieving a pic message.
  * @throws {@link UnauthorizedError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
@@ -22,12 +37,12 @@ import { HttpApiConfig } from '../config';
 export async function getMediaMessage(
   { apiUrl, protocol }: HttpApiConfig,
   accessToken: string | undefined,
-  type: 'pic' | 'audio' | 'video' | 'doc',
+  type: 'image' | 'audio' | 'video' | 'doc',
   messageId: number,
-  picType?: PicType,
-): Promise<Blob> {
+  imageType?: ImageType,
+): Promise<MediaFile> {
   const paramsInit: Record<string, string> = { 'message-id': messageId.toString() };
-  if (picType !== undefined) paramsInit['pic-type'] = picType;
+  if (imageType !== undefined) paramsInit['image-type'] = imageType;
   const params = new URLSearchParams(paramsInit).toString();
   const headers: Record<string, string> = {};
   if (accessToken !== undefined) headers.Authorization = `Bearer ${accessToken}`;
@@ -35,7 +50,7 @@ export async function getMediaMessage(
   if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
   switch (response.status) {
     case 200:
-      return await response.blob();
+      return { filename: extractFilename(response), blob: await response.blob() };
     case 401:
       throw new UnauthorizedError();
     default:

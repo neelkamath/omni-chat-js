@@ -1,38 +1,38 @@
 import { ConnectionError, InternalServerError, UnauthorizedError } from '../errors';
 import {
   InvalidContextMessageError,
-  InvalidPicError,
+  InvalidImageError,
   MessageTextScalarError,
   MustBeAdminError,
   NonexistentChatError,
   NonexistentUserIdError,
   UserNotInChatError,
 } from './errors';
-import { Audio, ContextMessageId, Doc, Pic, PicType, Video } from './models';
-import { getMediaMessage, postMediaMessage } from './operator';
+import { AudioFile, ContextMessageId, DocFile, ImageFile, ImageType, VideoFile } from './models';
+import { extractFilename, getMediaMessage, postMediaMessage } from './operator';
 import { HttpApiConfig } from '../config';
 import { MessageText } from '../graphql-api';
 
 /**
- * @return {Pic | null} if the user has a profile pic, and `null` if they don't.
+ * @return {ImageFile | null} if the user has a profile image, and `null` if they don't.
  * @throws {@link NonexistentUserIdError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
  */
-export async function getProfilePic(
+export async function getProfileImage(
   { apiUrl, protocol }: HttpApiConfig,
   userId: number,
-  picType: PicType,
-): Promise<Pic | null> {
+  imageType: ImageType,
+): Promise<ImageFile | null> {
   const params = new URLSearchParams({
     'user-id': userId.toString(),
-    'pic-type': picType,
+    'image-type': imageType,
   }).toString();
-  const response = await fetch(`${protocol}://${apiUrl}/profile-pic?${params}`);
+  const response = await fetch(`${protocol}://${apiUrl}/profile-image?${params}`);
   if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
   switch (response.status) {
     case 200:
-      return await response.blob();
+      return { filename: extractFilename(response), blob: await response.blob() };
     case 204:
       return null;
     case 400:
@@ -43,20 +43,20 @@ export async function getProfilePic(
 }
 
 /**
- * Update the user's profile pic.
- * @throws {@link InvalidPicError}
+ * Update the user's profile image.
+ * @throws {@link InvalidImageError}
  * @throws {@link UnauthorizedError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
  */
-export async function patchProfilePic(
+export async function patchProfileImage(
   { apiUrl, protocol }: HttpApiConfig,
   accessToken: string,
-  pic: File,
+  image: File,
 ): Promise<void> {
   const formData = new FormData();
-  formData.append('pic', pic);
-  const response = await fetch(`${protocol}://${apiUrl}/profile-pic`, {
+  formData.append('image', image);
+  const response = await fetch(`${protocol}://${apiUrl}/profile-image`, {
     method: 'PATCH',
     headers: { Authorization: `Bearer ${accessToken}` },
     body: formData,
@@ -66,7 +66,7 @@ export async function patchProfilePic(
     case 204:
       return;
     case 400:
-      throw new InvalidPicError();
+      throw new InvalidImageError();
     case 401:
       throw new UnauthorizedError();
     default:
@@ -75,30 +75,26 @@ export async function patchProfilePic(
 }
 
 /**
- * Retrieves the group chat's pic. An access token needn't be sent if the chat is public. Otherwise, the user must be
- * a participant to view the pic.
- * @return {Pic | null} if the chat has a pic, and `null` otherwise.
+ * Retrieves the group chat's image. Otherwise, the user must be a participant to view the pic.
+ * @return {ImageFile | null} if the chat has a image, and `null` otherwise.
  * @throws {@link NonexistentChatError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
  */
-export async function getGroupChatPic(
+export async function getGroupChatImage(
   { apiUrl, protocol }: HttpApiConfig,
-  accessToken: string | undefined,
   chatId: number,
-  picType: PicType,
-): Promise<Pic | null> {
+  imageType: ImageType,
+): Promise<ImageFile | null> {
   const params = new URLSearchParams({
     'chat-id': chatId.toString(),
-    'pic-type': picType,
+    'image-type': imageType,
   }).toString();
-  const headers: Record<string, string> = {};
-  if (accessToken !== null) headers.Authorization = `Bearer ${accessToken}`;
-  const response = await fetch(`${protocol}://${apiUrl}/group-chat-pic?${params}`, { headers });
+  const response = await fetch(`${protocol}://${apiUrl}/group-chat-image?${params}`);
   if (response.status >= 500 && response.status <= 599) throw new InternalServerError();
   switch (response.status) {
     case 200:
-      return await response.blob();
+      return { filename: extractFilename(response), blob: await response.blob() };
     case 204:
       return null;
     case 400:
@@ -109,24 +105,24 @@ export async function getGroupChatPic(
 }
 
 /**
- * Update the group chat's pic. The user must be an admin of the chat.
- * @throws {@link InvalidPicError}
+ * Update the group chat's image. The user must be an admin of the chat.
+ * @throws {@link InvalidImageError}
  * @throws {@link UnauthorizedError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
  */
-export async function patchGroupChatPic(
+export async function patchGroupChatImage(
   { apiUrl, protocol }: HttpApiConfig,
   accessToken: string,
   chatId: number,
-  pic: File,
+  image: File,
 ): Promise<void> {
   const params = new URLSearchParams({
     'chat-id': chatId.toString(),
   }).toString();
   const formData = new FormData();
-  formData.append('pic', pic);
-  const response = await fetch(`${protocol}://${apiUrl}/group-chat-pic?${params}`, {
+  formData.append('image', image);
+  const response = await fetch(`${protocol}://${apiUrl}/group-chat-image?${params}`, {
     method: 'PATCH',
     headers: { Authorization: `Bearer ${accessToken}` },
     body: formData,
@@ -136,7 +132,7 @@ export async function patchGroupChatPic(
     case 204:
       return;
     case 400:
-      throw new InvalidPicError();
+      throw new InvalidImageError();
     case 401:
       throw new UnauthorizedError();
     default:
@@ -145,46 +141,46 @@ export async function patchGroupChatPic(
 }
 
 /**
- * Reads the pic from a message. To get the caption, use the GraphQL API. You needn't pass an access token if the chat
+ * Reads the image from a message. To get the caption, use the GraphQL API. You needn't pass an access token if the chat
  * is public.
  * @throws {@link UnauthorizedError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
  */
-export async function getPicMessage(
+export async function getImageMessage(
   config: HttpApiConfig,
   accessToken: string | undefined,
   messageId: number,
-  picType: PicType,
-): Promise<Pic> {
-  return await getMediaMessage(config, accessToken, 'pic', messageId, picType);
+  imageType: ImageType,
+): Promise<ImageFile> {
+  return await getMediaMessage(config, accessToken, 'image', messageId, imageType);
 }
 
 /**
  *
- * Creates a pic message.
+ * Creates an image message.
  * @throws {@link UserNotInChatError}
- * @throws {@link InvalidPicError}
+ * @throws {@link InvalidImageError}
  * @throws {@link InvalidContextMessageError}
  * @throws {@link UnauthorizedError}
  * @throws {@link ConnectionError}
  * @throws {@link InternalServerError}
  * @throws {@link MessageTextScalarError}
  */
-export async function postPicMessage(
+export async function postImageMessage(
   { apiUrl, protocol }: HttpApiConfig,
   accessToken: string,
-  pic: File,
+  image: File,
   chatId: number,
   contextMessageId?: ContextMessageId,
   caption?: MessageText,
 ): Promise<void> {
   const formData = new FormData();
-  formData.append('pic', pic);
+  formData.append('image', image);
   formData.append('chat-id', chatId.toString());
   if (contextMessageId !== undefined) formData.append('context-message-id', contextMessageId.toString());
   if (caption !== undefined) formData.append('caption', caption);
-  const response = await fetch(`${protocol}://${apiUrl}/pic-message`, {
+  const response = await fetch(`${protocol}://${apiUrl}/image-message`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${accessToken}` },
     body: formData,
@@ -199,7 +195,7 @@ export async function postPicMessage(
         case 'USER_NOT_IN_CHAT':
           throw new UserNotInChatError();
         case 'INVALID_FILE':
-          throw new InvalidPicError();
+          throw new InvalidImageError();
         case 'INVALID_CONTEXT_MESSAGE':
           throw new InvalidContextMessageError();
         case 'INVALID_CAPTION':
@@ -226,7 +222,7 @@ export async function getAudioMessage(
   config: HttpApiConfig,
   accessToken: string | undefined,
   messageId: number,
-): Promise<Audio> {
+): Promise<AudioFile> {
   return await getMediaMessage(config, accessToken, 'audio', messageId);
 }
 
@@ -259,7 +255,7 @@ export async function getVideoMessage(
   config: HttpApiConfig,
   accessToken: string | undefined,
   messageId: number,
-): Promise<Video> {
+): Promise<VideoFile> {
   return await getMediaMessage(config, accessToken, 'video', messageId);
 }
 
@@ -292,7 +288,7 @@ export async function getDocMessage(
   config: HttpApiConfig,
   accessToken: string | undefined,
   messageId: number,
-): Promise<Doc> {
+): Promise<DocFile> {
   return await getMediaMessage(config, accessToken, 'doc', messageId);
 }
 
