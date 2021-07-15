@@ -1,0 +1,1657 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@neelkamath/omni-chat - v3.0.0</title>
+	<meta name="description" content="Documentation for @neelkamath/omni-chat - v3.0.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@neelkamath/omni-chat - v3.0.0</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>@neelkamath/omni-chat - v3.0.0</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p><a href="https://github.com/neelkamath/omni-chat-backend">Omni Chat API</a> JavaScript wrapper library.</p>
+					</div>
+					<p>The Omni Chat API consists of a REST API, and a GraphQL API.</p>
+					<p>The REST API is used for tasks not well suited for GraphQL such as image uploads. Use the wrapper functions which
+						have the same name as the operation name in Omni Chat Backend&#39;s REST API docs (e.g., <a href="index.html#getprofileimage">getProfileImage</a>) to
+					interact with the REST API.</p>
+					<p>In order to avoid the
+						<a href="https://stackoverflow.com/questions/44564905/what-is-over-fetching-or-under-fetching#44568365">under-fetching and over-fetching</a>
+						problems posed by REST APIs, the GraphQL API is the primary interface. Use the <a href="index.html#queryormutate">queryOrMutate</a> and
+					<a href="index.html#subscribe">subscribe</a> functions to handle queries and mutations, and subscriptions respectively.</p>
+					<p>Use the <code>isValid*Scalar()</code> (e.g., <a href="index.html#isvalidusernamescalar">isValidUsernameScalar</a>) functions to validate GraphQL scalars.</p>
+				</div>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class"><a href="classes/connectionerror.html" class="tsd-kind-icon">Connection<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/internalservererror.html" class="tsd-kind-icon">Internal<wbr>Server<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/invalidaudioerror.html" class="tsd-kind-icon">Invalid<wbr>Audio<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/invalidcontextmessageerror.html" class="tsd-kind-icon">Invalid<wbr>Context<wbr>Message<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/invaliddocerror.html" class="tsd-kind-icon">Invalid<wbr>Doc<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/invalidimageerror.html" class="tsd-kind-icon">Invalid<wbr>Image<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/invalidvideoerror.html" class="tsd-kind-icon">Invalid<wbr>Video<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/messagetextscalarerror.html" class="tsd-kind-icon">Message<wbr>Text<wbr>Scalar<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/mustbeadminerror.html" class="tsd-kind-icon">Must<wbr>BeAdmin<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/nonexistentchaterror.html" class="tsd-kind-icon">Nonexistent<wbr>Chat<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/nonexistentuseriderror.html" class="tsd-kind-icon">Nonexistent<wbr>User<wbr>IdError</a></li>
+								<li class="tsd-kind-class"><a href="classes/unauthorizederror.html" class="tsd-kind-icon">Unauthorized<wbr>Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/usernotinchaterror.html" class="tsd-kind-icon">User<wbr>Not<wbr>InChat<wbr>Error</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface"><a href="interfaces/audiofile.html" class="tsd-kind-icon">Audio<wbr>File</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/docfile.html" class="tsd-kind-icon">Doc<wbr>File</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/graphqlrequest.html" class="tsd-kind-icon">Graph<wbr>QlRequest</a></li>
+								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/graphqlresponse.html" class="tsd-kind-icon">Graph<wbr>QlResponse</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/graphqlresponsevalue.html" class="tsd-kind-icon">Graph<wbr>QlResponse<wbr>Value</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/httpapiconfig.html" class="tsd-kind-icon">Http<wbr>Api<wbr>Config</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/imagefile.html" class="tsd-kind-icon">Image<wbr>File</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/onsocketclose.html" class="tsd-kind-icon">On<wbr>Socket<wbr>Close</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/onsocketerror.html" class="tsd-kind-icon">On<wbr>Socket<wbr>Error</a></li>
+								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/onsocketmessage.html" class="tsd-kind-icon">On<wbr>Socket<wbr>Message</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/videofile.html" class="tsd-kind-icon">Video<wbr>File</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/wsapiconfig.html" class="tsd-kind-icon">Ws<wbr>Api<wbr>Config</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias"><a href="index.html#apiurl" class="tsd-kind-icon">Api<wbr>Url</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#bio" class="tsd-kind-icon">Bio</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#contextmessageid" class="tsd-kind-icon">Context<wbr>Message<wbr>Id</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#cursor" class="tsd-kind-icon">Cursor</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#datetime" class="tsd-kind-icon">Date<wbr>Time</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#groupchatdescription" class="tsd-kind-icon">Group<wbr>Chat<wbr>Description</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#groupchatpublicity" class="tsd-kind-icon">Group<wbr>Chat<wbr>Publicity</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#groupchattitle" class="tsd-kind-icon">Group<wbr>Chat<wbr>Title</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#httpprotocol" class="tsd-kind-icon">Http<wbr>Protocol</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#id" class="tsd-kind-icon">Id</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#imagetype" class="tsd-kind-icon">Image<wbr>Type</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#messagetext" class="tsd-kind-icon">Message<wbr>Text</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#name" class="tsd-kind-icon">Name</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#password" class="tsd-kind-icon">Password</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#placeholder" class="tsd-kind-icon">Placeholder</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#username" class="tsd-kind-icon">Username</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#uuid" class="tsd-kind-icon">Uuid</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#websocketprotocol" class="tsd-kind-icon">Web<wbr>Socket<wbr>Protocol</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function"><a href="index.html#getaudiomessage" class="tsd-kind-icon">get<wbr>Audio<wbr>Message</a></li>
+								<li class="tsd-kind-function"><a href="index.html#getdocmessage" class="tsd-kind-icon">get<wbr>Doc<wbr>Message</a></li>
+								<li class="tsd-kind-function"><a href="index.html#getgroupchatimage" class="tsd-kind-icon">get<wbr>Group<wbr>Chat<wbr>Image</a></li>
+								<li class="tsd-kind-function"><a href="index.html#gethealthcheck" class="tsd-kind-icon">get<wbr>Health<wbr>Check</a></li>
+								<li class="tsd-kind-function"><a href="index.html#getimagemessage" class="tsd-kind-icon">get<wbr>Image<wbr>Message</a></li>
+								<li class="tsd-kind-function"><a href="index.html#getprofileimage" class="tsd-kind-icon">get<wbr>Profile<wbr>Image</a></li>
+								<li class="tsd-kind-function"><a href="index.html#getvideomessage" class="tsd-kind-icon">get<wbr>Video<wbr>Message</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isvalidbioscalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Bio<wbr>Scalar</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isvaliddatetimescalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Date<wbr>Time<wbr>Scalar</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isvalidgroupchatdescriptionscalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Group<wbr>Chat<wbr>Description<wbr>Scalar</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isvalidgroupchattitlescalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Group<wbr>Chat<wbr>Title<wbr>Scalar</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isvalidmessagetextscalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Message<wbr>Text<wbr>Scalar</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isvalidnamescalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Name<wbr>Scalar</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isvalidpasswordscalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Password<wbr>Scalar</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isvalidusernamescalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Username<wbr>Scalar</a></li>
+								<li class="tsd-kind-function"><a href="index.html#isvaliduuidscalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Uuid<wbr>Scalar</a></li>
+								<li class="tsd-kind-function"><a href="index.html#patchgroupchatimage" class="tsd-kind-icon">patch<wbr>Group<wbr>Chat<wbr>Image</a></li>
+								<li class="tsd-kind-function"><a href="index.html#patchprofileimage" class="tsd-kind-icon">patch<wbr>Profile<wbr>Image</a></li>
+								<li class="tsd-kind-function"><a href="index.html#postaudiomessage" class="tsd-kind-icon">post<wbr>Audio<wbr>Message</a></li>
+								<li class="tsd-kind-function"><a href="index.html#postdocmessage" class="tsd-kind-icon">post<wbr>Doc<wbr>Message</a></li>
+								<li class="tsd-kind-function"><a href="index.html#postimagemessage" class="tsd-kind-icon">post<wbr>Image<wbr>Message</a></li>
+								<li class="tsd-kind-function"><a href="index.html#postvideomessage" class="tsd-kind-icon">post<wbr>Video<wbr>Message</a></li>
+								<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#queryormutate" class="tsd-kind-icon">query<wbr>OrMutate</a></li>
+								<li class="tsd-kind-function tsd-has-type-parameter"><a href="index.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="apiurl" class="tsd-anchor"></a>
+					<h3>Api<wbr>Url</h3>
+					<div class="tsd-signature tsd-kind-icon">Api<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/config.ts#L8">src/config.ts:8</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>For example, <code>&#39;chat.example.com&#39;</code> and <code>&#39;localhost:8080&#39;</code> are valid but <code>&#39;http://chat.example.com&#39;</code> is invalid.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="bio" class="tsd-anchor"></a>
+					<h3>Bio</h3>
+					<div class="tsd-signature tsd-kind-icon">Bio<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L35">src/graphql-api/scalars.ts:35</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A user&#39;s bio which cannot exceed 2,500 characters, disallows leading and trailing whitespace, and uses GitHub
+							Flavored Markdown.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="contextmessageid" class="tsd-anchor"></a>
+					<h3>Context<wbr>Message<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">Context<wbr>Message<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/models.ts#L36">src/rest-api/models.ts:36</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The user might want to give their message a context, such as when replying to a message sent several messages ago. In
+							this case, this is the ID of the message being replied to.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="cursor" class="tsd-anchor"></a>
+					<h3>Cursor</h3>
+					<div class="tsd-signature tsd-kind-icon">Cursor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L20">src/graphql-api/scalars.ts:20</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A cursor for pagination.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="datetime" class="tsd-anchor"></a>
+					<h3>Date<wbr>Time</h3>
+					<div class="tsd-signature tsd-kind-icon">Date<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L17">src/graphql-api/scalars.ts:17</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Complies with ISO 8601.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="groupchatdescription" class="tsd-anchor"></a>
+					<h3>Group<wbr>Chat<wbr>Description</h3>
+					<div class="tsd-signature tsd-kind-icon">Group<wbr>Chat<wbr>Description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L44">src/graphql-api/scalars.ts:44</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>At most 1,000 characters, disallows leading and trailing whitespace, and uses GitHub Flavored Markdown.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="groupchatpublicity" class="tsd-anchor"></a>
+					<h3>Group<wbr>Chat<wbr>Publicity</h3>
+					<div class="tsd-signature tsd-kind-icon">Group<wbr>Chat<wbr>Publicity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;NOT_INVITABLE&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;INVITABLE&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;PUBLIC&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/enums.ts#L9">src/graphql-api/enums.ts:9</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<ul>
+								<li><code>&#39;NOT_INVITABLE&#39;</code>: Users cannot join the chat via an invite code.</li>
+								<li><code>&#39;INVITABLE&#39;</code>: Users can join the chat via an invite code.</li>
+								<li><code>&#39;PUBLIC&#39;</code>: People can search for, and view public chats without an account. Invite codes are permanently turned on.
+									Anyone with an account can join a public chat. A frontend UI may allow for a search engine to index the chat should
+									the administrator allow for it. A chat must be made public when it&#39;s being created because chats can&#39;t switch between
+								being public after they&#39;ve been created.</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="groupchattitle" class="tsd-anchor"></a>
+					<h3>Group<wbr>Chat<wbr>Title</h3>
+					<div class="tsd-signature tsd-kind-icon">Group<wbr>Chat<wbr>Title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L41">src/graphql-api/scalars.ts:41</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>1-70 characters, of which at least one isn&#39;t whitespace. Leading and trailing whitespace is disallowed.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="httpprotocol" class="tsd-anchor"></a>
+					<h3>Http<wbr>Protocol</h3>
+					<div class="tsd-signature tsd-kind-icon">Http<wbr>Protocol<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;http&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;https&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/config.ts#L2">src/config.ts:2</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>HTTPS is strongly recommended for production.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L8">src/graphql-api/scalars.ts:8</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The ID scalar type represents a unique identifier, often used to refetch an object or as the key for a cache. The ID
+								type is serialized in the same way as a String; however, defining it as an ID signifies that it is not intended to be
+							human‐readable.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="imagetype" class="tsd-anchor"></a>
+					<h3>Image<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">Image<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;ORIGINAL&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;THUMBNAIL&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/models.ts#L30">src/rest-api/models.ts:30</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="messagetext" class="tsd-anchor"></a>
+					<h3>Message<wbr>Text</h3>
+					<div class="tsd-signature tsd-kind-icon">Message<wbr>Text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L50">src/graphql-api/scalars.ts:50</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>1-10,000 characters, of which at least one isn&#39;t whitespace. Uses GitHub Flavored Markdown. Leading and trailing
+							whitespace is disallowed.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L29">src/graphql-api/scalars.ts:29</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A name must neither contain whitespace nor exceed 30 characters.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="password" class="tsd-anchor"></a>
+					<h3>Password</h3>
+					<div class="tsd-signature tsd-kind-icon">Password<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L38">src/graphql-api/scalars.ts:38</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A password which contains non-whitespace characters.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="placeholder" class="tsd-anchor"></a>
+					<h3>Placeholder</h3>
+					<div class="tsd-signature tsd-kind-icon">Placeholder<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L14">src/graphql-api/scalars.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>GraphQL mandates data be returned for every operation, and data be present in every type. However, certain operations
+							and types don&#39;t have relevant data. This type, which is an empty string, indicates such.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="username" class="tsd-anchor"></a>
+					<h3>Username</h3>
+					<div class="tsd-signature tsd-kind-icon">Username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L26">src/graphql-api/scalars.ts:26</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A username must be 1-30 characters long. Only lowercase English letters (a-z), English numbers (0-9), periods, and
+							underscores are allowed.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="uuid" class="tsd-anchor"></a>
+					<h3>Uuid</h3>
+					<div class="tsd-signature tsd-kind-icon">Uuid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L1">src/graphql-api/scalars.ts:1</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="websocketprotocol" class="tsd-anchor"></a>
+					<h3>Web<wbr>Socket<wbr>Protocol</h3>
+					<div class="tsd-signature tsd-kind-icon">Web<wbr>Socket<wbr>Protocol<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;ws&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;wss&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/config.ts#L5">src/config.ts:5</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>WSS is strongly recommended for production.</p>
+						</div>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="getaudiomessage" class="tsd-anchor"></a>
+					<h3>get<wbr>Audio<wbr>Message</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Audio<wbr>Message<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, messageId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/audiofile.html" class="tsd-signature-type" data-tsd-kind="Interface">AudioFile</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L221">src/rest-api/operations.ts:221</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Reads an audio message. You needn&#39;t pass an access token if the chat is public.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+								</li>
+								<li>
+									<h5>messageId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/audiofile.html" class="tsd-signature-type" data-tsd-kind="Interface">AudioFile</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="getdocmessage" class="tsd-anchor"></a>
+					<h3>get<wbr>Doc<wbr>Message</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Doc<wbr>Message<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, messageId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/docfile.html" class="tsd-signature-type" data-tsd-kind="Interface">DocFile</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L287">src/rest-api/operations.ts:287</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Reads a doc message. You needn&#39;t pass an access token if the chat is public.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+								</li>
+								<li>
+									<h5>messageId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/docfile.html" class="tsd-signature-type" data-tsd-kind="Interface">DocFile</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="getgroupchatimage" class="tsd-anchor"></a>
+					<h3>get<wbr>Group<wbr>Chat<wbr>Image</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Group<wbr>Chat<wbr>Image<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, imageType<span class="tsd-signature-symbol">: </span><a href="index.html#imagetype" class="tsd-signature-type" data-tsd-kind="Type alias">ImageType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/imagefile.html" class="tsd-signature-type" data-tsd-kind="Interface">ImageFile</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L84">src/rest-api/operations.ts:84</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Retrieves the group chat&#39;s image. Otherwise, the user must be a participant to view the pic.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/nonexistentchaterror.html">NonexistentChatError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>chatId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>imageType: <a href="index.html#imagetype" class="tsd-signature-type" data-tsd-kind="Type alias">ImageType</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/imagefile.html" class="tsd-signature-type" data-tsd-kind="Interface">ImageFile</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>if the chat has a image, and <code>null</code> otherwise.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="gethealthcheck" class="tsd-anchor"></a>
+					<h3>get<wbr>Health<wbr>Check</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Health<wbr>Check<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L319">src/rest-api/operations.ts:319</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check if all systems are operational. For example, a backend developer building atop Omni Chat can program the server
+									to automatically restart when it becomes &quot;unhealthy&quot;.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Whether the backend is &quot;healthy&quot;.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="getimagemessage" class="tsd-anchor"></a>
+					<h3>get<wbr>Image<wbr>Message</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Image<wbr>Message<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, messageId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, imageType<span class="tsd-signature-symbol">: </span><a href="index.html#imagetype" class="tsd-signature-type" data-tsd-kind="Type alias">ImageType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/imagefile.html" class="tsd-signature-type" data-tsd-kind="Interface">ImageFile</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L150">src/rest-api/operations.ts:150</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Reads the image from a message. To get the caption, use the GraphQL API. You needn&#39;t pass an access token if the chat
+									is public.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+								</li>
+								<li>
+									<h5>messageId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>imageType: <a href="index.html#imagetype" class="tsd-signature-type" data-tsd-kind="Type alias">ImageType</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/imagefile.html" class="tsd-signature-type" data-tsd-kind="Interface">ImageFile</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="getprofileimage" class="tsd-anchor"></a>
+					<h3>get<wbr>Profile<wbr>Image</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Profile<wbr>Image<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, userId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, imageType<span class="tsd-signature-symbol">: </span><a href="index.html#imagetype" class="tsd-signature-type" data-tsd-kind="Type alias">ImageType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/imagefile.html" class="tsd-signature-type" data-tsd-kind="Interface">ImageFile</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L22">src/rest-api/operations.ts:22</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/nonexistentuseriderror.html">NonexistentUserIdError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>userId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>imageType: <a href="index.html#imagetype" class="tsd-signature-type" data-tsd-kind="Type alias">ImageType</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/imagefile.html" class="tsd-signature-type" data-tsd-kind="Interface">ImageFile</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>if the user has a profile image, and <code>null</code> if they don&#39;t.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="getvideomessage" class="tsd-anchor"></a>
+					<h3>get<wbr>Video<wbr>Message</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Video<wbr>Message<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, messageId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/videofile.html" class="tsd-signature-type" data-tsd-kind="Interface">VideoFile</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L254">src/rest-api/operations.ts:254</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Reads a video message. You needn&#39;t pass an access token if the chat is public.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+								</li>
+								<li>
+									<h5>messageId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/videofile.html" class="tsd-signature-type" data-tsd-kind="Interface">VideoFile</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isvalidbioscalar" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid<wbr>Bio<wbr>Scalar</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Bio<wbr>Scalar<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L63">src/graphql-api/scalars.ts:63</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the value is a valid <a href="index.html#bio">Bio</a>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isvaliddatetimescalar" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid<wbr>Date<wbr>Time<wbr>Scalar</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Date<wbr>Time<wbr>Scalar<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L83">src/graphql-api/scalars.ts:83</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Returns whether the value is a valid <a href="index.html#datetime">DateTime</a>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isvalidgroupchatdescriptionscalar" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid<wbr>Group<wbr>Chat<wbr>Description<wbr>Scalar</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Group<wbr>Chat<wbr>Description<wbr>Scalar<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L78">src/graphql-api/scalars.ts:78</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the value is a valid <a href="index.html#groupchatdescription">GroupChatDescription</a>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isvalidgroupchattitlescalar" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid<wbr>Group<wbr>Chat<wbr>Title<wbr>Scalar</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Group<wbr>Chat<wbr>Title<wbr>Scalar<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L68">src/graphql-api/scalars.ts:68</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the value is a valid <a href="index.html#groupchattitle">GroupChatTitle</a>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isvalidmessagetextscalar" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid<wbr>Message<wbr>Text<wbr>Scalar</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Message<wbr>Text<wbr>Scalar<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L73">src/graphql-api/scalars.ts:73</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the value is a valid <a href="index.html#messagetext">MessageText</a>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isvalidnamescalar" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid<wbr>Name<wbr>Scalar</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Name<wbr>Scalar<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L58">src/graphql-api/scalars.ts:58</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the value is a valid <a href="index.html#name">Name</a>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isvalidpasswordscalar" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid<wbr>Password<wbr>Scalar</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Password<wbr>Scalar<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L88">src/graphql-api/scalars.ts:88</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the value is a valid <a href="index.html#password">Password</a>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isvalidusernamescalar" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid<wbr>Username<wbr>Scalar</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Username<wbr>Scalar<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L53">src/graphql-api/scalars.ts:53</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the value is a valid <a href="index.html#username">Username</a>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isvaliduuidscalar" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid<wbr>Uuid<wbr>Scalar</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Uuid<wbr>Scalar<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/scalars.ts#L93">src/graphql-api/scalars.ts:93</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the value is a valid <a href="index.html#uuid">Uuid</a>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="patchgroupchatimage" class="tsd-anchor"></a>
+					<h3>patch<wbr>Group<wbr>Chat<wbr>Image</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">patch<wbr>Group<wbr>Chat<wbr>Image<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, image<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L114">src/rest-api/operations.ts:114</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update the group chat&#39;s image. The user must be an admin of the chat.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/invalidimageerror.html">InvalidImageError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>chatId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>image: <span class="tsd-signature-type">File</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="patchprofileimage" class="tsd-anchor"></a>
+					<h3>patch<wbr>Profile<wbr>Image</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">patch<wbr>Profile<wbr>Image<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, image<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L52">src/rest-api/operations.ts:52</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update the user&#39;s profile image.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/invalidimageerror.html">InvalidImageError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>image: <span class="tsd-signature-type">File</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="postaudiomessage" class="tsd-anchor"></a>
+					<h3>post<wbr>Audio<wbr>Message</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">post<wbr>Audio<wbr>Message<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, audio<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span>, chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, contextMessageId<span class="tsd-signature-symbol">?: </span><a href="index.html#contextmessageid" class="tsd-signature-type" data-tsd-kind="Type alias">ContextMessageId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L238">src/rest-api/operations.ts:238</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates an audio message.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/usernotinchaterror.html">UserNotInChatError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/invalidaudioerror.html">InvalidAudioError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/invalidcontextmessageerror.html">InvalidContextMessageError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>audio: <span class="tsd-signature-type">File</span></h5>
+								</li>
+								<li>
+									<h5>chatId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> contextMessageId: <a href="index.html#contextmessageid" class="tsd-signature-type" data-tsd-kind="Type alias">ContextMessageId</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="postdocmessage" class="tsd-anchor"></a>
+					<h3>post<wbr>Doc<wbr>Message</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">post<wbr>Doc<wbr>Message<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, doc<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span>, chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, contextMessageId<span class="tsd-signature-symbol">?: </span><a href="index.html#contextmessageid" class="tsd-signature-type" data-tsd-kind="Type alias">ContextMessageId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L304">src/rest-api/operations.ts:304</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a doc message.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/usernotinchaterror.html">UserNotInChatError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/invaliddocerror.html">InvalidDocError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/invalidcontextmessageerror.html">InvalidContextMessageError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>doc: <span class="tsd-signature-type">File</span></h5>
+								</li>
+								<li>
+									<h5>chatId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> contextMessageId: <a href="index.html#contextmessageid" class="tsd-signature-type" data-tsd-kind="Type alias">ContextMessageId</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="postimagemessage" class="tsd-anchor"></a>
+					<h3>post<wbr>Image<wbr>Message</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">post<wbr>Image<wbr>Message<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, image<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span>, chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, contextMessageId<span class="tsd-signature-symbol">?: </span><a href="index.html#contextmessageid" class="tsd-signature-type" data-tsd-kind="Type alias">ContextMessageId</a>, caption<span class="tsd-signature-symbol">?: </span><a href="index.html#messagetext" class="tsd-signature-type" data-tsd-kind="Type alias">MessageText</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L170">src/rest-api/operations.ts:170</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates an image message.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/usernotinchaterror.html">UserNotInChatError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/invalidimageerror.html">InvalidImageError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/invalidcontextmessageerror.html">InvalidContextMessageError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/messagetextscalarerror.html">MessageTextScalarError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>image: <span class="tsd-signature-type">File</span></h5>
+								</li>
+								<li>
+									<h5>chatId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> contextMessageId: <a href="index.html#contextmessageid" class="tsd-signature-type" data-tsd-kind="Type alias">ContextMessageId</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> caption: <a href="index.html#messagetext" class="tsd-signature-type" data-tsd-kind="Type alias">MessageText</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="postvideomessage" class="tsd-anchor"></a>
+					<h3>post<wbr>Video<wbr>Message</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">post<wbr>Video<wbr>Message<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, video<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span>, chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, contextMessageId<span class="tsd-signature-symbol">?: </span><a href="index.html#contextmessageid" class="tsd-signature-type" data-tsd-kind="Type alias">ContextMessageId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/rest-api/operations.ts#L271">src/rest-api/operations.ts:271</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a video message.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/usernotinchaterror.html">UserNotInChatError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/invalidvideoerror.html">InvalidVideoError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/invalidcontextmessageerror.html">InvalidContextMessageError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>video: <span class="tsd-signature-type">File</span></h5>
+								</li>
+								<li>
+									<h5>chatId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> contextMessageId: <a href="index.html#contextmessageid" class="tsd-signature-type" data-tsd-kind="Type alias">ContextMessageId</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
+					<a name="queryormutate" class="tsd-anchor"></a>
+					<h3>query<wbr>OrMutate</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">query<wbr>OrMutate&lt;T&gt;<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a>, request<span class="tsd-signature-symbol">: </span><a href="interfaces/graphqlrequest.html" class="tsd-signature-type" data-tsd-kind="Interface">GraphQlRequest</a>, accessToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/graphqlresponse.html" class="tsd-signature-type" data-tsd-kind="Interface">GraphQlResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/operator.ts#L46">src/graphql-api/operator.ts:46</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Executes a GraphQL query or mutation.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="classes/unauthorizederror.html">UnauthorizedError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/internalservererror.html">InternalServerError</a></p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="classes/connectionerror.html">ConnectionError</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T = <a href="interfaces/graphqlresponsevalue.html" class="tsd-signature-type" data-tsd-kind="Interface">GraphQlResponseValue</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <a href="interfaces/httpapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">HttpApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>request: <a href="interfaces/graphqlrequest.html" class="tsd-signature-type" data-tsd-kind="Interface">GraphQlRequest</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> accessToken: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/graphqlresponse.html" class="tsd-signature-type" data-tsd-kind="Interface">GraphQlResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
+					<a name="subscribe" class="tsd-anchor"></a>
+					<h3>subscribe</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">subscribe&lt;T&gt;<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><a href="interfaces/wsapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">WsApiConfig</a>, accessToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, onMessage<span class="tsd-signature-symbol">: </span><a href="interfaces/onsocketmessage.html" class="tsd-signature-type" data-tsd-kind="Interface">OnSocketMessage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, onError<span class="tsd-signature-symbol">: </span><a href="interfaces/onsocketerror.html" class="tsd-signature-type" data-tsd-kind="Interface">OnSocketError</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/onsocketclose.html" class="tsd-signature-type" data-tsd-kind="Interface">OnSocketClose</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/neelkamath/omni-chat-js/blob/43c56db/src/graphql-api/operator.ts#L101">src/graphql-api/operator.ts:101</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a GraphQL subscription.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <a href="interfaces/wsapiconfig.html" class="tsd-signature-type" data-tsd-kind="Interface">WsApiConfig</a></h5>
+								</li>
+								<li>
+									<h5>accessToken: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>For example, if the subscription is hosted on <a href="http://localhost/accounts-subscription">http://localhost/accounts-subscription</a>, this should be
+										<code>&#39;/accounts-subscription&#39;</code>.</p>
+									</div>
+								</li>
+								<li>
+									<h5>query: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>GraphQL document (i.e., the query to send to the GraphQL server).</p>
+									</div>
+								</li>
+								<li>
+									<h5>onMessage: <a href="interfaces/onsocketmessage.html" class="tsd-signature-type" data-tsd-kind="Interface">OnSocketMessage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5>onError: <a href="interfaces/onsocketerror.html" class="tsd-signature-type" data-tsd-kind="Interface">OnSocketError</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="interfaces/onsocketclose.html" class="tsd-signature-type" data-tsd-kind="Interface">OnSocketClose</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="current ">
+						<a href="index.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/connectionerror.html" class="tsd-kind-icon">Connection<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/internalservererror.html" class="tsd-kind-icon">Internal<wbr>Server<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/invalidaudioerror.html" class="tsd-kind-icon">Invalid<wbr>Audio<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/invalidcontextmessageerror.html" class="tsd-kind-icon">Invalid<wbr>Context<wbr>Message<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/invaliddocerror.html" class="tsd-kind-icon">Invalid<wbr>Doc<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/invalidimageerror.html" class="tsd-kind-icon">Invalid<wbr>Image<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/invalidvideoerror.html" class="tsd-kind-icon">Invalid<wbr>Video<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/messagetextscalarerror.html" class="tsd-kind-icon">Message<wbr>Text<wbr>Scalar<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/mustbeadminerror.html" class="tsd-kind-icon">Must<wbr>BeAdmin<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nonexistentchaterror.html" class="tsd-kind-icon">Nonexistent<wbr>Chat<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nonexistentuseriderror.html" class="tsd-kind-icon">Nonexistent<wbr>User<wbr>IdError</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/unauthorizederror.html" class="tsd-kind-icon">Unauthorized<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/usernotinchaterror.html" class="tsd-kind-icon">User<wbr>Not<wbr>InChat<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/audiofile.html" class="tsd-kind-icon">Audio<wbr>File</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/docfile.html" class="tsd-kind-icon">Doc<wbr>File</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/graphqlrequest.html" class="tsd-kind-icon">Graph<wbr>QlRequest</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/graphqlresponse.html" class="tsd-kind-icon">Graph<wbr>QlResponse</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/graphqlresponsevalue.html" class="tsd-kind-icon">Graph<wbr>QlResponse<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/httpapiconfig.html" class="tsd-kind-icon">Http<wbr>Api<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/imagefile.html" class="tsd-kind-icon">Image<wbr>File</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/onsocketclose.html" class="tsd-kind-icon">On<wbr>Socket<wbr>Close</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/onsocketerror.html" class="tsd-kind-icon">On<wbr>Socket<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/onsocketmessage.html" class="tsd-kind-icon">On<wbr>Socket<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/videofile.html" class="tsd-kind-icon">Video<wbr>File</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/wsapiconfig.html" class="tsd-kind-icon">Ws<wbr>Api<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#apiurl" class="tsd-kind-icon">Api<wbr>Url</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#bio" class="tsd-kind-icon">Bio</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#contextmessageid" class="tsd-kind-icon">Context<wbr>Message<wbr>Id</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#cursor" class="tsd-kind-icon">Cursor</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#datetime" class="tsd-kind-icon">Date<wbr>Time</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#groupchatdescription" class="tsd-kind-icon">Group<wbr>Chat<wbr>Description</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#groupchatpublicity" class="tsd-kind-icon">Group<wbr>Chat<wbr>Publicity</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#groupchattitle" class="tsd-kind-icon">Group<wbr>Chat<wbr>Title</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#httpprotocol" class="tsd-kind-icon">Http<wbr>Protocol</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#id" class="tsd-kind-icon">Id</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#imagetype" class="tsd-kind-icon">Image<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#messagetext" class="tsd-kind-icon">Message<wbr>Text</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#name" class="tsd-kind-icon">Name</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#password" class="tsd-kind-icon">Password</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#placeholder" class="tsd-kind-icon">Placeholder</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#username" class="tsd-kind-icon">Username</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#uuid" class="tsd-kind-icon">Uuid</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="index.html#websocketprotocol" class="tsd-kind-icon">Web<wbr>Socket<wbr>Protocol</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#getaudiomessage" class="tsd-kind-icon">get<wbr>Audio<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#getdocmessage" class="tsd-kind-icon">get<wbr>Doc<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#getgroupchatimage" class="tsd-kind-icon">get<wbr>Group<wbr>Chat<wbr>Image</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#gethealthcheck" class="tsd-kind-icon">get<wbr>Health<wbr>Check</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#getimagemessage" class="tsd-kind-icon">get<wbr>Image<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#getprofileimage" class="tsd-kind-icon">get<wbr>Profile<wbr>Image</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#getvideomessage" class="tsd-kind-icon">get<wbr>Video<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#isvalidbioscalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Bio<wbr>Scalar</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#isvaliddatetimescalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Date<wbr>Time<wbr>Scalar</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#isvalidgroupchatdescriptionscalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Group<wbr>Chat<wbr>Description<wbr>Scalar</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#isvalidgroupchattitlescalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Group<wbr>Chat<wbr>Title<wbr>Scalar</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#isvalidmessagetextscalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Message<wbr>Text<wbr>Scalar</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#isvalidnamescalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Name<wbr>Scalar</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#isvalidpasswordscalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Password<wbr>Scalar</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#isvalidusernamescalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Username<wbr>Scalar</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#isvaliduuidscalar" class="tsd-kind-icon">is<wbr>Valid<wbr>Uuid<wbr>Scalar</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#patchgroupchatimage" class="tsd-kind-icon">patch<wbr>Group<wbr>Chat<wbr>Image</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#patchprofileimage" class="tsd-kind-icon">patch<wbr>Profile<wbr>Image</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#postaudiomessage" class="tsd-kind-icon">post<wbr>Audio<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#postdocmessage" class="tsd-kind-icon">post<wbr>Doc<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#postimagemessage" class="tsd-kind-icon">post<wbr>Image<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="index.html#postvideomessage" class="tsd-kind-icon">post<wbr>Video<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="index.html#queryormutate" class="tsd-kind-icon">query<wbr>OrMutate</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="index.html#subscribe" class="tsd-kind-icon">subscribe</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
