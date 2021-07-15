@@ -15,7 +15,8 @@ This table shows which versions of Omni Chat JS support which versions of Omni C
 
 |  Omni Chat JS   | Omni Chat Backend |
 | :-------------: | :---------------: |
-| 2.0.0 or higher | 0.23.0 or higher  |
+| 3.0.0 or higher | 0.24.0 or higher  |
+|  2.0.0 - 2.0.1  |      0.23.0       |
 | 0.12.0 - 1.0.0  |  0.19.0 - 0.22.0  |
 |     0.11.0      |      0.18.0       |
 | 0.8.0 - 0.10.0  |      0.17.0       |
